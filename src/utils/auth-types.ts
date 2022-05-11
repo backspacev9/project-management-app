@@ -13,8 +13,8 @@ export interface IToken {
   token: string;
 }
 
-export interface IAuthStore {
+export interface IUsers {
+  id: string;
   name: string;
   login: string;
-  token: string;
 }

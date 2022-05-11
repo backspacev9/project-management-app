@@ -1,9 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { signIn, signUp } from '../api/auth';
-import { IAuthInfo, IAuthStore, IUserInfo } from '../utils/auth-types';
+import { getUsers } from '../api/users';
+import { IAuthInfo, IUserInfo } from '../utils/auth-types';
+
+interface IAuthStore {
+  login: string;
+  token: string;
+}
 
 const initialState: IAuthStore = {
-  name: '',
   login: '',
   token: '',
 };
@@ -20,22 +25,32 @@ export const fetchSignIn = createAsyncThunk('reducer/fetchSignIn', async (args: 
   return res;
 });
 
+export const getAllUsers = createAsyncThunk('reducer/getAllUsers', async (token: string) => {
+  const res = await getUsers(token);
+  return res;
+});
+
 export const authReducer = createSlice({
-  name: 'reducer',
+  name: 'authReducer',
   initialState,
-  reducers: {},
+  reducers: {
+    setLogin: (state, action) => {
+      state.login = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     //TODO add peinding and failed cases
-    builder.addCase(fetchSignUp.fulfilled, (state, action) => {
-      if (action.payload) {
-        state.name = action.payload.name;
-        state.login = action.payload.login;
-      }
+    builder.addCase(fetchSignUp.fulfilled, () => {
+      console.log('user created'); //TODO delete log
     });
-    builder.addCase(fetchSignUp.rejected, (state, action) => {
-      console.log(action.payload);
+    builder.addCase(fetchSignIn.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.token = action.payload.token;
+      }
     });
   },
 });
+
+export const { setLogin } = authReducer.actions;
 
 export default authReducer.reducer;
