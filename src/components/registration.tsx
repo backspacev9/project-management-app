@@ -6,10 +6,11 @@ import { IUserInfo } from '../utils/auth-types';
 
 const Registration = () => {
   const dispatch = useAppDispatch();
-  const { register, handleSubmit } = useForm<IUserInfo>();
+  const { register, handleSubmit, reset } = useForm<IUserInfo>();
 
   const onSubmit = (data: IUserInfo) => {
     dispatch(fetchSignUp(data));
+    reset();
   };
 
   return (

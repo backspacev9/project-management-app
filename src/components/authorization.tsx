@@ -1,15 +1,17 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { fetchSignIn } from '../redux/auth-reducer';
+import { fetchSignIn, setLogin } from '../redux/auth-reducer';
 import { useAppDispatch } from '../redux/hooks';
 import { IUserInfo } from '../utils/auth-types';
 
 const Authorization = () => {
   const dispatch = useAppDispatch();
-  const { register, handleSubmit } = useForm<IUserInfo>();
+  const { register, handleSubmit, reset } = useForm<IUserInfo>();
 
-  const onSubmit = (data: IUserInfo) => {
-    dispatch(fetchSignIn(data));
+  const onSubmit = async (data: IUserInfo) => {
+    dispatch(setLogin(data.login));
+    await dispatch(fetchSignIn(data));
+    reset();
   };
 
   return (
