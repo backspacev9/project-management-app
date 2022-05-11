@@ -1,5 +1,6 @@
 import React from 'react';
-import Authorization from '../../components/authhorization';
+import Authorization from '../../components/authorization';
+import BoardCreation from '../../components/board-creation';
 import Registration from '../../components/registration';
 
 const MainPage = () => {
@@ -7,6 +8,7 @@ const MainPage = () => {
     <>
       <Authorization />
       <Registration />
+      <BoardCreation />
     </>
   );
 };
