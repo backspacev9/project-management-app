@@ -1,10 +1,6 @@
 import axios from 'axios';
+import { IBoard } from '../utils/board-types';
 import { BASE_URL } from './consts';
-
-interface IBoard {
-  id: string;
-  title: string;
-}
 
 export const getAllBoards = async (token: string): Promise<void | IBoard[]> => {
   return axios
