@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { IToken, IUserInfo } from '../utils/auth-types';
 import { BASE_URL } from './consts';
+import { HttpErrors } from '../utils/enums';
 
 export const signUp = async (
   userName: string,
@@ -31,9 +32,8 @@ export const signIn = async (userLogin: string, userPassword: string): Promise<v
     })
     .then((res): Promise<IToken> => res.data)
     .catch((error) => {
-      if (error.response.status === 404) {
-        //TODO add error codes to enum
-        console.log(error.response.message); //TODO open message on error page
+      if (error.response.status === HttpErrors.Forbidden) {
+        console.log(error.response);
       } else {
         throw new Error(error);
       }
