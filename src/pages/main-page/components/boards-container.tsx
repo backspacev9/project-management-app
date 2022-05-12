@@ -1,7 +1,8 @@
 import React from 'react';
-import { useAppSelector } from '../redux/hooks';
-import { RootState } from '../redux/store';
-import { IBoard } from '../utils/board-types';
+import { useAppSelector } from '../../../redux/hooks';
+import { RootState } from '../../../redux/store';
+import { IBoard } from '../../../utils/board-types';
+
 import BoardItem from './board-item';
 
 const BoardsContainer = () => {

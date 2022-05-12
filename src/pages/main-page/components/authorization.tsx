@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { fetchSignIn, setLogin } from '../redux/auth-reducer';
-import { getBoards } from '../redux/boards-reducer';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { RootState } from '../redux/store';
-import { IUserInfo } from '../utils/auth-types';
+import { setLogin, fetchSignIn } from '../../../redux/auth-reducer';
+import { getBoards } from '../../../redux/boards-reducer';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { RootState } from '../../../redux/store';
+import { IUserInfo } from '../../../utils/auth-types';
 
 const Authorization = () => {
   const dispatch = useAppDispatch();

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { fetchSignUp } from '../redux/auth-reducer';
-import { useAppDispatch } from '../redux/hooks';
-import { IUserInfo } from '../utils/auth-types';
+import { fetchSignUp } from '../../../redux/auth-reducer';
+import { useAppDispatch } from '../../../redux/hooks';
+import { IUserInfo } from '../../../utils/auth-types';
 
 const Registration = () => {
   const dispatch = useAppDispatch();
