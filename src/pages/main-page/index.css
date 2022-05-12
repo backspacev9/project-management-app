@@ -1,0 +1,6 @@
+.board-item {
+  width: 400px;
+  height: 70px;
+  cursor: pointer;
+  border: 2px solid black;
+}
