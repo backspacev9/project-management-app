@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { fetchSignIn, setLogin } from '../redux/auth-reducer';
-import { useAppDispatch } from '../redux/hooks';
+import { getBoards } from '../redux/boards-reducer';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { RootState } from '../redux/store';
 import { IUserInfo } from '../utils/auth-types';
 
 const Authorization = () => {
   const dispatch = useAppDispatch();
+  const { token } = useAppSelector((state: RootState) => state.auth);
   const { register, handleSubmit, reset } = useForm<IUserInfo>();
 
   const onSubmit = async (data: IUserInfo) => {
@@ -13,6 +16,10 @@ const Authorization = () => {
     await dispatch(fetchSignIn(data));
     reset();
   };
+
+  useEffect(() => {
+    if (token) dispatch(getBoards(token));
+  }, [dispatch, token]);
 
   return (
     <>
