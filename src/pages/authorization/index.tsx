@@ -1,15 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { setLogin, fetchSignIn } from '../../redux/auth-reducer';
-import { getBoards } from '../../redux/boards-reducer';
+import { fetchSignIn } from '../../redux/auth-reducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import { IUserInfo } from '../../utils/auth-types';
 
 const Authorization = () => {
   const dispatch = useAppDispatch();
-  const navigation = useNavigate();
   const { errorMessage } = useAppSelector((state: RootState) => state.auth);
   const {
     register,
@@ -18,13 +15,7 @@ const Authorization = () => {
   } = useForm<IUserInfo>({ mode: 'onSubmit' });
 
   const onSubmit = async (data: IUserInfo) => {
-    dispatch(setLogin(data.login));
-    dispatch(fetchSignIn(data))
-      .unwrap()
-      .then((originalPromiseResult) => {
-        if (originalPromiseResult) dispatch(getBoards(originalPromiseResult.token));
-        navigation('/main', { replace: true });
-      });
+    dispatch(fetchSignIn(data));
   };
 
   return (

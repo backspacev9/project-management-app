@@ -19,7 +19,7 @@ const WelcomePage = () => {
             </NavLink>
           </>
         ) : (
-          <NavLink to="/">
+          <NavLink to="/main">
             <button>Go to Main Page</button>
           </NavLink>
         )}
