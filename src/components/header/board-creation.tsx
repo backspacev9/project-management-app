@@ -11,7 +11,7 @@ type IForm = {
 const BoardCreation = () => {
   const dispatch = useAppDispatch();
   const { token } = useAppSelector((state: RootState) => state.auth);
-  const { register, handleSubmit } = useForm<IForm>();
+  const { register, handleSubmit, reset } = useForm<IForm>();
 
   const onSubmit = async (data: IForm) => {
     const args = {
@@ -20,6 +20,7 @@ const BoardCreation = () => {
     };
     await dispatch(createOneBoard(args));
     await dispatch(getBoards(token));
+    reset();
   };
 
   return (
