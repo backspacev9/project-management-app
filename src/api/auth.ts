@@ -16,8 +16,8 @@ export const signUp = async (
     })
     .then((res): Promise<IUserInfo> => res.data)
     .catch((error) => {
-      if (error.response.status === 409) {
-        console.log(error.response.message); //TODO open message on error page
+      if (error.response.status === HttpErrors.Conflict) {
+        console.log(error.response.message);
       } else {
         throw new Error(error);
       }
