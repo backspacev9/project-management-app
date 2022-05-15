@@ -17,11 +17,16 @@ const App = () => {
   useEffect(() => {
     const token = Cookies.get('token');
     if (token) {
-      dispatch(getAllUsers(token)).then((originalPromiseResult) => {
-        if (originalPromiseResult) {
-          dispatch(setToken(token));
-        }
-      });
+      dispatch(getAllUsers(token))
+        .unwrap()
+        .then((originalPromiseResult) => {
+          if (originalPromiseResult) {
+            dispatch(setToken(token));
+          }
+        })
+        .catch(() => {
+          Cookies.remove('token');
+        });
     }
   }, [dispatch]);
 
