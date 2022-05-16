@@ -45,7 +45,8 @@ const App = () => {
             path="/signup"
             element={isAuth ? <Navigate replace to="/main" /> : <Registration />}
           />
-          <Route path="/b/:id" element={<BoardPage />} />
+          <Route path="main/b/:id" element={<BoardPage />} />
+
           <Route path="/404" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
