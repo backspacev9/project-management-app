@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ITask } from '../utils/task-types';
 import { BASE_URL } from './consts';
 
-export const getAllTasks = async (
+export const getTasks = async (
   token: string,
   boardId: string,
   columnId: string
@@ -68,16 +68,19 @@ export const createTask = async (
   token: string,
   boardId: string,
   columnId: string,
-  reqBody: { title: string; order: number; description: string; userId: string }
+  title: string,
+  order: number,
+  description: string,
+  userId: string
 ): Promise<void | ITask> => {
   return axios
     .post(
       `${BASE_URL}boards/${boardId}/columns/${columnId}/tasks`,
       {
-        title: reqBody.title,
-        order: reqBody.order,
-        description: reqBody.description,
-        userId: reqBody.userId,
+        title,
+        order,
+        description,
+        userId,
       },
       { headers: { Authorization: `Bearer ${token}` } }
     )
