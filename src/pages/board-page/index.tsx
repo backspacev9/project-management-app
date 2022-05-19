@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getBoardByID, getBoards } from '../../redux/boards-reducer';
+import { getColumns } from '../../redux/columns-reducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import Board from './components/Board/board-item';
@@ -15,7 +16,10 @@ const BoardPage = () => {
   const { id } = params;
 
   const setBoard = async () => {
-    if (id) await dispatch(getBoardByID({ token, id }));
+    if (id) {
+      await dispatch(getBoardByID({ token, id }));
+      await dispatch(getColumns({ token, id }));
+    }
   };
   useEffect(() => {
     setBoard();
