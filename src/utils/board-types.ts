@@ -2,7 +2,7 @@ export interface IBoard {
   id: string;
   title: string;
 }
-export interface IApiColumn {
+export interface IColumn {
   id: string;
   title: string;
   order: number;

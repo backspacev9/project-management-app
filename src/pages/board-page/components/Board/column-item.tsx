@@ -4,10 +4,20 @@ import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { RootState } from '../../../../redux/store';
 import BtnAddTask from '../btn-addTask';
 import { ColumnInteface, TaskInterface } from './interface';
-import Task from './task-item';
+import Task, { ITaskDragEvents } from './task-item';
+
+export interface IColumnDragEvents {
+  dragStartColumn: (ev: React.DragEvent<HTMLDivElement>, column: ColumnInteface) => void;
+  // dragLeaveColumn: (ev: React.DragEvent<HTMLDivElement>) => void;
+  // dragEndColumn: (ev: React.DragEvent<HTMLDivElement>) => void;
+  dragOverColumn: (ev: React.DragEvent<HTMLDivElement>) => void;
+  dragDropColumn: (ev: React.DragEvent<HTMLDivElement>, column: ColumnInteface) => void;
+}
 
 interface ColumnProps {
   column: ColumnInteface;
+  columnDragEvents: IColumnDragEvents;
+  taskDragEvents: ITaskDragEvents;
 }
 
 const Column = (props: ColumnProps) => {
@@ -15,10 +25,12 @@ const Column = (props: ColumnProps) => {
   const dispatch = useAppDispatch();
   const { token } = useAppSelector((state: RootState) => state.auth);
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
-
+  const { columns } = useAppSelector((state: RootState) => state.columns);
+  const { dragStartColumn, dragDropColumn, dragOverColumn } = props.columnDragEvents;
+  const { dragStartTask, dragDropTask, dragOverTask, dragLeaveTask, dragEndTask } =
+    props.taskDragEvents!;
   useEffect(() => {
-    sortTask(column);
-    console.log('sorting');
+    // dispatch(sortTask(column));
   }, [column]);
   const addTaskCard = async (text: string) => {
     const taskOrder = column.tasks.length === 0 ? 1 : column.tasks.length + 1;
@@ -36,14 +48,33 @@ const Column = (props: ColumnProps) => {
     await dispatch(getBoardByID({ token, id: currentBoard.id }));
     console.log(text);
   };
+
   return (
-    <div className="column-item">
+    <div
+      className="column-item"
+      draggable={true}
+      onDragStart={(e) => dragStartColumn(e, column)}
+      onDragLeave={(e) => dragLeaveTask(e)}
+      onDragEnd={(e) => dragEndTask(e)}
+      onDragOver={(e) => dragOverColumn(e)}
+      onDrop={(e) => dragDropColumn(e, column)}
+    >
       <div className="header-column">
         <input type="text" defaultValue={column.title || ''} />
       </div>
       <div className="task-container">
         {column.tasks.map((el) => (
-          <Task task={el} key={el.id} />
+          <Task
+            taskDragEvents={{
+              dragStartTask: dragStartTask,
+              dragLeaveTask: dragLeaveTask,
+              dragEndTask: dragEndTask,
+              dragOverTask: dragOverTask,
+              dragDropTask: dragDropTask,
+            }}
+            task={el}
+            key={el.id}
+          />
         ))}
       </div>
       <div className="footer-column">
