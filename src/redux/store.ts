@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './auth-reducer';
 import boardsReducer from './boards-reducer';
 import columnsReducer from './columns-reducer';
+import tasksReducer from './tasks-reducer';
 import usersReducer from './users-reducer';
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
     users: usersReducer,
     boards: boardsReducer,
     columns: columnsReducer,
+    tasks: tasksReducer,
   },
 });
 
