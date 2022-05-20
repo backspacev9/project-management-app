@@ -4,13 +4,19 @@ import { ITask } from '../utils/task-types';
 
 interface ITasksStore {
   tasks: ITask[];
+  modalVisible: boolean;
+  title: string;
+  description: string;
 }
 
 const initialState: ITasksStore = {
   tasks: [] as ITask[],
+  modalVisible: false,
+  title: '',
+  description: '',
 };
 
-const getAllTasks = createAsyncThunk(
+export const getAllTasks = createAsyncThunk(
   'reducer/getAllTasks',
   async (args: { token: string; boardId: string; columnId: string }) => {
     const { token, boardId, columnId } = args;
@@ -19,7 +25,7 @@ const getAllTasks = createAsyncThunk(
   }
 );
 
-const getOneTask = createAsyncThunk(
+export const getOneTask = createAsyncThunk(
   'reducer/getOneTask',
   async (args: { token: string; boardId: string; columnId: string; taskId: string }) => {
     const { token, boardId, columnId, taskId } = args;
@@ -28,7 +34,7 @@ const getOneTask = createAsyncThunk(
   }
 );
 
-const createOneTask = createAsyncThunk(
+export const createOneTask = createAsyncThunk(
   'reducer/createOneTask',
   async (args: {
     token: string;
@@ -45,7 +51,7 @@ const createOneTask = createAsyncThunk(
   }
 );
 
-const updateOneTask = createAsyncThunk(
+export const updateOneTask = createAsyncThunk(
   'reducer/updateOneTask',
   async (args: {
     token: string;
@@ -62,7 +68,7 @@ const updateOneTask = createAsyncThunk(
   }
 );
 
-const deleteOneTask = createAsyncThunk(
+export const deleteOneTask = createAsyncThunk(
   'reducer/deleteOneTask',
   async (args: { token: string; boardId: string; columnId: string; taskId: string }) => {
     const { token, boardId, columnId, taskId } = args;
@@ -74,7 +80,17 @@ const deleteOneTask = createAsyncThunk(
 export const tasksReducer = createSlice({
   name: 'tasksReducer',
   initialState,
-  reducers: {},
+  reducers: {
+    handleVisibleModal(state, action) {
+      state.modalVisible = action.payload;
+    },
+    onChangeTitle(state, action) {
+      state.title = action.payload;
+    },
+    onChangeDescr(state, action) {
+      state.description = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getAllTasks.fulfilled, (state, action) => {
       if (action.payload) {
@@ -106,5 +122,5 @@ export const tasksReducer = createSlice({
     });
   },
 });
-
+export const { handleVisibleModal, onChangeTitle, onChangeDescr } = tasksReducer.actions;
 export default tasksReducer.reducer;
