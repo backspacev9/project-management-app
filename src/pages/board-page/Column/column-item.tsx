@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getColumnById } from '../../../../api/columns';
-import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import { RootState } from '../../../../redux/store';
-import { createOneTask } from '../../../../redux/tasks-reducer';
-import { IColumn, IColumnWithTasks } from '../../../../utils/columns-type';
-import BtnAddTask from '../btn-addTask';
+import { getColumnById } from '../../../api/columns';
+import BtnAddTask from '../../../components/board/btn-addTask';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { RootState } from '../../../redux/store';
+import { createOneTask } from '../../../redux/tasks-reducer';
+import { IColumn, IColumnWithTasks } from '../../../utils/columns-type';
 
-import Task, { ITaskDragEvents } from './task-item';
-
+import Task, { ITaskDragEvents } from '../Task/task-item';
+import './column-item.scss';
 export interface IColumnDragEvents {
   dragStartColumn: (ev: React.DragEvent<HTMLDivElement>, column: IColumnWithTasks) => void;
   // dragLeaveColumn: (ev: React.DragEvent<HTMLDivElement>) => void;
@@ -31,6 +31,7 @@ const Column = (props: ColumnProps) => {
   const { dragStartColumn, dragDropColumn, dragOverColumn } = props.columnDragEvents;
   const { dragStartTask, dragDropTask, dragOverTask, dragLeaveTask, dragEndTask } =
     props.taskDragEvents!;
+
   const [fullColumn, setFullColumn] = useState<IColumnWithTasks | void>(Object);
   const getColumn = async () => {
     if (column) {

@@ -1,4 +1,4 @@
-import { ITaskWithFiles } from '../../../../utils/task-types';
+import { ITaskWithFiles } from '../../../utils/task-types';
 
 export interface ITaskDragEvents {
   dragStartTask: (ev: React.DragEvent<HTMLDivElement>, task: ITaskWithFiles) => void;

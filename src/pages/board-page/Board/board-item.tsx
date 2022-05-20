@@ -1,13 +1,16 @@
-import './board.scss';
+import './board-item.scss';
 
-import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import Column from './column-item';
-import BtnAddColumn from '../btn-addColumn';
-import { RootState } from '../../../../redux/store';
-import { useState } from 'react';
-import { createOneColumn, getColumns, updateOneColumn } from '../../../../redux/columns-reducer';
-import { IColumnWithTasks } from '../../../../utils/columns-type';
-import { ITaskWithFiles } from '../../../../utils/task-types';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import Column from '../Column/column-item';
+import { RootState } from '../../../redux/store';
+import { useEffect, useState } from 'react';
+import { createOneColumn, getColumns, updateOneColumn } from '../../../redux/columns-reducer';
+import { IColumnWithTasks } from '../../../utils/columns-type';
+import { ITaskWithFiles } from '../../../utils/task-types';
+import BoardHeader from '../components/header';
+import { useParams } from 'react-router-dom';
+import { getBoardByID } from '../../../redux/boards-reducer';
+import BtnAddColumn from '../../../components/board/btn-addColumn';
 
 const Board = () => {
   const { token } = useAppSelector((state: RootState) => state.auth);
@@ -15,6 +18,20 @@ const Board = () => {
   const { columns } = useAppSelector((state: RootState) => state.columns);
   const dispatch = useAppDispatch();
   const [currentColumn, setCurrentColumn] = useState<IColumnWithTasks>(Object);
+  const params = useParams();
+  const { id } = params;
+
+  const setBoard = async () => {
+    if (id) {
+      await dispatch(getBoardByID({ token, id }));
+      await dispatch(getColumns({ token, id }));
+    }
+  };
+  useEffect(() => {
+    setBoard();
+    console.log(currentBoard);
+    console.log('state columns--', columns);
+  }, [token]);
 
   const addColumn = async (columnName: string) => {
     const newColumnOrder = columns.length === 0 ? 1 : currentBoard.columns.length + 1;
@@ -91,6 +108,7 @@ const Board = () => {
   };
   return (
     <div className="Board">
+      <BoardHeader title={currentBoard.title} />
       <div className="board-columns-container">
         {Object.keys(columns).length !== 0
           ? columns.map((el) => (
