@@ -1,18 +1,11 @@
+import { IColumnWithTasks } from './columns-type';
+
 export interface IBoard {
   id: string;
   title: string;
 }
-export interface IColumn {
+export interface IBoardWithColumns {
   id: string;
   title: string;
-  order: number;
-}
-export interface IApiTask {
-  id: string;
-  title: string;
-  order: number;
-  description: string;
-  userId: string;
-  boardId: string;
-  columnId: string;
+  columns: Array<IColumnWithTasks>;
 }

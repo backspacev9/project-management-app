@@ -1,39 +1,39 @@
 import './board.scss';
-import { ColumnInteface, TaskInterface } from './interface';
 
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import Column from './column-item';
 import BtnAddColumn from '../btn-addColumn';
 import { RootState } from '../../../../redux/store';
-import { addSortedColumns, getBoardByID } from '../../../../redux/boards-reducer';
-import { useEffect, useState } from 'react';
-import { createOneColumn, updateOneColumn } from '../../../../redux/columns-reducer';
+import { useState } from 'react';
+import { createOneColumn, getColumns, updateOneColumn } from '../../../../redux/columns-reducer';
+import { IColumnWithTasks } from '../../../../utils/columns-type';
+import { ITaskWithFiles } from '../../../../utils/task-types';
 
 const Board = () => {
   const { token } = useAppSelector((state: RootState) => state.auth);
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
+  const { columns } = useAppSelector((state: RootState) => state.columns);
   const dispatch = useAppDispatch();
-  const [currentColumn, setCurrentColumn] = useState<ColumnInteface>(Object);
+  const [currentColumn, setCurrentColumn] = useState<IColumnWithTasks>(Object);
 
   const addColumn = async (columnName: string) => {
-    const columnOrder = currentBoard.columns.length === 0 ? 1 : currentBoard.columns.length + 1;
+    const newColumnOrder = columns.length === 0 ? 1 : currentBoard.columns.length + 1;
     await dispatch(
       createOneColumn({
         token: token,
         title: columnName,
         idBoard: currentBoard.id,
-        order: columnOrder,
+        order: newColumnOrder,
       })
     );
-    await dispatch(getBoardByID({ token, id: currentBoard.id }));
-    console.log('addCol+text:', columnName);
+    await dispatch(getColumns({ token, id: currentBoard.id }));
   };
-  const dragStartColumn = (ev: React.DragEvent<HTMLDivElement>, column: ColumnInteface) => {
+  const dragStartColumn = (ev: React.DragEvent<HTMLDivElement>, column: IColumnWithTasks) => {
     console.log('start column drag-', column);
     setCurrentColumn(column);
   };
 
-  const dragDropColumn = async (ev: React.DragEvent<HTMLDivElement>, column: ColumnInteface) => {
+  const dragDropColumn = async (ev: React.DragEvent<HTMLDivElement>, column: IColumnWithTasks) => {
     ev.preventDefault();
     await dispatch(
       updateOneColumn({
@@ -62,15 +62,15 @@ const Board = () => {
         order: column.order,
       })
     );
-    await dispatch(getBoardByID({ token, id: currentBoard.id }));
+    await dispatch(getColumns({ token, id: currentBoard.id }));
   };
   const dragOverColumn = (ev: React.DragEvent<HTMLDivElement>) => {
     ev.preventDefault();
   };
-  const dragStartTask = (ev: React.DragEvent<HTMLDivElement>, task: TaskInterface) => {
+  const dragStartTask = (ev: React.DragEvent<HTMLDivElement>, task: ITaskWithFiles) => {
     console.log('start task drag-', task);
   };
-  const dragDropTask = (ev: React.DragEvent<HTMLDivElement>, task: TaskInterface) => {
+  const dragDropTask = (ev: React.DragEvent<HTMLDivElement>, task: ITaskWithFiles) => {
     ev.preventDefault();
     console.log('drop task drag-', task);
   };
@@ -92,8 +92,8 @@ const Board = () => {
   return (
     <div className="Board">
       <div className="board-columns-container">
-        {Object.keys(currentBoard).length !== 0
-          ? currentBoard.columns.map((el) => (
+        {Object.keys(columns).length !== 0
+          ? columns.map((el) => (
               <Column
                 columnDragEvents={{
                   dragStartColumn: dragStartColumn,

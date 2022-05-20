@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IColumn } from '../utils/board-types';
+import { IColumn, IColumnWithTasks } from '../utils/columns-type';
 import { BASE_URL } from './consts';
 
 export const getAllColumns = async (
@@ -11,6 +11,25 @@ export const getAllColumns = async (
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((res): Promise<Array<IColumn>> => res.data)
+    .catch((error) => {
+      if (error.response.status === 404) {
+        //TODO add error codes to enum
+        console.log(error.response.message); //TODO open message on error page
+      } else {
+        throw new Error(error);
+      }
+    });
+};
+export const getColumnById = async (
+  token: string,
+  idBoard: string,
+  idColumn: string
+): Promise<void | IColumnWithTasks> => {
+  return axios
+    .get(`${BASE_URL}boards/${idBoard}/columns/${idColumn}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res): Promise<IColumnWithTasks> => res.data)
     .catch((error) => {
       if (error.response.status === 404) {
         //TODO add error codes to enum

@@ -1,15 +1,15 @@
-import { ColumnInteface, TaskInterface } from './interface';
+import { ITaskWithFiles } from '../../../../utils/task-types';
 
 export interface ITaskDragEvents {
-  dragStartTask: (ev: React.DragEvent<HTMLDivElement>, task: TaskInterface) => void;
+  dragStartTask: (ev: React.DragEvent<HTMLDivElement>, task: ITaskWithFiles) => void;
   dragLeaveTask: (ev: React.DragEvent<HTMLDivElement>) => void;
   dragEndTask: (ev: React.DragEvent<HTMLDivElement>) => void;
   dragOverTask: (ev: React.DragEvent<HTMLDivElement>) => void;
-  dragDropTask: (ev: React.DragEvent<HTMLDivElement>, task: TaskInterface) => void;
+  dragDropTask: (ev: React.DragEvent<HTMLDivElement>, task: ITaskWithFiles) => void;
 }
 
 interface TaskProps {
-  task: TaskInterface;
+  task: ITaskWithFiles;
   taskDragEvents: ITaskDragEvents;
 }
 

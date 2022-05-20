@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { BoardInteface } from '../pages/board-page/components/Board/interface';
-import { IColumn, IApiTask, IBoard } from '../utils/board-types';
+import { IBoard, IBoardWithColumns } from '../utils/board-types';
+
 import { BASE_URL } from './consts';
 
 export const getAllBoards = async (token: string): Promise<void | IBoard[]> => {
@@ -17,12 +17,15 @@ export const getAllBoards = async (token: string): Promise<void | IBoard[]> => {
     });
 };
 
-export const getBoardById = async (token: string, id: string): Promise<void | BoardInteface> => {
+export const getBoardById = async (
+  token: string,
+  id: string
+): Promise<void | IBoardWithColumns> => {
   return axios
     .get(`${BASE_URL}boards/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
-    .then((res): Promise<BoardInteface> => res.data)
+    .then((res): Promise<IBoardWithColumns> => res.data)
     .catch((error) => {
       if (error.response.status === 404) {
         //TODO add error codes to enum
@@ -37,32 +40,6 @@ export const createBoard = async (token: string, title: string): Promise<void | 
   return axios
     .post(`${BASE_URL}boards`, { title: title }, { headers: { Authorization: `Bearer ${token}` } })
     .then((res): Promise<IBoard> => res.data)
-    .catch((error) => {
-      if (error.response.status === 404) {
-        //TODO add error codes to enum
-        console.log(error.response.message); //TODO open message on error page
-      } else {
-        throw new Error(error);
-      }
-    });
-};
-
-export const createTask = async (
-  token: string,
-  title: string,
-  description: string,
-  idBoard: string,
-  idColumn: string,
-  order: number,
-  userId: string
-): Promise<void | IColumn> => {
-  return axios
-    .post(
-      `${BASE_URL}boards/${idBoard}/columns/${idColumn}/tasks`,
-      { title: title, order: order, description: description, userId: userId },
-      { headers: { Authorization: `Bearer ${token}` } }
-    )
-    .then((res): Promise<IApiTask> => res.data)
     .catch((error) => {
       if (error.response.status === 404) {
         //TODO add error codes to enum
