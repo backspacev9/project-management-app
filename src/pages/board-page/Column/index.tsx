@@ -7,7 +7,7 @@ import { createOneTask } from '../../../redux/tasks-reducer';
 import { IColumn, IColumnWithTasks } from '../../../utils/columns-type';
 
 import Task, { ITaskDragEvents } from '../Task';
-import './column-item.scss';
+import './index.scss';
 export interface IColumnDragEvents {
   dragStartColumn: (ev: React.DragEvent<HTMLDivElement>, column: IColumnWithTasks) => void;
   // dragLeaveColumn: (ev: React.DragEvent<HTMLDivElement>) => void;

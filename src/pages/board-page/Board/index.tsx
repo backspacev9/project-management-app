@@ -1,4 +1,4 @@
-import './board-item.scss';
+import './index.scss';
 
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import Column from '../Column';
