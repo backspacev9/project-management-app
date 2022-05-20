@@ -1,7 +1,7 @@
 import './board-item.scss';
 
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import Column from '../Column/column-item';
+import Column from '../Column';
 import { RootState } from '../../../redux/store';
 import { useEffect, useState } from 'react';
 import { createOneColumn, getColumns, updateOneColumn } from '../../../redux/columns-reducer';

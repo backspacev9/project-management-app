@@ -9,7 +9,7 @@ import { getAllUsers, setToken } from './redux/auth-reducer';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { RootState } from './redux/store';
 import Cookies from 'js-cookie';
-import Board from './pages/board-page/Board/board-item';
+import Board from './pages/board-page/Board';
 
 const App = () => {
   const { isAuth } = useAppSelector((state: RootState) => state.auth);
