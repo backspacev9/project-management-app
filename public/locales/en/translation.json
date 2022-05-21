@@ -1,3 +1,9 @@
 {
+  "task_form": {
+    "title": "Title",
+    "descr": "Description",
+    "file": "Upload file",
+    "save": "Save task"
+  },
   "create_btn": "Create task"
 }

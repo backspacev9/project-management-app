@@ -7,7 +7,12 @@ interface ITasksStore {
   modalVisible: boolean;
   title: string;
   description: string;
-  files: File[] | null | undefined;
+  files: IFile[] | null | undefined;
+}
+
+interface IFile {
+  name: string;
+  size: number;
 }
 
 const initialState: ITasksStore = {
