@@ -7,6 +7,7 @@ interface ITasksStore {
   modalVisible: boolean;
   title: string;
   description: string;
+  files: File[] | null | undefined;
 }
 
 const initialState: ITasksStore = {
@@ -14,6 +15,7 @@ const initialState: ITasksStore = {
   modalVisible: false,
   title: '',
   description: '',
+  files: null,
 };
 
 export const getAllTasks = createAsyncThunk(
@@ -41,12 +43,11 @@ export const createOneTask = createAsyncThunk(
     boardId: string;
     columnId: string;
     title: string;
-    order: number;
     description: string;
     userId: string;
   }) => {
-    const { token, boardId, columnId, title, order, description, userId } = args;
-    const res = await createTask(token, boardId, columnId, title, order, description, userId);
+    const { token, boardId, columnId, title, description, userId } = args;
+    const res = await createTask(token, boardId, columnId, title, description, userId);
     return res;
   }
 );
@@ -57,13 +58,23 @@ export const updateOneTask = createAsyncThunk(
     token: string;
     boardId: string;
     columnId: string;
+    taskId: string;
     title: string;
     order: number;
     description: string;
     userId: string;
   }) => {
-    const { token, boardId, columnId, title, order, description, userId } = args;
-    const res = await updateTask(token, boardId, columnId, title, order, description, userId);
+    const { token, boardId, columnId, taskId, title, order, description, userId } = args;
+    const res = await updateTask(
+      token,
+      boardId,
+      columnId,
+      taskId,
+      title,
+      order,
+      description,
+      userId
+    );
     return res;
   }
 );
@@ -89,6 +100,9 @@ export const tasksReducer = createSlice({
     },
     onChangeDescr(state, action) {
       state.description = action.payload;
+    },
+    onChangeFile(state, action) {
+      state.files?.push(action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -122,5 +136,6 @@ export const tasksReducer = createSlice({
     });
   },
 });
-export const { handleVisibleModal, onChangeTitle, onChangeDescr } = tasksReducer.actions;
+export const { handleVisibleModal, onChangeTitle, onChangeDescr, onChangeFile } =
+  tasksReducer.actions;
 export default tasksReducer.reducer;

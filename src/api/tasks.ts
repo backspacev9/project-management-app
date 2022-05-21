@@ -69,7 +69,6 @@ export const createTask = async (
   boardId: string,
   columnId: string,
   title: string,
-  order: number,
   description: string,
   userId: string
 ): Promise<void | ITask> => {
@@ -78,7 +77,6 @@ export const createTask = async (
       `${BASE_URL}boards/${boardId}/columns/${columnId}/tasks`,
       {
         title,
-        order,
         description,
         userId,
       },
@@ -99,6 +97,7 @@ export const updateTask = async (
   token: string,
   boardId: string,
   columnId: string,
+  taskId: string,
   title: string,
   order: number,
   description: string,
@@ -106,7 +105,7 @@ export const updateTask = async (
 ): Promise<void | ITask> => {
   return axios
     .put(
-      `${BASE_URL}boards/${boardId}/columns/${columnId}/tasks`,
+      `${BASE_URL}boards/${boardId}/columns/${columnId}/tasks/${taskId}`,
       {
         title,
         order,
