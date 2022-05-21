@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { RootState } from '../../../redux/store';
 import { createOneTask } from '../../../redux/tasks-reducer';
 import { IColumn, IColumnWithTasks } from '../../../utils/columns-type';
-
 import Task, { ITaskDragEvents } from '../Task';
 import './index.scss';
 export interface IColumnDragEvents {
@@ -25,7 +24,7 @@ interface ColumnProps {
 const Column = (props: ColumnProps) => {
   const { column } = props;
   const dispatch = useAppDispatch();
-  const { token } = useAppSelector((state: RootState) => state.auth);
+  const { token, userId } = useAppSelector((state: RootState) => state.auth);
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
   const { tasks } = useAppSelector((state: RootState) => state.tasks);
   const { dragStartColumn, dragDropColumn, dragOverColumn } = props.columnDragEvents;
@@ -55,8 +54,7 @@ const Column = (props: ColumnProps) => {
         description: 'ddd',
         boardId: currentBoard.id,
         columnId: column.id,
-        order: taskOrder,
-        userId: 'fb8069a9-d592-43ed-b7e8-b60d0f27432f',
+        userId: userId,
       })
     );
     getColumn();

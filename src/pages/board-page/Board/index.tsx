@@ -34,13 +34,11 @@ const Board = () => {
   }, [token]);
 
   const addColumn = async (columnName: string) => {
-    const newColumnOrder = columns.length === 0 ? 1 : currentBoard.columns.length + 1;
     await dispatch(
       createOneColumn({
         token: token,
         title: columnName,
         idBoard: currentBoard.id,
-        order: newColumnOrder,
       })
     );
     await dispatch(getColumns({ token, id: currentBoard.id }));

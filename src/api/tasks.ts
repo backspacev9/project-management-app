@@ -69,7 +69,6 @@ export const createTask = async (
   boardId: string,
   columnId: string,
   title: string,
-  order: number,
   description: string,
   userId: string
 ): Promise<void | ITask> => {
@@ -78,7 +77,6 @@ export const createTask = async (
       `${BASE_URL}boards/${boardId}/columns/${columnId}/tasks`,
       {
         title,
-        order,
         description,
         userId,
       },

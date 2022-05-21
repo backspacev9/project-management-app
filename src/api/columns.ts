@@ -43,13 +43,12 @@ export const getColumnById = async (
 export const createColumn = async (
   token: string,
   title: string,
-  idBoard: string,
-  order: number
+  idBoard: string
 ): Promise<void | IColumn> => {
   return axios
     .post(
       `${BASE_URL}boards/${idBoard}/columns`,
-      { title: title, order: order },
+      { title: title },
       { headers: { Authorization: `Bearer ${token}` } }
     )
     .then((res): Promise<IColumn> => res.data)

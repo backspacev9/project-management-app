@@ -35,12 +35,11 @@ export const createOneTask = createAsyncThunk(
     boardId: string;
     columnId: string;
     title: string;
-    order: number;
     description: string;
     userId: string;
   }) => {
-    const { token, boardId, columnId, title, order, description, userId } = args;
-    const res = await createTask(token, boardId, columnId, title, order, description, userId);
+    const { token, boardId, columnId, title, description, userId } = args;
+    const res = await createTask(token, boardId, columnId, title, description, userId);
     return res;
   }
 );

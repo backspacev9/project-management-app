@@ -29,9 +29,9 @@ export const getOneColumn = createAsyncThunk(
 );
 export const createOneColumn = createAsyncThunk(
   'reducer/createOneColumn',
-  async (args: { token: string; title: string; idBoard: string; order: number }) => {
-    const { token, title, idBoard, order } = args;
-    const res = await createColumn(token, title, idBoard, order);
+  async (args: { token: string; title: string; idBoard: string }) => {
+    const { token, title, idBoard } = args;
+    const res = await createColumn(token, title, idBoard);
     return res;
   }
 );
