@@ -29,6 +29,9 @@ const Task = (props: TaskProps) => {
       className="task-item"
     >
       {task.title}
+      <br />
+      <button>Update</button>
+      <button>delete</button>
     </div>
   );
 };
