@@ -69,11 +69,11 @@ const Board = () => {
 
   // ----- DRAG TASKS ----------
   const dragStartTask = (ev: React.DragEvent<HTMLDivElement>, task: ITaskWithFiles) => {
-    // console.log('start task drag-', task);
+    console.log('start task drag-', task);
   };
   const dragDropTask = (ev: React.DragEvent<HTMLDivElement>, task: ITaskWithFiles) => {
-    ev.preventDefault();
-    // console.log('drop task drag-', task);
+    //ev.preventDefault();
+    console.log('drop task drag-', task);
   };
   const dragOverTask = (ev: React.DragEvent<HTMLDivElement>) => {
     ev.preventDefault();

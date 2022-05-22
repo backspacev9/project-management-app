@@ -51,7 +51,6 @@ export const boardsReducer = createSlice({
     builder.addCase(getBoardByID.fulfilled, (state, action) => {
       if (action.payload) {
         state.currentBoard = action.payload;
-        console.log(action.payload.columns.sort((a, b) => (a.order > b.order ? 1 : -1)));
         state.currentBoard.columns = state.currentBoard.columns.sort((a, b) =>
           a.order > b.order ? 1 : -1
         );

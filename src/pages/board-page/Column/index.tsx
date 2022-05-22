@@ -74,7 +74,7 @@ const Column = (props: ColumnProps) => {
           <span>{column.title}</span>
           {/* <input type="text" defaultValue={column.title || ''} /> */}
         </div>
-        <div className="task-container">
+        <div className="task-container" draggable={true} onDragStart={(e) => e.preventDefault()}>
           {fullColumn && Object.keys(fullColumn).length !== 0
             ? fullColumn.tasks.map((el) => (
                 <Task
@@ -91,7 +91,7 @@ const Column = (props: ColumnProps) => {
               ))
             : ''}
         </div>
-        <div className="footer-column">
+        <div className="footer-column" draggable={true} onDragStart={(e) => e.preventDefault()}>
           <BtnAddTask btnOnclick={addTaskCard} />
         </div>
       </div>
