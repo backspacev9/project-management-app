@@ -5,9 +5,6 @@ import { ITask } from '../utils/task-types';
 interface ITasksStore {
   tasks: ITask[];
   modalVisible: boolean;
-  title: string;
-  description: string;
-  files: IFile[] | null | undefined;
 }
 
 interface IFile {
@@ -18,9 +15,6 @@ interface IFile {
 const initialState: ITasksStore = {
   tasks: [] as ITask[],
   modalVisible: false,
-  title: '',
-  description: '',
-  files: null,
 };
 
 export const getAllTasks = createAsyncThunk(
@@ -100,15 +94,6 @@ export const tasksReducer = createSlice({
     handleVisibleModal(state, action) {
       state.modalVisible = action.payload;
     },
-    onChangeTitle(state, action) {
-      state.title = action.payload;
-    },
-    onChangeDescr(state, action) {
-      state.description = action.payload;
-    },
-    onChangeFile(state, action) {
-      state.files?.push(action.payload);
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllTasks.fulfilled, (state, action) => {
@@ -141,6 +126,5 @@ export const tasksReducer = createSlice({
     });
   },
 });
-export const { handleVisibleModal, onChangeTitle, onChangeDescr, onChangeFile } =
-  tasksReducer.actions;
+export const { handleVisibleModal } = tasksReducer.actions;
 export default tasksReducer.reducer;
