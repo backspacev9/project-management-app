@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { RootState } from './redux/store';
 import Cookies from 'js-cookie';
 import TasksPage from './pages/task';
+import Board from './pages/board-page/Board';
 
 const App = () => {
   const { isAuth } = useAppSelector((state: RootState) => state.auth);
@@ -46,6 +47,7 @@ const App = () => {
             element={isAuth ? <Navigate replace to="/main" /> : <Registration />}
           />
           <Route path="/task" element={<TasksPage />} />
+          <Route path="main/b/:id" element={<Board />} />
           <Route path="/404" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>

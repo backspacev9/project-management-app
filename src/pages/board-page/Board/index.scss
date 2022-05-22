@@ -1,0 +1,29 @@
+.Board {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .board-header {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    height: 40px;
+    background-color: #e0e0e0;
+  }
+}
+
+.board-columns-container {
+  display: flex;
+  height: 100%;
+  padding: 10px 20px 0 20px;
+  .wrapper-column:nth-child(n + 2) {
+    margin-left: 10px;
+  }
+
+  .addColumn {
+    margin-left: 10px;
+  }
+  .footer-column {
+    margin-top: 10px;
+  }
+}
