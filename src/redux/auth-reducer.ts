@@ -75,6 +75,9 @@ export const authReducer = createSlice({
     setMessage: (state, action) => {
       state.errorMessage = action.payload;
     },
+    setAuth: (state, action) => {
+      state.isAuth = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSignUp.fulfilled, (state, action) => {
@@ -110,6 +113,6 @@ export const authReducer = createSlice({
   },
 });
 
-export const { setToken, setMessage } = authReducer.actions;
+export const { setToken, setMessage, setAuth } = authReducer.actions;
 
 export default authReducer.reducer;
