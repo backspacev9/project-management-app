@@ -1,0 +1,27 @@
+.wrapper-column {
+  display: flex;
+  height: 100%;
+  border: 1px solid #84bdff;
+}
+.column-item {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: fit-content;
+  border: 1px solid #ff7272;
+
+  .header-column {
+    display: flex;
+    border-bottom: 1px solid #d2d2d2;
+  }
+  .task-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .task-item {
+      width: 100%;
+      border: 1px solid #ff8a8a;
+      margin-top: 10px;
+    }
+  }
+}

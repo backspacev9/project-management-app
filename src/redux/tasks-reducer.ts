@@ -10,7 +10,7 @@ const initialState: ITasksStore = {
   tasks: [] as ITask[],
 };
 
-const getAllTasks = createAsyncThunk(
+export const getAllTasks = createAsyncThunk(
   'reducer/getAllTasks',
   async (args: { token: string; boardId: string; columnId: string }) => {
     const { token, boardId, columnId } = args;
@@ -19,7 +19,7 @@ const getAllTasks = createAsyncThunk(
   }
 );
 
-const getOneTask = createAsyncThunk(
+export const getOneTask = createAsyncThunk(
   'reducer/getOneTask',
   async (args: { token: string; boardId: string; columnId: string; taskId: string }) => {
     const { token, boardId, columnId, taskId } = args;
@@ -28,24 +28,23 @@ const getOneTask = createAsyncThunk(
   }
 );
 
-const createOneTask = createAsyncThunk(
+export const createOneTask = createAsyncThunk(
   'reducer/createOneTask',
   async (args: {
     token: string;
     boardId: string;
     columnId: string;
     title: string;
-    order: number;
     description: string;
     userId: string;
   }) => {
-    const { token, boardId, columnId, title, order, description, userId } = args;
-    const res = await createTask(token, boardId, columnId, title, order, description, userId);
+    const { token, boardId, columnId, title, description, userId } = args;
+    const res = await createTask(token, boardId, columnId, title, description, userId);
     return res;
   }
 );
 
-const updateOneTask = createAsyncThunk(
+export const updateOneTask = createAsyncThunk(
   'reducer/updateOneTask',
   async (args: {
     token: string;
@@ -62,7 +61,7 @@ const updateOneTask = createAsyncThunk(
   }
 );
 
-const deleteOneTask = createAsyncThunk(
+export const deleteOneTask = createAsyncThunk(
   'reducer/deleteOneTask',
   async (args: { token: string; boardId: string; columnId: string; taskId: string }) => {
     const { token, boardId, columnId, taskId } = args;
