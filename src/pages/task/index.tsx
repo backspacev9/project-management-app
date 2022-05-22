@@ -20,7 +20,6 @@ const TasksPage = () => {
 
   return (
     <>
-      <LocaleSelect />
       <button onClick={showModal}>{t('create_btn')}</button>
       {modalVisible && <Modal component={createForm}></Modal>}
     </>
