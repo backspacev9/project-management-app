@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { fetchSignIn, fetchSignUp } from '../../redux/auth-reducer';
+import { fetchSignIn, fetchSignUp, setMessage } from '../../redux/auth-reducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import { IUserInfo } from '../../utils/auth-types';
@@ -14,10 +14,17 @@ const Registration = () => {
   } = useForm<IUserInfo>({ mode: 'onSubmit' });
   const { errorMessage } = useAppSelector((state: RootState) => state.auth);
 
+  useEffect(() => {
+    return () => {
+      dispatch(setMessage(''));
+    };
+  }, [dispatch]);
+
   const onSubmit = async (data: IUserInfo) => {
     const args = { login: data.login, password: data.password };
-    dispatch(fetchSignUp(data)).then(() => {
-      dispatch(fetchSignIn(args));
+    dispatch(fetchSignUp(data)).then((res) => {
+      console.log(res.meta.requestStatus !== 'rejected');
+      if (res.meta.requestStatus !== 'rejected') dispatch(fetchSignIn(args));
     });
   };
 

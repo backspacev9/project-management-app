@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { IToken, IUserInfo } from '../utils/auth-types';
 import { BASE_URL } from './consts';
-import { HttpErrors } from '../utils/enums';
 
 export const signUp = async (
   userName: string,
@@ -14,14 +13,7 @@ export const signUp = async (
       login: userLogin,
       password: userPassword,
     })
-    .then((res): Promise<IUserInfo> => res.data)
-    .catch((error) => {
-      if (error.response.status === HttpErrors.Conflict) {
-        console.log(error.response.message);
-      } else {
-        throw new Error(error);
-      }
-    });
+    .then((res): Promise<IUserInfo> => res.data);
 };
 
 export const signIn = async (userLogin: string, userPassword: string): Promise<void | IToken> => {
@@ -30,12 +22,5 @@ export const signIn = async (userLogin: string, userPassword: string): Promise<v
       login: userLogin,
       password: userPassword,
     })
-    .then((res): Promise<IToken> => res.data)
-    .catch((error) => {
-      if (error.response.status === HttpErrors.Forbidden) {
-        console.log(error.response);
-      } else {
-        throw new Error(error);
-      }
-    });
+    .then((res): Promise<IToken> => res.data);
 };

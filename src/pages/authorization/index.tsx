@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { fetchSignIn } from '../../redux/auth-reducer';
+import { fetchSignIn, setMessage } from '../../redux/auth-reducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import { IUserInfo } from '../../utils/auth-types';
@@ -13,6 +13,12 @@ const Authorization = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IUserInfo>({ mode: 'onSubmit' });
+
+  useEffect(() => {
+    return () => {
+      dispatch(setMessage(''));
+    };
+  }, [dispatch]);
 
   const onSubmit = async (data: IUserInfo) => {
     dispatch(fetchSignIn(data));
