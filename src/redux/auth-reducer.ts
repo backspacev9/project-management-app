@@ -97,7 +97,7 @@ export const authReducer = createSlice({
         state.login = decoded.login;
         state.errorMessage = '';
         state.isAuth = true;
-        Cookies.set('token', action.payload.token, { expires: 1 });
+        Cookies.set('token', action.payload.token, { expires: 7 });
       }
     });
     builder.addCase(fetchSignIn.rejected, (state, action) => {
