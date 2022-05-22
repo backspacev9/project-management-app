@@ -36,9 +36,17 @@ export const getBoardById = async (
     });
 };
 
-export const createBoard = async (token: string, title: string): Promise<void | IBoard> => {
+export const createBoard = async (
+  token: string,
+  title: string,
+  description: string
+): Promise<void | IBoard> => {
   return axios
-    .post(`${BASE_URL}boards`, { title: title }, { headers: { Authorization: `Bearer ${token}` } })
+    .post(
+      `${BASE_URL}boards`,
+      { title: title, description: description },
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
     .then((res): Promise<IBoard> => res.data)
     .catch((error) => {
       if (error.response.status === 404) {

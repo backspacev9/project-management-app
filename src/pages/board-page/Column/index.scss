@@ -1,9 +1,14 @@
+.wrapper-column {
+  display: flex;
+  height: 100%;
+  border: 1px solid #84bdff;
+}
 .column-item {
   display: flex;
   flex-direction: column;
   width: 200px;
-  height: 100%;
-  border: 1px solid;
+  height: fit-content;
+  border: 1px solid #ff7272;
 
   .header-column {
     display: flex;

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { stat } from 'fs';
 import { createBoard, getAllBoards, getBoardById } from '../api/boards';
 import { IBoard, IBoardWithColumns } from '../utils/board-types';
 
@@ -29,9 +30,9 @@ export const getBoardByID = createAsyncThunk(
 //----------------POST Query-----------------
 export const createOneBoard = createAsyncThunk(
   'reducer/createOneBoard',
-  async (args: { token: string; title: string }) => {
-    const { token, title } = args;
-    const res = await createBoard(token, title);
+  async (args: { token: string; title: string; description: string }) => {
+    const { token, title, description } = args;
+    const res = await createBoard(token, title, description);
     return res;
   }
 );
@@ -50,6 +51,10 @@ export const boardsReducer = createSlice({
     builder.addCase(getBoardByID.fulfilled, (state, action) => {
       if (action.payload) {
         state.currentBoard = action.payload;
+        console.log(action.payload.columns.sort((a, b) => (a.order > b.order ? 1 : -1)));
+        state.currentBoard.columns = state.currentBoard.columns.sort((a, b) =>
+          a.order > b.order ? 1 : -1
+        );
       }
     });
     //------POST-------//

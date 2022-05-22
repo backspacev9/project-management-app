@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createColumn, getAllColumns, getColumnById, updateColumn } from '../api/columns';
-import { IColumn } from '../utils/columns-type';
+import { IColumn, IColumnWithTasks } from '../utils/columns-type';
 
 interface IColumnsStore {
   columns: IColumn[];
@@ -68,7 +68,7 @@ export const columnsReducer = createSlice({
     });
     builder.addCase(updateOneColumn.fulfilled, (state, action) => {
       if (action.payload) {
-        console.log('column-updated');
+        console.log('column-updated--', action.payload);
       }
     });
   },

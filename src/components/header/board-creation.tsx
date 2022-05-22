@@ -6,6 +6,7 @@ import { RootState } from '../../redux/store';
 
 type IForm = {
   title: string;
+  description: string;
 };
 
 const BoardCreation = () => {
@@ -17,6 +18,7 @@ const BoardCreation = () => {
     const args = {
       token: token,
       title: data.title,
+      description: data.description,
     };
     await dispatch(createOneBoard(args));
     await dispatch(getBoards(token));
@@ -28,6 +30,12 @@ const BoardCreation = () => {
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input type="text" placeholder="Board title" id="board-title" {...register('title')} />
+          <input
+            type="text"
+            placeholder="Board description"
+            id="board-description"
+            {...register('description')}
+          />
           <button type="submit" className="registration-btn">
             Create Board
           </button>

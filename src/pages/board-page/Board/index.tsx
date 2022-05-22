@@ -22,15 +22,14 @@ const Board = () => {
   const { id } = params;
 
   const setBoard = async () => {
-    if (id) {
+    if (id && token) {
       await dispatch(getBoardByID({ token, id }));
       await dispatch(getColumns({ token, id }));
     }
   };
+
   useEffect(() => {
     setBoard();
-    console.log(currentBoard);
-    console.log('state columns--', columns);
   }, [token]);
 
   const addColumn = async (columnName: string) => {
@@ -43,31 +42,14 @@ const Board = () => {
     );
     await dispatch(getColumns({ token, id: currentBoard.id }));
   };
+
   const dragStartColumn = (ev: React.DragEvent<HTMLDivElement>, column: IColumnWithTasks) => {
     console.log('start column drag-', column);
     setCurrentColumn(column);
   };
 
   const dragDropColumn = async (ev: React.DragEvent<HTMLDivElement>, column: IColumnWithTasks) => {
-    ev.preventDefault();
-    await dispatch(
-      updateOneColumn({
-        token: token,
-        title: currentColumn.title,
-        idBoard: currentBoard.id,
-        idColumn: currentColumn.id,
-        order: 0,
-      })
-    );
-    await dispatch(
-      updateOneColumn({
-        token: token,
-        title: column.title,
-        idBoard: currentBoard.id,
-        idColumn: column.id,
-        order: currentColumn.order,
-      })
-    );
+    console.log('drop column - -', column);
     await dispatch(
       updateOneColumn({
         token: token,
@@ -78,16 +60,20 @@ const Board = () => {
       })
     );
     await dispatch(getColumns({ token, id: currentBoard.id }));
+    // console.log('from boards c--', columns);
+    //await dispatch(getBoardByID({ token, id: currentBoard.id }));
   };
   const dragOverColumn = (ev: React.DragEvent<HTMLDivElement>) => {
     ev.preventDefault();
   };
+
+  // ----- DRAG TASKS ----------
   const dragStartTask = (ev: React.DragEvent<HTMLDivElement>, task: ITaskWithFiles) => {
-    console.log('start task drag-', task);
+    // console.log('start task drag-', task);
   };
   const dragDropTask = (ev: React.DragEvent<HTMLDivElement>, task: ITaskWithFiles) => {
     ev.preventDefault();
-    console.log('drop task drag-', task);
+    // console.log('drop task drag-', task);
   };
   const dragOverTask = (ev: React.DragEvent<HTMLDivElement>) => {
     ev.preventDefault();
@@ -108,7 +94,7 @@ const Board = () => {
     <div className="Board">
       <BoardHeader title={currentBoard.title} />
       <div className="board-columns-container">
-        {Object.keys(columns).length !== 0
+        {columns && Object.keys(columns).length !== 0
           ? columns.map((el) => (
               <Column
                 columnDragEvents={{

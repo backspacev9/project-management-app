@@ -26,27 +26,22 @@ const Column = (props: ColumnProps) => {
   const dispatch = useAppDispatch();
   const { token, userId } = useAppSelector((state: RootState) => state.auth);
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
-  const { tasks } = useAppSelector((state: RootState) => state.tasks);
+  // const { columns } = useAppSelector((state: RootState) => state.columns);
   const { dragStartColumn, dragDropColumn, dragOverColumn } = props.columnDragEvents;
   const { dragStartTask, dragDropTask, dragOverTask, dragLeaveTask, dragEndTask } =
     props.taskDragEvents!;
 
-  const [fullColumn, setFullColumn] = useState<IColumnWithTasks | void>(Object);
+  const [fullColumn, setFullColumn] = useState<IColumnWithTasks>(Object);
   const getColumn = async () => {
-    if (column) {
-      const res = await getColumnById(token, currentBoard.id, column.id);
-      setFullColumn(res);
-    }
+    const res = await getColumnById(token, currentBoard.id, column.id);
+    setFullColumn(res!);
   };
+
   useEffect(() => {
     getColumn();
   }, [column]);
+
   const addTaskCard = async (text: string) => {
-    const taskOrder = fullColumn
-      ? fullColumn.tasks.length === 0
-        ? 1
-        : fullColumn!.tasks.length + 1
-      : 0;
     await dispatch(
       createOneTask({
         token: token,
@@ -62,36 +57,43 @@ const Column = (props: ColumnProps) => {
 
   return (
     <div
-      className="column-item"
-      draggable={true}
-      onDragStart={(e) => dragStartColumn(e, fullColumn!)}
-      onDragLeave={(e) => dragLeaveTask(e)}
-      onDragEnd={(e) => dragEndTask(e)}
-      onDragOver={(e) => dragOverColumn(e)}
+      className="wrapper-column"
+      onDragOver={(e) => e.preventDefault()}
       onDrop={(e) => dragDropColumn(e, fullColumn!)}
     >
-      <div className="header-column">
-        <input type="text" defaultValue={column.title || ''} />
-      </div>
-      <div className="task-container">
-        {fullColumn && Object.keys(fullColumn).length !== 0
-          ? fullColumn.tasks.map((el) => (
-              <Task
-                taskDragEvents={{
-                  dragStartTask: dragStartTask,
-                  dragLeaveTask: dragLeaveTask,
-                  dragEndTask: dragEndTask,
-                  dragOverTask: dragOverTask,
-                  dragDropTask: dragDropTask,
-                }}
-                task={el}
-                key={el.id}
-              />
-            ))
-          : ''}
-      </div>
-      <div className="footer-column">
-        <BtnAddTask btnOnclick={addTaskCard} />
+      <div
+        className="column-item"
+        draggable={true}
+        onDragStart={(e) => dragStartColumn(e, fullColumn!)}
+        // onDragLeave={(e) => dragLeaveColumn(e)}
+        // onDragEnd={(e) => dragEndColumn(e)}
+        onDragOver={(e) => dragOverColumn(e)}
+        //onDrop={(e) => dragDropColumn(e, fullColumn!)}
+      >
+        <div className="header-column">
+          <span>{column.title}</span>
+          {/* <input type="text" defaultValue={column.title || ''} /> */}
+        </div>
+        <div className="task-container">
+          {fullColumn && Object.keys(fullColumn).length !== 0
+            ? fullColumn.tasks.map((el) => (
+                <Task
+                  taskDragEvents={{
+                    dragStartTask: dragStartTask,
+                    dragLeaveTask: dragLeaveTask,
+                    dragEndTask: dragEndTask,
+                    dragOverTask: dragOverTask,
+                    dragDropTask: dragDropTask,
+                  }}
+                  task={el}
+                  key={el.id}
+                />
+              ))
+            : ''}
+        </div>
+        <div className="footer-column">
+          <BtnAddTask btnOnclick={addTaskCard} />
+        </div>
       </div>
     </div>
   );
