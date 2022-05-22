@@ -11,15 +11,7 @@ export const getTasks = async (
     .get(`${BASE_URL}boards/${boardId}/columns/${columnId}/tasks`, {
       headers: { Authorization: `Bearer ${token}` },
     })
-    .then((res): Promise<ITask[]> => res.data)
-    .catch((error) => {
-      if (error.response.status === 404) {
-        //TODO add error codes to enum
-        console.log(error.response.message); //TODO open message on error page
-      } else {
-        throw new Error(error);
-      }
-    });
+    .then((res): Promise<ITask[]> => res.data);
 };
 
 export const getTask = async (
@@ -32,15 +24,7 @@ export const getTask = async (
     .get(`${BASE_URL}boards/${boardId}/columns/${columnId}/tasks/${taskId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
-    .then((res): Promise<ITask> => res.data)
-    .catch((error) => {
-      if (error.response.status === 404) {
-        //TODO add error codes to enum
-        console.log(error.response.message); //TODO open message on error page
-      } else {
-        throw new Error(error);
-      }
-    });
+    .then((res): Promise<ITask> => res.data);
 };
 
 export const deleteTask = async (
@@ -53,15 +37,7 @@ export const deleteTask = async (
     .delete(`${BASE_URL}boards/${boardId}/columns/${columnId}/tasks/${taskId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
-    .then((res): Promise<void> => res.data)
-    .catch((error) => {
-      if (error.response.status === 404) {
-        //TODO add error codes to enum
-        console.log(error.response.message); //TODO open message on error page
-      } else {
-        throw new Error(error);
-      }
-    });
+    .then((res): Promise<void> => res.data);
 };
 
 export const createTask = async (
@@ -82,15 +58,7 @@ export const createTask = async (
       },
       { headers: { Authorization: `Bearer ${token}` } }
     )
-    .then((res): Promise<ITask> => res.data)
-    .catch((error) => {
-      if (error.response.status === 404) {
-        //TODO add error codes to enum
-        console.log(error.response.message); //TODO open message on error page
-      } else {
-        throw new Error(error);
-      }
-    });
+    .then((res): Promise<ITask> => res.data);
 };
 
 export const updateTask = async (
@@ -116,13 +84,5 @@ export const updateTask = async (
       },
       { headers: { Authorization: `Bearer ${token}` } }
     )
-    .then((res): Promise<ITask> => res.data)
-    .catch((error) => {
-      if (error.response.status === 404) {
-        //TODO add error codes to enum
-        console.log(error.response.message); //TODO open message on error page
-      } else {
-        throw new Error(error);
-      }
-    });
+    .then((res): Promise<ITask> => res.data);
 };
