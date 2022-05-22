@@ -74,7 +74,12 @@ const Column = (props: ColumnProps) => {
           <span>{column.title}</span>
           {/* <input type="text" defaultValue={column.title || ''} /> */}
         </div>
-        <div className="task-container" draggable={true} onDragStart={(e) => e.preventDefault()}>
+        <div
+          className="task-container"
+          onDragOver={(e) => e.preventDefault()}
+          onDragStart={(e) => e.preventDefault()}
+          onDrop={(e) => e.preventDefault()}
+        >
           {fullColumn && Object.keys(fullColumn).length !== 0
             ? fullColumn.tasks.map((el) => (
                 <Task

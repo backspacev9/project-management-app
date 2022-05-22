@@ -20,13 +20,13 @@ const Task = (props: TaskProps) => {
 
   return (
     <div
+      className="task-item"
       draggable={true}
       onDragStart={(e) => dragStartTask(e, task)}
       onDragLeave={(e) => dragLeaveTask(e)}
       onDragEnd={(e) => dragEndTask(e)}
       onDragOver={(e) => dragOverTask(e)}
       onDrop={(e) => dragDropTask(e, task)}
-      className="task-item"
     >
       {task.title}
     </div>
