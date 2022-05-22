@@ -29,6 +29,9 @@ const Task = (props: TaskProps) => {
       onDrop={(e) => dragDropTask(e, task)}
     >
       {task.title}
+      <br />
+      <button>Update</button>
+      <button>delete</button>
     </div>
   );
 };

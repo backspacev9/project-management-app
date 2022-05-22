@@ -4,18 +4,31 @@ import { ITask } from '../utils/task-types';
 
 interface ITasksStore {
   tasks: ITask[];
+  modalVisible: boolean;
+}
+
+interface IFile {
+  name: string;
+  size: number;
 }
 
 const initialState: ITasksStore = {
   tasks: [] as ITask[],
+  modalVisible: false,
 };
 
 export const getAllTasks = createAsyncThunk(
   'reducer/getAllTasks',
   async (args: { token: string; boardId: string; columnId: string }) => {
     const { token, boardId, columnId } = args;
-    const res = await getTasks(token, boardId, columnId);
-    return res;
+    try {
+      const res = await getTasks(token, boardId, columnId);
+      return res;
+    } catch (error: any) {
+      const code: number = error.response.status;
+      console.log(error.response.message);
+      // return rejectWithValue(code);
+    }
   }
 );
 
@@ -23,8 +36,14 @@ export const getOneTask = createAsyncThunk(
   'reducer/getOneTask',
   async (args: { token: string; boardId: string; columnId: string; taskId: string }) => {
     const { token, boardId, columnId, taskId } = args;
-    const res = await getTask(token, boardId, columnId, taskId);
-    return res;
+    try {
+      const res = await getTask(token, boardId, columnId, taskId);
+      return res;
+    } catch (error: any) {
+      const code: number = error.response.status;
+      console.log(error.response.message);
+      // return rejectWithValue(code);
+    }
   }
 );
 
@@ -39,8 +58,14 @@ export const createOneTask = createAsyncThunk(
     userId: string;
   }) => {
     const { token, boardId, columnId, title, description, userId } = args;
-    const res = await createTask(token, boardId, columnId, title, description, userId);
-    return res;
+    try {
+      const res = await createTask(token, boardId, columnId, title, description, userId);
+      return res;
+    } catch (error: any) {
+      const code: number = error.response.status;
+      console.log(error.response.message);
+      // return rejectWithValue(code);
+    }
   }
 );
 
@@ -50,14 +75,30 @@ export const updateOneTask = createAsyncThunk(
     token: string;
     boardId: string;
     columnId: string;
+    taskId: string;
     title: string;
     order: number;
     description: string;
     userId: string;
   }) => {
-    const { token, boardId, columnId, title, order, description, userId } = args;
-    const res = await updateTask(token, boardId, columnId, title, order, description, userId);
-    return res;
+    const { token, boardId, columnId, taskId, title, order, description, userId } = args;
+    try {
+      const res = await updateTask(
+        token,
+        boardId,
+        columnId,
+        taskId,
+        title,
+        order,
+        description,
+        userId
+      );
+      return res;
+    } catch (error: any) {
+      const code: number = error.response.status;
+      console.log(error.response.message);
+      // return rejectWithValue(code);
+    }
   }
 );
 
@@ -65,15 +106,25 @@ export const deleteOneTask = createAsyncThunk(
   'reducer/deleteOneTask',
   async (args: { token: string; boardId: string; columnId: string; taskId: string }) => {
     const { token, boardId, columnId, taskId } = args;
-    const res = await deleteTask(token, boardId, columnId, taskId);
-    return res;
+    try {
+      const res = await deleteTask(token, boardId, columnId, taskId);
+      return res;
+    } catch (error: any) {
+      const code: number = error.response.status;
+      console.log(error.response.message);
+      // return rejectWithValue(code);
+    }
   }
 );
 
 export const tasksReducer = createSlice({
   name: 'tasksReducer',
   initialState,
-  reducers: {},
+  reducers: {
+    handleVisibleModal(state, action) {
+      state.modalVisible = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getAllTasks.fulfilled, (state, action) => {
       if (action.payload) {
@@ -105,5 +156,5 @@ export const tasksReducer = createSlice({
     });
   },
 });
-
+export const { handleVisibleModal } = tasksReducer.actions;
 export default tasksReducer.reducer;
