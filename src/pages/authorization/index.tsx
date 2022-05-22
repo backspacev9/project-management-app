@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { NavLink } from 'react-router-dom';
 import { fetchSignIn, setMessage } from '../../redux/auth-reducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import { IUserInfo } from '../../utils/auth-types';
+import './index.scss';
 
 const Authorization = () => {
   const dispatch = useAppDispatch();
@@ -54,6 +56,12 @@ const Authorization = () => {
           </button>
         </form>
         <div>{errorMessage}</div>
+        <div>
+          <span>Do not have an account? Go to </span>
+          <NavLink to="/signup">
+            <span className="page-link">registration page.</span>
+          </NavLink>
+        </div>
       </section>
     </>
   );
