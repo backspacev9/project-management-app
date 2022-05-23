@@ -1,25 +1,34 @@
 import Cookies from 'js-cookie';
-import React from 'react';
+import React, { useState } from 'react';
 import { setAuth } from '../../redux/auth-reducer';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { RootState } from '../../redux/store';
+import { Modal } from '../Modal';
+import BoardCreateButton from './CreateBoard/CreateBoardButton';
+import { LocaleSelect } from './LocalesSelect';
+import EditProfileButton from './UserProfile/EditProfileButton';
 
 const Header = () => {
   const dispatch = useAppDispatch();
+  const { isModalVisible } = useAppSelector((state: RootState) => state.app);
+  const [modalPage, setModalPage] = useState({} as JSX.Element);
 
   const handleSignOut = () => {
     Cookies.remove('token');
     dispatch(setAuth(false));
   };
 
+  const formSubmit = (modalPage: JSX.Element) => {
+    setModalPage(modalPage);
+  };
+
   return (
     <>
-      <button>Edit profile</button>
+      <EditProfileButton onFormSubmit={formSubmit} />
       <button onClick={handleSignOut}>Sign Out</button>
-      <button>Create new board</button>
-      <select name="localization" id="localization">
-        <option value="en">English</option>
-        <option value="ru">Russian</option>
-      </select>
+      <BoardCreateButton onFormSubmit={formSubmit} />
+      <LocaleSelect />
+      {isModalVisible && <Modal component={modalPage}></Modal>}
     </>
   );
 };

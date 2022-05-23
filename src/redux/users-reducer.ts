@@ -29,4 +29,5 @@ export const usersReducer = createSlice({
   },
 });
 
+export const {} = usersReducer.actions;
 export default usersReducer.reducer;
