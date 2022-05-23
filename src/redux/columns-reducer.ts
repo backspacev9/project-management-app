@@ -4,10 +4,12 @@ import { IColumn, IColumnWithTasks } from '../utils/columns-type';
 
 interface IColumnsStore {
   columns: IColumn[];
+  currentColumnId: string;
   //columnsWithTasks: IColumnWithTasks[];
 }
 const initialState: IColumnsStore = {
   columns: [] as Array<IColumn>,
+  currentColumnId: '',
   //columnsWithTasks: [] as Array<IColumnWithTasks>,
 };
 
@@ -53,7 +55,11 @@ export const updateOneColumn = createAsyncThunk(
 export const columnsReducer = createSlice({
   name: 'columnsReducer',
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentColumnId(state, action) {
+      state.currentColumnId = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     //TODO add peinding and failed cases
     builder.addCase(getColumns.fulfilled, (state, action) => {
@@ -73,5 +79,7 @@ export const columnsReducer = createSlice({
     });
   },
 });
+
+export const { setCurrentColumnId } = columnsReducer.actions;
 
 export default columnsReducer.reducer;

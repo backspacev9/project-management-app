@@ -7,8 +7,8 @@ import '../../../../components/Modal/index.css';
 import { useTranslation } from 'react-i18next';
 
 interface ICreateTask {
-  taskTitle: string;
-  taskDescription: string;
+  title: string;
+  description: string;
 }
 
 export const FormCreateTask = () => {
@@ -22,9 +22,15 @@ export const FormCreateTask = () => {
   } = useForm<ICreateTask>({ mode: 'onSubmit' });
   const { t } = useTranslation();
 
-  const onSubmit = () => {
-    // dispatch(createOneTask({ token, boardId, columnId, title, order, description, userId }));
-    console.log('task is  created');
+  const { currentBoard } = useAppSelector((state: RootState) => state.boards);
+  const boardId = currentBoard.id;
+  const { currentColumnId } = useAppSelector((state: RootState) => state.columns);
+
+  const onSubmit = async (data: ICreateTask) => {
+    const { title, description } = data;
+    await dispatch(
+      createOneTask({ token, boardId, columnId: currentColumnId, title, description, userId })
+    );
     reset();
     dispatch(handleVisibleModal(false));
   };
@@ -39,20 +45,24 @@ export const FormCreateTask = () => {
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <input
         type="text"
-        id="taskTitle"
+        id="title"
         placeholder={t('task_form.title')}
-        {...register('taskTitle', {
+        {...register('title', {
           required: 'Title cannot be empty',
           minLength: { value: 2, message: "Title can't be less than 2 characters" },
         })}
-        name="taskTitle"
+        name="title"
       />
       <div className="message-container">
-        {errors.taskTitle && <div className="error-message">{errors.taskTitle.message}</div>}
+        {errors.title && <div className="error-message">{errors.title.message}</div>}
       </div>
       <textarea
-        name="taskDescription"
-        id="taskDescription"
+        id="description"
+        {...register('description', {
+          required: 'Description cannot be empty',
+          minLength: { value: 2, message: "Description can't be less than 2 characters" },
+        })}
+        name="description"
         placeholder={t('task_form.descr')}
       ></textarea>
       {/* <label>
@@ -65,9 +75,7 @@ export const FormCreateTask = () => {
           onChange={(event) => handleChangeFile(event)}
         />
       </label> */}
-      <button type="submit" onClick={onSubmit}>
-        {t('task_form.save')}
-      </button>
+      <button type="submit">{t('task_form.save')}</button>
     </form>
   );
 };

@@ -1,25 +1,35 @@
-import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { FormCreateTask } from '../../pages/task/components/TaskModal/form-create';
+import { setCurrentColumnId } from '../../redux/columns-reducer';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { RootState } from '../../redux/store';
+import { handleVisibleModal } from '../../redux/tasks-reducer';
+import { Modal } from '../Modal';
 
 interface btnProps {
-  btnOnclick?: (text: string) => void;
+  columnId: string;
 }
 
-const BtnAddTask = (props: btnProps) => {
-  const [taskText, setTaskText] = useState('');
-  //const { currentBoard } = useAppSelector((state: RootState) => state.boards);
-  const onclickHandler = () => {
-    props.btnOnclick!(taskText);
+const BtnAddTask = ({ columnId }: btnProps) => {
+  const { modalVisible } = useAppSelector((state: RootState) => state.tasks);
+  const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
-    setTaskText('');
+  const handleOnClick = () => {
+    dispatch(handleVisibleModal(true));
+    dispatch(setCurrentColumnId(columnId));
   };
-  return (
-    <div className="addTask">
-      <textarea value={taskText} onChange={(ev) => setTaskText(ev.target.value)} />
 
-      <button className="btn-addTaskCard" onClick={onclickHandler}>
-        add task card
-      </button>
-    </div>
+  const createForm = FormCreateTask();
+  return (
+    <>
+      <div className="addTask">
+        <button className="btn-addTaskCard" onClick={handleOnClick}>
+          {t('create_btn')}
+        </button>
+      </div>
+      {modalVisible && <Modal component={createForm}></Modal>}
+    </>
   );
 };
 

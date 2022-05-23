@@ -10,24 +10,12 @@ export interface ITaskDragEvents {
 
 interface TaskProps {
   task: ITaskWithFiles;
-  taskDragEvents: ITaskDragEvents;
 }
 
 const Task = (props: TaskProps) => {
   const { task } = props;
-  const { dragStartTask, dragDropTask, dragOverTask, dragLeaveTask, dragEndTask } =
-    props.taskDragEvents;
-
   return (
-    <div
-      draggable={true}
-      onDragStart={(e) => dragStartTask(e, task)}
-      onDragLeave={(e) => dragLeaveTask(e)}
-      onDragEnd={(e) => dragEndTask(e)}
-      onDragOver={(e) => dragOverTask(e)}
-      onDrop={(e) => dragDropTask(e, task)}
-      className="task-item"
-    >
+    <div className="task-item">
       {task.title}
       <br />
       <button>Update</button>
