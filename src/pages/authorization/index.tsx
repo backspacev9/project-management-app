@@ -22,7 +22,7 @@ const Authorization = () => {
     };
   }, [dispatch]);
 
-  const onSubmit = async (data: IUserInfo) => {
+  const onSubmit = (data: IUserInfo) => {
     dispatch(fetchSignIn(data));
   };
 

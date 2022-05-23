@@ -22,7 +22,7 @@ const Registration = () => {
     };
   }, [dispatch]);
 
-  const onSubmit = async (data: IUserInfo) => {
+  const onSubmit = (data: IUserInfo) => {
     const args = { login: data.login, password: data.password };
     dispatch(fetchSignUp(data)).then((res) => {
       console.log(res.meta.requestStatus !== 'rejected');
