@@ -2,12 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface IAppStore {
   isModalVisible: boolean;
-  modalPage: any;
+  modalAction: string;
 }
 
 const initialState: IAppStore = {
   isModalVisible: false,
-  modalPage: null,
+  modalAction: '',
 };
 
 export const appReducer = createSlice({
@@ -17,11 +17,11 @@ export const appReducer = createSlice({
     handleVisibleModal(state, action) {
       state.isModalVisible = action.payload;
     },
-    setModalPage(state, action) {
-      state.modalPage = action.payload;
+    setModalAction(state, action) {
+      state.modalAction = action.payload;
     },
   },
 });
 
-export const { handleVisibleModal, setModalPage } = appReducer.actions;
+export const { handleVisibleModal, setModalAction } = appReducer.actions;
 export default appReducer.reducer;

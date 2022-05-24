@@ -1,9 +1,9 @@
 import React from 'react';
-import { useAppDispatch } from '../../redux/hooks';
 import { handleVisibleModal } from '../../redux/app-reducer';
+import { useAppDispatch } from '../../redux/hooks';
 import './index.css';
 
-export const Modal = ({ component }: { component: JSX.Element }) => {
+export const Modal = ({ children }: { children: JSX.Element }) => {
   const dispatch = useAppDispatch();
 
   const hideModal = () => {
@@ -11,10 +11,10 @@ export const Modal = ({ component }: { component: JSX.Element }) => {
   };
 
   return (
-    <div className="modal" data-testid="modal">
+    <div className="modal">
       <section className="modal-main">
         <button className="modal-close" onClick={hideModal}></button>
-        <div className="modal-content">{component}</div>
+        <div className="modal-content">{children}</div>
       </section>
     </div>
   );
