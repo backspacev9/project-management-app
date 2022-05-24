@@ -36,7 +36,7 @@ const Board = () => {
         idBoard: currentBoard.id,
       })
     );
-    await dispatch(getColumns({ token, id: currentBoard.id }));
+    setBoard();
   };
 
   return (
