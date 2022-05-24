@@ -1,19 +1,12 @@
 import React from 'react';
-import { handleVisibleModal, setModalAction } from '../../../redux/app-reducer';
-import { useAppDispatch } from '../../../redux/hooks';
-import { modalActionEnum } from '../../../utils/enums';
+import { NavLink } from 'react-router-dom';
 
 const EditProfileButton = () => {
-  const dispatch = useAppDispatch();
-
-  const showUserProfile = () => {
-    dispatch(setModalAction(modalActionEnum.editProfile));
-    dispatch(handleVisibleModal(true));
-  };
-
   return (
     <>
-      <button onClick={showUserProfile}>Edit profile</button>
+      <NavLink to="/edit-profile">
+        <button>Edit profile</button>
+      </NavLink>
     </>
   );
 };

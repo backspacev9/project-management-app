@@ -6,14 +6,21 @@ import { RootState } from './redux/store';
 import Cookies from 'js-cookie';
 import {
   CreateBoard,
-  EditProfile,
   FormCreateTask,
   FormDeleteTask,
   FormUpdateTask,
   Modal,
 } from './components/Modal';
 import { modalActionEnum } from './utils/enums';
-import { WelcomePage, MainPage, Authorization, Registration, ErrorPage, Board } from './pages';
+import {
+  WelcomePage,
+  MainPage,
+  Authorization,
+  Registration,
+  ErrorPage,
+  Board,
+  EditProfile,
+} from './pages';
 
 const App = () => {
   const { isAuth } = useAppSelector((state: RootState) => state.auth);
@@ -50,6 +57,7 @@ const App = () => {
             path="/signup"
             element={isAuth ? <Navigate replace to="/main" /> : <Registration />}
           />
+          <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="main/b/:id" element={<Board />} />
           <Route path="/404" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
@@ -62,8 +70,6 @@ const App = () => {
               <FormUpdateTask />
             ) : modalAction === modalActionEnum.createTask ? (
               <FormCreateTask />
-            ) : modalAction === modalActionEnum.editProfile ? (
-              <EditProfile />
             ) : modalAction === modalActionEnum.createBoard ? (
               <CreateBoard />
             ) : (

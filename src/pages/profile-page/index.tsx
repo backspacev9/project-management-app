@@ -1,7 +1,7 @@
 import React from 'react';
 
 const EditProfile = () => {
-  return <section>вывавыа</section>;
+  return <section>Edit Profile</section>;
 };
 
 export default EditProfile;
