@@ -2,9 +2,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { RootState } from '../../../../redux/store';
-import { createOneTask, handleVisibleModal } from '../../../../redux/tasks-reducer';
+import { createOneTask } from '../../../../redux/tasks-reducer';
 import '../../../../components/Modal/index.css';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
+import { getBoardByID } from '../../../../redux/boards-reducer';
+import { handleVisibleModal } from '../../../../redux/app-reducer';
 
 interface ICreateTask {
   title: string;
@@ -21,18 +24,27 @@ export const FormCreateTask = () => {
     reset,
   } = useForm<ICreateTask>({ mode: 'onSubmit' });
   const { t } = useTranslation();
+  // const params = useParams();
+  // const { id } = params;
 
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
-  const boardId = currentBoard.id;
   const { currentColumnId } = useAppSelector((state: RootState) => state.columns);
 
   const onSubmit = async (data: ICreateTask) => {
     const { title, description } = data;
     await dispatch(
-      createOneTask({ token, boardId, columnId: currentColumnId, title, description, userId })
+      createOneTask({
+        token,
+        boardId: currentBoard.id,
+        columnId: currentColumnId,
+        title,
+        description,
+        userId,
+      })
     );
-    reset();
     dispatch(handleVisibleModal(false));
+    await dispatch(getBoardByID({ token, id: currentBoard.id }));
+    reset();
   };
 
   // const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
