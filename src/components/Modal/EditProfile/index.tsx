@@ -1,7 +1,7 @@
 import React from 'react';
 
-const EditProfileModal = () => {
+const EditProfile = () => {
   return <section>вывавыа</section>;
 };
 
-export default EditProfileModal;
+export default EditProfile;

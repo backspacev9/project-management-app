@@ -9,7 +9,7 @@ type IForm = {
   description: string;
 };
 
-const BoardCreation = () => {
+const CreateBoard = () => {
   const dispatch = useAppDispatch();
   const { token } = useAppSelector((state: RootState) => state.auth);
   const { register, handleSubmit, reset } = useForm<IForm>();
@@ -45,4 +45,4 @@ const BoardCreation = () => {
   );
 };
 
-export default BoardCreation;
+export default CreateBoard;

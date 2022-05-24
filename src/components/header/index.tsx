@@ -1,34 +1,16 @@
-import Cookies from 'js-cookie';
-import React, { useState } from 'react';
-import { setAuth } from '../../redux/auth-reducer';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { RootState } from '../../redux/store';
-import { Modal } from '../Modal';
-import BoardCreateButton from './CreateBoard/CreateBoardButton';
+import React from 'react';
+import BoardCreateButton from './CreateBoardButton';
 import { LocaleSelect } from './LocalesSelect';
-import EditProfileButton from './UserProfile/EditProfileButton';
+import SignOutButton from './SignOut';
+import EditProfileButton from './EditProfileButton';
 
 const Header = () => {
-  const dispatch = useAppDispatch();
-  const { isModalVisible } = useAppSelector((state: RootState) => state.app);
-  const [modalPage, setModalPage] = useState({} as JSX.Element);
-
-  const handleSignOut = () => {
-    Cookies.remove('token');
-    dispatch(setAuth(false));
-  };
-
-  const formSubmit = (modalPage: JSX.Element) => {
-    setModalPage(modalPage);
-  };
-
   return (
     <>
-      <EditProfileButton onFormSubmit={formSubmit} />
-      <button onClick={handleSignOut}>Sign Out</button>
-      <BoardCreateButton onFormSubmit={formSubmit} />
+      <EditProfileButton />
+      <SignOutButton />
+      <BoardCreateButton />
       <LocaleSelect />
-      {isModalVisible && <Modal component={modalPage}></Modal>}
     </>
   );
 };
