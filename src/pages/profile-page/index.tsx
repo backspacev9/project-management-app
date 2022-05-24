@@ -7,7 +7,6 @@ import { updateCurrentUser } from '../../redux/users-reducer';
 import { IUserInfo } from '../../utils/auth-types';
 import { modalActionEnum } from '../../utils/enums';
 
-//TODO add get user by Id after auth
 const EditProfile = () => {
   const dispatch = useAppDispatch();
   const { token } = useAppSelector((state: RootState) => state.auth);
