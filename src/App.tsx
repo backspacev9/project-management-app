@@ -6,6 +6,7 @@ import { RootState } from './redux/store';
 import Cookies from 'js-cookie';
 import {
   CreateBoard,
+  DeleteUser,
   FormCreateTask,
   FormDeleteTask,
   FormUpdateTask,
@@ -57,7 +58,10 @@ const App = () => {
             path="/signup"
             element={isAuth ? <Navigate replace to="/main" /> : <Registration />}
           />
-          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route
+            path="/edit-profile"
+            element={!isAuth ? <Navigate replace to="/main" /> : <EditProfile />}
+          />
           <Route path="main/b/:id" element={<Board />} />
           <Route path="/404" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
@@ -72,6 +76,8 @@ const App = () => {
               <FormCreateTask />
             ) : modalAction === modalActionEnum.createBoard ? (
               <CreateBoard />
+            ) : modalAction === modalActionEnum.deleteUser ? (
+              <DeleteUser />
             ) : (
               <div>error</div>
             )}

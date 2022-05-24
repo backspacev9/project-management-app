@@ -1,4 +1,5 @@
 export enum HttpErrors {
+  Success = 204,
   Forbidden = 403,
   NotFound = 404,
   Conflict = 409,
@@ -8,6 +9,6 @@ export enum modalActionEnum {
   updateTask = 'updateTask',
   deleteTask = 'deleteTask',
   createTask = 'createTask',
-  editProfile = 'editProfile',
+  deleteUser = 'deleteUser',
   createBoard = 'createBoard',
 }
