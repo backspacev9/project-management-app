@@ -9,12 +9,22 @@ import { getAllUsers, setToken } from './redux/auth-reducer';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { RootState } from './redux/store';
 import Cookies from 'js-cookie';
-import TasksPage from './pages/task';
 import Board from './pages/board-page/Board';
+import { Modal } from './components/Modal';
+import { FormDeleteTask } from './pages/board-page/Task/components/form-delete';
+import { FormUpdateTask } from './pages/board-page/Task/components/form-update';
+import { FormCreateTask } from './pages/board-page/Task/components/form-create';
+
+export enum modalActionEnum {
+  updateTask = 'updateTask',
+  deleteTask = 'deleteTask',
+  createTask = 'createTask',
+}
 
 const App = () => {
   const { isAuth } = useAppSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
+  const { isModalVisible, modalAction } = useAppSelector((state: RootState) => state.app);
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -46,11 +56,23 @@ const App = () => {
             path="/signup"
             element={isAuth ? <Navigate replace to="/main" /> : <Registration />}
           />
-          <Route path="/task" element={<TasksPage />} />
           <Route path="main/b/:id" element={<Board />} />
           <Route path="/404" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
+        {isModalVisible && (
+          <Modal>
+            {modalAction === modalActionEnum.deleteTask ? (
+              <FormDeleteTask />
+            ) : modalAction === modalActionEnum.updateTask ? (
+              <FormUpdateTask />
+            ) : modalAction === modalActionEnum.createTask ? (
+              <FormCreateTask />
+            ) : (
+              <div>error</div>
+            )}
+          </Modal>
+        )}
       </Router>
     </div>
   );
