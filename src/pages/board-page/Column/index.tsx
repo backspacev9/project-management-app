@@ -2,13 +2,6 @@ import BtnAddTask from '../../../components/board/btn-addTask';
 import { IColumnWithTasks } from '../../../utils/columns-type';
 import Task from '../Task';
 import './index.scss';
-export interface IColumnDragEvents {
-  dragStartColumn: (ev: React.DragEvent<HTMLDivElement>, column: IColumnWithTasks) => void;
-  // dragLeaveColumn: (ev: React.DragEvent<HTMLDivElement>) => void;
-  // dragEndColumn: (ev: React.DragEvent<HTMLDivElement>) => void;
-  dragOverColumn: (ev: React.DragEvent<HTMLDivElement>) => void;
-  dragDropColumn: (ev: React.DragEvent<HTMLDivElement>, column: IColumnWithTasks) => void;
-}
 
 interface ColumnProps {
   column: IColumnWithTasks;
@@ -26,7 +19,7 @@ const Column = (props: ColumnProps) => {
         </div>
         <div className="task-container">
           {tasks && Object.keys(tasks).length !== 0
-            ? tasks.map((el) => <Task task={el} key={el.id} />)
+            ? tasks.map((el) => <Task task={el} columnId={id} key={el.id} />)
             : ''}
         </div>
         <div className="footer-column">
