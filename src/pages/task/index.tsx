@@ -21,7 +21,7 @@ const TasksPage = () => {
   return (
     <>
       <button onClick={showModal}>{t('create_btn')}</button>
-      {modalVisible && <Modal component={createForm}></Modal>}
+      {/* {modalVisible && <Modal component={createForm}></Modal>} */}
     </>
   );
 };

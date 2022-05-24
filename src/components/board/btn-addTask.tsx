@@ -20,7 +20,6 @@ const BtnAddTask = ({ columnId }: btnProps) => {
     dispatch(setCurrentColumnId(columnId));
   };
 
-  const createForm = FormCreateTask();
   return (
     <>
       <div className="addTask">
@@ -28,7 +27,11 @@ const BtnAddTask = ({ columnId }: btnProps) => {
           {t('create_btn')}
         </button>
       </div>
-      {modalVisible && <Modal component={createForm}></Modal>}
+      {modalVisible && (
+        <Modal>
+          <FormCreateTask />
+        </Modal>
+      )}
     </>
   );
 };
