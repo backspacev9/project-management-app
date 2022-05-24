@@ -11,6 +11,7 @@ import {
   FormDeleteTask,
   FormUpdateTask,
   Modal,
+  UpdateUser,
 } from './components/Modal';
 import { modalActionEnum } from './utils/enums';
 import {
@@ -78,6 +79,8 @@ const App = () => {
               <CreateBoard />
             ) : modalAction === modalActionEnum.deleteUser ? (
               <DeleteUser />
+            ) : modalAction === modalActionEnum.updateUser ? (
+              <UpdateUser />
             ) : (
               <div>error</div>
             )}

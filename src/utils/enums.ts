@@ -10,5 +10,6 @@ export enum modalActionEnum {
   deleteTask = 'deleteTask',
   createTask = 'createTask',
   deleteUser = 'deleteUser',
+  updateUser = 'updateUser',
   createBoard = 'createBoard',
 }

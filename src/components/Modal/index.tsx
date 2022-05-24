@@ -4,5 +4,14 @@ import { FormCreateTask } from './FormCreateTask';
 import { FormDeleteTask } from './FormDeleteTask';
 import { FormUpdateTask } from './FormUpdateTask';
 import { DeleteUser } from './DeleteUser';
+import { UpdateUser } from './UpdateUser';
 
-export { Modal, CreateBoard, FormCreateTask, FormDeleteTask, FormUpdateTask, DeleteUser };
+export {
+  Modal,
+  CreateBoard,
+  FormCreateTask,
+  FormDeleteTask,
+  FormUpdateTask,
+  DeleteUser,
+  UpdateUser,
+};

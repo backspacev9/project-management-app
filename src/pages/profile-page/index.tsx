@@ -31,7 +31,14 @@ const EditProfile = () => {
 
   const onSubmit = (data: IUserInfo) => {
     const { name, login, password } = data;
-    dispatch(updateCurrentUser({ token, id, name, login, password }));
+    dispatch(updateCurrentUser({ token, id, name, login, password }))
+      .unwrap()
+      .then((result) => {
+        if (result) {
+          dispatch(setModalAction(modalActionEnum.updateUser));
+          dispatch(handleVisibleModal(true));
+        }
+      });
   };
 
   return (
