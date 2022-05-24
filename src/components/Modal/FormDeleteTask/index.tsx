@@ -1,12 +1,11 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import { RootState } from '../../../../redux/store';
-import { deleteOneTask } from '../../../../redux/tasks-reducer';
-import '../../../../components/Modal/index.css';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { getBoardByID } from '../../../../redux/boards-reducer';
-import { handleVisibleModal } from '../../../../redux/app-reducer';
+import { handleVisibleModal } from '../../../redux/app-reducer';
+import { getBoardByID } from '../../../redux/boards-reducer';
+import { useAppSelector, useAppDispatch } from '../../../redux/hooks';
+import { RootState } from '../../../redux/store';
+import { deleteOneTask } from '../../../redux/tasks-reducer';
 
 export const FormDeleteTask = () => {
   const { token } = useAppSelector((state: RootState) => state.auth);

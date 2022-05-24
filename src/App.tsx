@@ -4,13 +4,16 @@ import { getAllUsers, setToken } from './redux/auth-reducer';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { RootState } from './redux/store';
 import Cookies from 'js-cookie';
-import Board from './pages/board-page/Board';
-import { CreateBoard, EditProfile, Modal } from './components/Modal';
-import { FormDeleteTask } from './pages/board-page/Task/components/form-delete';
-import { FormUpdateTask } from './pages/board-page/Task/components/form-update';
-import { FormCreateTask } from './pages/board-page/Task/components/form-create';
+import {
+  CreateBoard,
+  EditProfile,
+  FormCreateTask,
+  FormDeleteTask,
+  FormUpdateTask,
+  Modal,
+} from './components/Modal';
 import { modalActionEnum } from './utils/enums';
-import { WelcomePage, MainPage, Authorization, Registration, ErrorPage } from './pages';
+import { WelcomePage, MainPage, Authorization, Registration, ErrorPage, Board } from './pages';
 
 const App = () => {
   const { isAuth } = useAppSelector((state: RootState) => state.auth);

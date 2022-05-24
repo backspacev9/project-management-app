@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { FormCreateTask } from '../../pages/board-page/Task/components/form-create';
 import { handleVisibleModal, setModalAction } from '../../redux/app-reducer';
 import { setCurrentColumnId } from '../../redux/columns-reducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
