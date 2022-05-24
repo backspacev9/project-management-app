@@ -1,25 +1,16 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
-import Authorization from './pages/authorization';
-import ErrorPage from './pages/error-page';
-import MainPage from './pages/main-page';
-import Registration from './pages/registration';
-import WelcomePage from './pages/welcome-page';
 import { getAllUsers, setToken } from './redux/auth-reducer';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { RootState } from './redux/store';
 import Cookies from 'js-cookie';
 import Board from './pages/board-page/Board';
-import { Modal } from './components/Modal';
+import { CreateBoard, EditProfile, Modal } from './components/Modal';
 import { FormDeleteTask } from './pages/board-page/Task/components/form-delete';
 import { FormUpdateTask } from './pages/board-page/Task/components/form-update';
 import { FormCreateTask } from './pages/board-page/Task/components/form-create';
-
-export enum modalActionEnum {
-  updateTask = 'updateTask',
-  deleteTask = 'deleteTask',
-  createTask = 'createTask',
-}
+import { modalActionEnum } from './utils/enums';
+import { WelcomePage, MainPage, Authorization, Registration, ErrorPage } from './pages';
 
 const App = () => {
   const { isAuth } = useAppSelector((state: RootState) => state.auth);
@@ -68,6 +59,10 @@ const App = () => {
               <FormUpdateTask />
             ) : modalAction === modalActionEnum.createTask ? (
               <FormCreateTask />
+            ) : modalAction === modalActionEnum.editProfile ? (
+              <EditProfile />
+            ) : modalAction === modalActionEnum.createBoard ? (
+              <CreateBoard />
             ) : (
               <div>error</div>
             )}
