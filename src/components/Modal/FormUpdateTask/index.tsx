@@ -34,7 +34,6 @@ export const FormUpdateTask = () => {
 
   const onSubmit = async (data: IUpdateTask) => {
     const { title, description } = data;
-    console.log(currentTask);
     await dispatch(
       updateOneTask({
         token,
@@ -64,7 +63,7 @@ export const FormUpdateTask = () => {
     const target = event.target;
     const inpName = target.name;
     if (inpName === 'file') {
-      // setState({ ...state, file: event.target?.files?.[0] });
+      // const files = event.target?.files?.[0];
     } else if (inpName === 'title') {
       dispatch(changeCurrentTaskTitle(target.value));
     } else if (inpName === 'description') {
