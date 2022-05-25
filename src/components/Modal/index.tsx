@@ -8,6 +8,8 @@ import { UpdateUser } from './UpdateUser';
 import { modalActionEnum } from '../../utils/enums';
 import { useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
+import { NoPermissionMessage } from './NoPermissionMessage';
+import { ViewTask } from './ViewTask';
 
 export const Modal = () => {
   const { modalAction } = useAppSelector((state: RootState) => state.app);
@@ -26,8 +28,12 @@ export const Modal = () => {
         <DeleteUser />
       ) : modalAction === modalActionEnum.updateUser ? (
         <UpdateUser />
+      ) : modalAction === modalActionEnum.noPermission ? (
+        <NoPermissionMessage />
+      ) : modalAction === modalActionEnum.viewTask ? (
+        <ViewTask />
       ) : (
-        <div>error</div>
+        <div></div>
       )}
     </ModalContainer>
   );
