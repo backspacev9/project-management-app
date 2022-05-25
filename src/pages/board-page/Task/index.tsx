@@ -4,6 +4,7 @@ import { useAppDispatch } from '../../../redux/hooks';
 import { setCurrentTask } from '../../../redux/tasks-reducer';
 import { modalActionEnum } from '../../../utils/enums';
 import { ITaskWithFiles } from '../../../utils/task-types';
+import './index.scss';
 
 interface TaskProps {
   task: ITaskWithFiles;
@@ -22,14 +23,10 @@ const Task = (props: TaskProps) => {
   };
 
   return (
-    <>
-      <div className="task-item">
-        {task.title}
-        <br />
-        <button onClick={() => handleClick(modalActionEnum.updateTask)}>Update</button>
-        <button onClick={() => handleClick(modalActionEnum.deleteTask)}>delete</button>
-      </div>
-    </>
+    <div className="task-item">
+      <div onClick={() => handleClick(modalActionEnum.viewTask)}>{task.title}</div>
+      <button onClick={() => handleClick(modalActionEnum.deleteTask)}>delete</button>
+    </div>
   );
 };
 
