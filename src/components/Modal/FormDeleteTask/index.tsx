@@ -1,13 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { handleVisibleModal } from '../../../redux/app-reducer';
+import { handleVisibleModal, setModalAction } from '../../../redux/app-reducer';
 import { getBoardByID } from '../../../redux/boards-reducer';
 import { useAppSelector, useAppDispatch } from '../../../redux/hooks';
 import { RootState } from '../../../redux/store';
 import { deleteOneTask } from '../../../redux/tasks-reducer';
+import { modalActionEnum } from '../../../utils/enums';
 
 export const FormDeleteTask = () => {
-  const { token } = useAppSelector((state: RootState) => state.auth);
+  const { token, userId } = useAppSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
@@ -19,16 +20,21 @@ export const FormDeleteTask = () => {
     dispatch(handleVisibleModal(false));
   };
   const handleDeleteYes = async () => {
-    await dispatch(
-      deleteOneTask({
-        token,
-        boardId: currentBoard.id,
-        columnId: currentColumnId,
-        taskId: currentTask.id,
-      })
-    );
-    dispatch(handleVisibleModal(false));
-    await dispatch(getBoardByID({ token, id: currentBoard.id }));
+    if (userId === currentTask.userId) {
+      await dispatch(
+        deleteOneTask({
+          token,
+          boardId: currentBoard.id,
+          columnId: currentColumnId,
+          taskId: currentTask.id,
+        })
+      );
+      dispatch(handleVisibleModal(false));
+      await dispatch(getBoardByID({ token, id: currentBoard.id }));
+    } else {
+      dispatch(handleVisibleModal(true));
+      dispatch(setModalAction(modalActionEnum.noPermission));
+    }
   };
 
   return (
