@@ -1,8 +1,8 @@
-import { modalActionEnum } from '../../../App';
 import { handleVisibleModal, setModalAction } from '../../../redux/app-reducer';
 import { setCurrentColumnId } from '../../../redux/columns-reducer';
 import { useAppDispatch } from '../../../redux/hooks';
 import { setCurrentTask } from '../../../redux/tasks-reducer';
+import { modalActionEnum } from '../../../utils/enums';
 import { ITaskWithFiles } from '../../../utils/task-types';
 
 interface TaskProps {

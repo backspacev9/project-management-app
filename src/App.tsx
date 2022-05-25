@@ -1,25 +1,28 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
-import Authorization from './pages/authorization';
-import ErrorPage from './pages/error-page';
-import MainPage from './pages/main-page';
-import Registration from './pages/registration';
-import WelcomePage from './pages/welcome-page';
 import { getAllUsers, setToken } from './redux/auth-reducer';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { RootState } from './redux/store';
 import Cookies from 'js-cookie';
-import Board from './pages/board-page/Board';
-import { Modal } from './components/Modal';
-import { FormDeleteTask } from './components/Modal/components/form-delete';
-import { FormUpdateTask } from './components/Modal/components/form-update';
-import { FormCreateTask } from './components/Modal/components/form-create';
-
-export enum modalActionEnum {
-  updateTask = 'updateTask',
-  deleteTask = 'deleteTask',
-  createTask = 'createTask',
-}
+import {
+  CreateBoard,
+  DeleteUser,
+  FormCreateTask,
+  FormDeleteTask,
+  FormUpdateTask,
+  Modal,
+  UpdateUser,
+} from './components/Modal';
+import { modalActionEnum } from './utils/enums';
+import {
+  WelcomePage,
+  MainPage,
+  Authorization,
+  Registration,
+  ErrorPage,
+  Board,
+  EditProfile,
+} from './pages';
 
 const App = () => {
   const { isAuth } = useAppSelector((state: RootState) => state.auth);
@@ -56,6 +59,10 @@ const App = () => {
             path="/signup"
             element={isAuth ? <Navigate replace to="/main" /> : <Registration />}
           />
+          <Route
+            path="/edit-profile"
+            element={!isAuth ? <Navigate replace to="/main" /> : <EditProfile />}
+          />
           <Route path="main/b/:id" element={<Board />} />
           <Route path="/404" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
@@ -68,6 +75,12 @@ const App = () => {
               <FormUpdateTask />
             ) : modalAction === modalActionEnum.createTask ? (
               <FormCreateTask />
+            ) : modalAction === modalActionEnum.createBoard ? (
+              <CreateBoard />
+            ) : modalAction === modalActionEnum.deleteUser ? (
+              <DeleteUser />
+            ) : modalAction === modalActionEnum.updateUser ? (
+              <UpdateUser />
             ) : (
               <div>error</div>
             )}

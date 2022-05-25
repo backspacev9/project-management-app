@@ -36,7 +36,7 @@
   height: 35px;
   margin: 0.5rem;
   border: none;
-  background-image: url('./close-button.svg');
+  background-image: url('../../../../public/img/close-button.svg');
   background-repeat: no-repeat;
   cursor: pointer;
 }

@@ -1,18 +1,15 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { useTranslation } from 'react-i18next';
+import { handleVisibleModal } from '../../../redux/app-reducer';
+import { getBoardByID } from '../../../redux/boards-reducer';
+import { useAppSelector, useAppDispatch } from '../../../redux/hooks';
 import { RootState } from '../../../redux/store';
 import { deleteOneTask } from '../../../redux/tasks-reducer';
-import '../index.css';
-import { useTranslation } from 'react-i18next';
-import { getBoardByID } from '../../../redux/boards-reducer';
-import { handleVisibleModal } from '../../../redux/app-reducer';
 
 export const FormDeleteTask = () => {
   const { token } = useAppSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  // const params = useParams();
-  // const { id } = params;
 
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
   const { currentColumnId } = useAppSelector((state: RootState) => state.columns);

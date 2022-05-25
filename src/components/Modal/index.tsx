@@ -1,22 +1,17 @@
-import React from 'react';
-import { handleVisibleModal } from '../../redux/app-reducer';
-import { useAppDispatch } from '../../redux/hooks';
+import { Modal } from './ModalMain';
+import CreateBoard from './CreateBoard';
+import { FormCreateTask } from './FormCreateTask';
+import { FormDeleteTask } from './FormDeleteTask';
+import { FormUpdateTask } from './FormUpdateTask';
+import { DeleteUser } from './DeleteUser';
+import { UpdateUser } from './UpdateUser';
 
-import './index.css';
-
-export const Modal = ({ children }: { children: JSX.Element }) => {
-  const dispatch = useAppDispatch();
-
-  const hideModal = () => {
-    dispatch(handleVisibleModal(false));
-  };
-
-  return (
-    <div className="modal">
-      <section className="modal-main">
-        <button className="modal-close" onClick={hideModal}></button>
-        <div className="modal-content">{children}</div>
-      </section>
-    </div>
-  );
+export {
+  Modal,
+  CreateBoard,
+  FormCreateTask,
+  FormDeleteTask,
+  FormUpdateTask,
+  DeleteUser,
+  UpdateUser,
 };

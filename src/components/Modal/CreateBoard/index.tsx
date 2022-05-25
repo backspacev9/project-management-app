@@ -1,15 +1,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { createOneBoard, getBoards } from '../../redux/boards-reducer';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { RootState } from '../../redux/store';
+import { createOneBoard, getBoards } from '../../../redux/boards-reducer';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { RootState } from '../../../redux/store';
 
 type IForm = {
   title: string;
   description: string;
 };
 
-const BoardCreation = () => {
+const CreateBoard = () => {
   const dispatch = useAppDispatch();
   const { token } = useAppSelector((state: RootState) => state.auth);
   const { register, handleSubmit, reset } = useForm<IForm>();
@@ -45,4 +45,4 @@ const BoardCreation = () => {
   );
 };
 
-export default BoardCreation;
+export default CreateBoard;
