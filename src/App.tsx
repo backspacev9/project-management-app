@@ -11,9 +11,9 @@ import { RootState } from './redux/store';
 import Cookies from 'js-cookie';
 import Board from './pages/board-page/Board';
 import { Modal } from './components/Modal';
-import { FormDeleteTask } from './pages/board-page/Task/components/form-delete';
-import { FormUpdateTask } from './pages/board-page/Task/components/form-update';
-import { FormCreateTask } from './pages/board-page/Task/components/form-create';
+import { FormDeleteTask } from './components/Modal/components/form-delete';
+import { FormUpdateTask } from './components/Modal/components/form-update';
+import { FormCreateTask } from './components/Modal/components/form-create';
 
 export enum modalActionEnum {
   updateTask = 'updateTask',
