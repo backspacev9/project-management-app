@@ -4,17 +4,17 @@ import { ITask } from '../utils/task-types';
 
 interface ITasksStore {
   tasks: ITask[];
-  currentTaskId: string;
+  currentTask: ITask;
 }
 
-interface IFile {
+export interface IFile {
   name: string;
   size: number;
 }
 
 const initialState: ITasksStore = {
   tasks: [] as ITask[],
-  currentTaskId: '',
+  currentTask: {} as ITask,
 };
 
 export const getAllTasks = createAsyncThunk(
@@ -121,8 +121,14 @@ export const tasksReducer = createSlice({
   name: 'tasksReducer',
   initialState,
   reducers: {
-    setCurrentTaskId(state, action) {
-      state.currentTaskId = action.payload;
+    setCurrentTask(state, action) {
+      state.currentTask = action.payload;
+    },
+    changeCurrentTaskTitle(state, action) {
+      state.currentTask.title = action.payload;
+    },
+    changeCurrentTaskDescr(state, action) {
+      state.currentTask.description = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -156,5 +162,6 @@ export const tasksReducer = createSlice({
     });
   },
 });
-export const { setCurrentTaskId } = tasksReducer.actions;
+export const { setCurrentTask, changeCurrentTaskTitle, changeCurrentTaskDescr } =
+  tasksReducer.actions;
 export default tasksReducer.reducer;

@@ -2,7 +2,7 @@ import { modalActionEnum } from '../../../App';
 import { handleVisibleModal, setModalAction } from '../../../redux/app-reducer';
 import { setCurrentColumnId } from '../../../redux/columns-reducer';
 import { useAppDispatch } from '../../../redux/hooks';
-import { setCurrentTaskId } from '../../../redux/tasks-reducer';
+import { setCurrentTask } from '../../../redux/tasks-reducer';
 import { ITaskWithFiles } from '../../../utils/task-types';
 
 interface TaskProps {
@@ -17,7 +17,7 @@ const Task = (props: TaskProps) => {
   const handleClick = (modalAction: string) => {
     dispatch(handleVisibleModal(true));
     dispatch(setCurrentColumnId(columnId));
-    dispatch(setCurrentTaskId(task.id));
+    dispatch(setCurrentTask(task));
     dispatch(setModalAction(modalAction));
   };
 
