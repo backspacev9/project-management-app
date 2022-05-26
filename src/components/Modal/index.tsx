@@ -11,6 +11,7 @@ import { RootState } from '../../redux/store';
 import { NoPermissionMessage } from './NoPermissionMessage';
 import { ViewTask } from './ViewTask';
 import { CreateColumn } from './CreateColumn';
+import { DeleteColumn } from './DeleteColumn';
 
 export const Modal = () => {
   const { modalAction } = useAppSelector((state: RootState) => state.app);
@@ -35,6 +36,8 @@ export const Modal = () => {
         <ViewTask />
       ) : modalAction === modalActionEnum.createColumn ? (
         <CreateColumn />
+      ) : modalAction === modalActionEnum.deleteColumn ? (
+        <DeleteColumn />
       ) : (
         <div></div>
       )}

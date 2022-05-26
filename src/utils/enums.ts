@@ -15,4 +15,5 @@ export enum modalActionEnum {
   noPermission = 'noPermission',
   viewTask = 'viewTask',
   createColumn = 'createColumn',
+  deleteColumn = 'deleteColumn',
 }
