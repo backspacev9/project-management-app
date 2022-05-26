@@ -10,6 +10,7 @@ import { useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import { NoPermissionMessage } from './NoPermissionMessage';
 import { ViewTask } from './ViewTask';
+import { CreateColumn } from './CreateColumn';
 
 export const Modal = () => {
   const { modalAction } = useAppSelector((state: RootState) => state.app);
@@ -32,6 +33,8 @@ export const Modal = () => {
         <NoPermissionMessage />
       ) : modalAction === modalActionEnum.viewTask ? (
         <ViewTask />
+      ) : modalAction === modalActionEnum.createColumn ? (
+        <CreateColumn />
       ) : (
         <div></div>
       )}

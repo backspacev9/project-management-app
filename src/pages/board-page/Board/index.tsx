@@ -1,14 +1,12 @@
-import './index.scss';
-
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import Column from '../Column';
 import { RootState } from '../../../redux/store';
 import { useEffect } from 'react';
-import { createOneColumn, getColumns } from '../../../redux/columns-reducer';
 import BoardHeader from '../components/header';
 import { useParams } from 'react-router-dom';
 import { getBoardByID } from '../../../redux/boards-reducer';
 import BtnAddColumn from '../../../components/board/btn-addColumn';
+import './index.scss';
 
 const Board = () => {
   const { token } = useAppSelector((state: RootState) => state.auth);
@@ -28,17 +26,6 @@ const Board = () => {
     setBoard();
   }, [token]);
 
-  const addColumn = async (columnName: string) => {
-    await dispatch(
-      createOneColumn({
-        token: token,
-        title: columnName,
-        idBoard: currentBoard.id,
-      })
-    );
-    setBoard();
-  };
-
   return (
     <div className="Board">
       <BoardHeader title={currentBoard.title} />
@@ -46,7 +33,7 @@ const Board = () => {
         {columns && Object.keys(columns).length !== 0
           ? columns.map((el) => <Column column={el} key={el.id} />)
           : ''}
-        <BtnAddColumn btnOnclick={addColumn} />
+        <BtnAddColumn />
       </div>
     </div>
   );
