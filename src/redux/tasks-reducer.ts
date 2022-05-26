@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { addFile, getFile } from '../api/file';
 import { createTask, deleteTask, getTask, getTasks, updateTask } from '../api/tasks';
 import { ITask } from '../utils/task-types';
 
@@ -8,8 +9,8 @@ interface ITasksStore {
 }
 
 export interface IFile {
-  name: string;
-  size: number;
+  filename: string;
+  fileSize: number;
 }
 
 const initialState: ITasksStore = {
@@ -19,68 +20,71 @@ const initialState: ITasksStore = {
 
 export const getAllTasks = createAsyncThunk(
   'reducer/getAllTasks',
-  async (args: { token: string; boardId: string; columnId: string }) => {
+  async (args: { token: string; boardId: string; columnId: string }, { rejectWithValue }) => {
     const { token, boardId, columnId } = args;
     try {
       const res = await getTasks(token, boardId, columnId);
       return res;
-    } catch (error: any) {
-      const code: number = error.response.status;
-      console.log(error.response.message);
-      // return rejectWithValue(code);
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
     }
   }
 );
 
 export const getOneTask = createAsyncThunk(
   'reducer/getOneTask',
-  async (args: { token: string; boardId: string; columnId: string; taskId: string }) => {
+  async (
+    args: { token: string; boardId: string; columnId: string; taskId: string },
+    { rejectWithValue }
+  ) => {
     const { token, boardId, columnId, taskId } = args;
     try {
       const res = await getTask(token, boardId, columnId, taskId);
       return res;
-    } catch (error: any) {
-      const code: number = error.response.status;
-      console.log(error.response.message);
-      // return rejectWithValue(code);
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
     }
   }
 );
 
 export const createOneTask = createAsyncThunk(
   'reducer/createOneTask',
-  async (args: {
-    token: string;
-    boardId: string;
-    columnId: string;
-    title: string;
-    description: string;
-    userId: string;
-  }) => {
+  async (
+    args: {
+      token: string;
+      boardId: string;
+      columnId: string;
+      title: string;
+      description: string;
+      userId: string;
+    },
+    { rejectWithValue }
+  ) => {
     const { token, boardId, columnId, title, description, userId } = args;
     try {
       const res = await createTask(token, boardId, columnId, title, description, userId);
       return res;
-    } catch (error: any) {
-      const code: number = error.response.status;
-      console.log(error.response.message);
-      // return rejectWithValue(code);
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
     }
   }
 );
 
 export const updateOneTask = createAsyncThunk(
   'reducer/updateOneTask',
-  async (args: {
-    token: string;
-    boardId: string;
-    columnId: string;
-    taskId: string;
-    title: string;
-    order: number;
-    description: string;
-    userId: string;
-  }) => {
+  async (
+    args: {
+      token: string;
+      boardId: string;
+      columnId: string;
+      taskId: string;
+      title: string;
+      order: number;
+      description: string;
+      userId: string;
+    },
+    { rejectWithValue }
+  ) => {
     const { token, boardId, columnId, taskId, title, order, description, userId } = args;
     try {
       const res = await updateTask(
@@ -94,25 +98,52 @@ export const updateOneTask = createAsyncThunk(
         userId
       );
       return res;
-    } catch (error: any) {
-      const code: number = error.response.status;
-      console.log(error.response.message);
-      // return rejectWithValue(code);
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
     }
   }
 );
 
 export const deleteOneTask = createAsyncThunk(
   'reducer/deleteOneTask',
-  async (args: { token: string; boardId: string; columnId: string; taskId: string }) => {
+  async (
+    args: { token: string; boardId: string; columnId: string; taskId: string },
+    { rejectWithValue }
+  ) => {
     const { token, boardId, columnId, taskId } = args;
     try {
       const res = await deleteTask(token, boardId, columnId, taskId);
       return res;
-    } catch (error: any) {
-      const code: number = error.response.status;
-      console.log(error.response.message);
-      // return rejectWithValue(code);
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const uploadFile = createAsyncThunk(
+  'reducer/uploadFile',
+  async (args: { token: string; taskId: string; file: File }, { rejectWithValue }) => {
+    const { token, taskId, file } = args;
+    try {
+      const res = await addFile(token, taskId, file);
+      console.log(res);
+      return res;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const downloadFile = createAsyncThunk(
+  'reducer/downloadFile',
+  async (args: { token: string; taskId: string; fileName: string }, { rejectWithValue }) => {
+    const { token, taskId, fileName } = args;
+    try {
+      const res = await getFile(token, taskId, fileName);
+      console.log(res);
+      return res;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
     }
   }
 );
@@ -139,27 +170,26 @@ export const tasksReducer = createSlice({
     });
     builder.addCase(getOneTask.fulfilled, (state, action) => {
       if (action.payload) {
-        console.log('get task ' + action.payload);
       }
     });
     builder.addCase(createOneTask.fulfilled, (state, action) => {
       if (action.payload) {
-        console.log('task is created ' + action.payload);
         state.tasks.push(action.payload);
       }
     });
     builder.addCase(updateOneTask.fulfilled, (state, action) => {
       if (action.payload) {
-        console.log('task is updated ' + action.payload);
         const taskIndex = state.tasks.findIndex((task) => task.id === action.payload?.id);
         if (taskIndex > 0) {
           state.tasks.splice(taskIndex, 1, action.payload);
         }
       }
     });
-    builder.addCase(deleteOneTask.fulfilled, () => {
-      console.log('task is deleted');
+    builder.addCase(deleteOneTask.fulfilled, () => {});
+    builder.addCase(uploadFile.fulfilled, () => {
+      console.log('file is uploaded');
     });
+    builder.addCase(downloadFile.fulfilled, () => {});
   },
 });
 export const { setCurrentTask, changeCurrentTaskTitle, changeCurrentTaskDescr } =

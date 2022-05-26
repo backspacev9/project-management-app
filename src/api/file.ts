@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from './consts';
 
-export const uploadFile = async (token: string, taskId: string, file: File): Promise<void> => {
+export const addFile = async (token: string, taskId: string, file: File): Promise<void> => {
   return axios
     .post(
       `${BASE_URL}file`,
@@ -9,7 +9,7 @@ export const uploadFile = async (token: string, taskId: string, file: File): Pro
         taskId,
         file,
       },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } }
     )
     .then((res): Promise<void> => res.data);
 };
