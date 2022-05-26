@@ -2,40 +2,35 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { RootState } from '../../../redux/store';
-import { createOneTask } from '../../../redux/tasks-reducer';
 import { useTranslation } from 'react-i18next';
 import { getBoardByID } from '../../../redux/boards-reducer';
 import { handleVisibleModal } from '../../../redux/app-reducer';
+import { createOneColumn } from '../../../redux/columns-reducer';
 
-interface ICreateTask {
+interface ICreateColumn {
   title: string;
-  description: string;
 }
 
-export const FormCreateTask = () => {
-  const { token, userId } = useAppSelector((state: RootState) => state.auth);
+export const CreateColumn = () => {
+  const { token } = useAppSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<ICreateTask>({ mode: 'onSubmit' });
+  } = useForm<ICreateColumn>({ mode: 'onSubmit' });
   const { t } = useTranslation();
 
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
-  const { currentColumnId } = useAppSelector((state: RootState) => state.columns);
 
-  const onSubmit = async (data: ICreateTask) => {
-    const { title, description } = data;
+  const onSubmit = async (data: ICreateColumn) => {
+    const { title } = data;
     await dispatch(
-      createOneTask({
-        token,
-        boardId: currentBoard.id,
-        columnId: currentColumnId,
+      createOneColumn({
+        token: token,
         title,
-        description,
-        userId,
+        idBoard: currentBoard.id,
       })
     );
     dispatch(handleVisibleModal(false));
@@ -58,15 +53,6 @@ export const FormCreateTask = () => {
       <div className="message-container">
         {errors.title && <div className="error-message">{errors.title.message}</div>}
       </div>
-      <textarea
-        id="description"
-        {...register('description', {
-          required: 'Description cannot be empty',
-          minLength: { value: 2, message: "Description can't be less than 2 characters" },
-        })}
-        name="description"
-        placeholder={t('task_form.descr')}
-      ></textarea>
       <button type="submit">{t('task_form.save')}</button>
     </form>
   );

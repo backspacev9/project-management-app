@@ -22,12 +22,12 @@
   justify-content: space-evenly;
   align-items: center;
   padding: 1rem;
-}
-.modal-content form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  gap: 1rem;
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 1rem;
+  }
 }
 .modal-close {
   position: absolute;

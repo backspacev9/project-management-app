@@ -1,0 +1,21 @@
+.task-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  .task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #ff8a8a;
+    cursor: pointer;
+    div {
+      width: 85%;
+      padding: 0.5rem;
+    }
+    button {
+      padding: 0.5rem 0.2rem;
+    }
+  }
+}

@@ -12,4 +12,7 @@ export enum modalActionEnum {
   deleteUser = 'deleteUser',
   updateUser = 'updateUser',
   createBoard = 'createBoard',
+  noPermission = 'noPermission',
+  viewTask = 'viewTask',
+  createColumn = 'createColumn',
 }

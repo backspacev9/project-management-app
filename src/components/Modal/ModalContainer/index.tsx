@@ -1,9 +1,9 @@
 import React from 'react';
 import { handleVisibleModal } from '../../../redux/app-reducer';
 import { useAppDispatch } from '../../../redux/hooks';
-import './index.css';
+import './index.scss';
 
-export const Modal = ({ children }: { children: JSX.Element }) => {
+export const ModalContainer = ({ children }: { children: JSX.Element }) => {
   const dispatch = useAppDispatch();
 
   const hideModal = () => {
