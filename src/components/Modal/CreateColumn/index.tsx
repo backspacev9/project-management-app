@@ -7,9 +7,8 @@ import { getBoardByID } from '../../../redux/boards-reducer';
 import { handleVisibleModal } from '../../../redux/app-reducer';
 import { createOneColumn } from '../../../redux/columns-reducer';
 
-interface ICreateTask {
+interface ICreateColumn {
   title: string;
-  description: string;
 }
 
 export const CreateColumn = () => {
@@ -20,12 +19,12 @@ export const CreateColumn = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<ICreateTask>({ mode: 'onSubmit' });
+  } = useForm<ICreateColumn>({ mode: 'onSubmit' });
   const { t } = useTranslation();
 
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
 
-  const onSubmit = async (data: ICreateTask) => {
+  const onSubmit = async (data: ICreateColumn) => {
     const { title } = data;
     await dispatch(
       createOneColumn({
