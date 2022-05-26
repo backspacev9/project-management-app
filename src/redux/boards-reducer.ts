@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { stat } from 'fs';
 import { createBoard, getAllBoards, getBoardById } from '../api/boards';
 import { IBoard, IBoardWithColumns } from '../utils/board-types';
+import { IColumnWithTasks } from '../utils/columns-type';
 
 interface IBoardsStore {
   boards: IBoard[];
@@ -40,7 +40,11 @@ export const createOneBoard = createAsyncThunk(
 export const boardsReducer = createSlice({
   name: 'boardsReducer',
   initialState,
-  reducers: {},
+  reducers: {
+    setColumns(state, action: PayloadAction<Array<IColumnWithTasks>>) {
+      state.currentBoard.columns = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     //TODO add peinding and failed cases
     builder.addCase(getBoards.fulfilled, (state, action) => {
@@ -56,6 +60,7 @@ export const boardsReducer = createSlice({
         );
       }
     });
+
     //------POST-------//
     builder.addCase(createOneBoard.fulfilled, (state, action) => {
       if (action.payload) {
@@ -65,4 +70,5 @@ export const boardsReducer = createSlice({
   },
 });
 
+export const { setColumns } = boardsReducer.actions;
 export default boardsReducer.reducer;
