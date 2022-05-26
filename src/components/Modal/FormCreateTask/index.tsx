@@ -22,8 +22,6 @@ export const FormCreateTask = () => {
     reset,
   } = useForm<ICreateTask>({ mode: 'onSubmit' });
   const { t } = useTranslation();
-  // const params = useParams();
-  // const { id } = params;
 
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
   const { currentColumnId } = useAppSelector((state: RootState) => state.columns);
@@ -44,12 +42,6 @@ export const FormCreateTask = () => {
     await dispatch(getBoardByID({ token, id: currentBoard.id }));
     reset();
   };
-
-  // const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const target = event.target?.files?.[0];
-  //   const file = { name: target?.name, size: target?.size };
-  //   dispatch(onChangeFile(file));
-  // };
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -75,16 +67,6 @@ export const FormCreateTask = () => {
         name="description"
         placeholder={t('task_form.descr')}
       ></textarea>
-      {/* <label>
-        {t('task_form.file')}
-        <input
-          type="file"
-          id="file"
-          {...register('file')}
-          name="file"
-          onChange={(event) => handleChangeFile(event)}
-        />
-      </label> */}
       <button type="submit">{t('task_form.save')}</button>
     </form>
   );

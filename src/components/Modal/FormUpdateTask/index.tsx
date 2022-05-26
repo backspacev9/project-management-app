@@ -45,31 +45,11 @@ export const FormUpdateTask = () => {
         userId,
       })
     );
-    // if (file) {
-    //   // const fileItem = file?.[0];
-    //   // console.log(token, currentTask.id, fileItem);
-    //   const formData = new FormData();
-    //   formData.append('file', file?.[0]);
-    //   console.log(formData);
-    //   await dispatch(
-    //     uploadFile({
-    //       token,
-    //       taskId: currentTask.id,
-    //       file: formData,
-    //     })
-    //   );
-    // }
 
     reset();
     dispatch(handleVisibleModal(false));
     await dispatch(getBoardByID({ token, id: currentBoard.id }));
   };
-
-  // const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const target = event.target?.files?.[0];
-  //   const file = { name: target?.name, size: target?.size };
-  //   dispatch(onChangeFile(file));
-  // };
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
@@ -111,10 +91,6 @@ export const FormUpdateTask = () => {
         placeholder={t('task_form.descr')}
         onChange={(e) => handleChange(e)}
       ></textarea>
-      {/* <label>
-        {t('task_form.file')}
-        <input type="file" id="file" {...register('file', {})} name="file" />
-      </label> */}
       <button type="submit">{t('task_form.save')}</button>
     </form>
   );
