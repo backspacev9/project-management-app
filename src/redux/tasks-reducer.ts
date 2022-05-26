@@ -4,7 +4,7 @@ import { ITask } from '../utils/task-types';
 
 interface ITasksStore {
   tasks: ITask[];
-  modalVisible: boolean;
+  currentTaskId: string;
 }
 
 interface IFile {
@@ -14,7 +14,7 @@ interface IFile {
 
 const initialState: ITasksStore = {
   tasks: [] as ITask[],
-  modalVisible: false,
+  currentTaskId: '',
 };
 
 export const getAllTasks = createAsyncThunk(
@@ -121,8 +121,8 @@ export const tasksReducer = createSlice({
   name: 'tasksReducer',
   initialState,
   reducers: {
-    handleVisibleModal(state, action) {
-      state.modalVisible = action.payload;
+    setCurrentTaskId(state, action) {
+      state.currentTaskId = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -156,5 +156,5 @@ export const tasksReducer = createSlice({
     });
   },
 });
-export const { handleVisibleModal } = tasksReducer.actions;
+export const { setCurrentTaskId } = tasksReducer.actions;
 export default tasksReducer.reducer;
