@@ -5,11 +5,13 @@ import { IBoard, IBoardWithColumns } from '../utils/board-types';
 interface IBoardsStore {
   boards: IBoard[];
   currentBoard: IBoardWithColumns;
+  isFetch: boolean;
 }
 
 const initialState: IBoardsStore = {
   boards: [] as IBoard[],
   currentBoard: {} as IBoardWithColumns,
+  isFetch: false,
 };
 
 export const getBoards = createAsyncThunk(
@@ -89,10 +91,17 @@ export const boardsReducer = createSlice({
   },
   extraReducers: (builder) => {
     //TODO add peinding and failed cases
+    builder.addCase(getBoards.pending, (state) => {
+      state.isFetch = true;
+    });
     builder.addCase(getBoards.fulfilled, (state, action) => {
+      state.isFetch = false;
       if (action.payload) {
         state.boards = action.payload;
       }
+    });
+    builder.addCase(getBoardByID.pending, (state) => {
+      state.isFetch = true;
     });
     builder.addCase(getBoardByID.fulfilled, (state, action) => {
       if (action.payload) {

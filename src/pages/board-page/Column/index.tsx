@@ -80,15 +80,13 @@ const Column = (props: ColumnProps) => {
                 {errors.colTitle && <div className="error-message">{errors.colTitle.message}</div>}
               </div>
               <br />
-              <button type="submit">submit</button>
-              <button type="button" onClick={handleCancel}>
-                cancel
-              </button>
+              <button className="col-submit" type="submit"></button>
+              <button className="col-cancel" type="button" onClick={handleCancel}></button>
             </form>
           ) : (
             <>
               <div onClick={handleUpdateMode}>{title}</div>
-              <button onClick={handleDelete}>delete</button>
+              <button className="column-delete" onClick={handleDelete}></button>
             </>
           )}
         </div>

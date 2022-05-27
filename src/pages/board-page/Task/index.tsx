@@ -25,7 +25,7 @@ const Task = (props: TaskProps) => {
   return (
     <div className="task-item">
       <div onClick={() => handleClick(modalActionEnum.viewTask)}>{task.title}</div>
-      <button onClick={() => handleClick(modalActionEnum.deleteTask)}>delete</button>
+      <button onClick={() => handleClick(modalActionEnum.deleteTask)}></button>
     </div>
   );
 };
