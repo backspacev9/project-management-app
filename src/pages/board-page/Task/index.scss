@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 0.5rem;
   width: 100%;
+  overflow-y: auto;
   .task-item {
     display: flex;
     justify-content: space-between;
