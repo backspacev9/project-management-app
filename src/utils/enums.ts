@@ -16,4 +16,6 @@ export enum modalActionEnum {
   viewTask = 'viewTask',
   createColumn = 'createColumn',
   deleteColumn = 'deleteColumn',
+  updateBoard = 'updateBoard',
+  deleteBoard = 'deleteBoard',
 }

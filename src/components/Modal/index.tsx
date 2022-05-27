@@ -12,6 +12,8 @@ import { NoPermissionMessage } from './NoPermissionMessage';
 import { ViewTask } from './ViewTask';
 import { CreateColumn } from './CreateColumn';
 import { DeleteColumn } from './DeleteColumn';
+import { DeleteBoard } from './DeleteBoard';
+import { UpdateBoard } from './UpdateBoard';
 
 export const Modal = () => {
   const { modalAction } = useAppSelector((state: RootState) => state.app);
@@ -38,6 +40,10 @@ export const Modal = () => {
         <CreateColumn />
       ) : modalAction === modalActionEnum.deleteColumn ? (
         <DeleteColumn />
+      ) : modalAction === modalActionEnum.deleteBoard ? (
+        <DeleteBoard />
+      ) : modalAction === modalActionEnum.updateBoard ? (
+        <UpdateBoard />
       ) : (
         <div></div>
       )}
