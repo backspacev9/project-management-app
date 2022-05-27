@@ -27,9 +27,7 @@ export const ViewTask = () => {
           </li>
         ))}
       </ul>
-      <button onClick={() => handleClick(modalActionEnum.updateTask)}>
-        {t('task_form.update_btn')}
-      </button>
+      <button onClick={() => handleClick(modalActionEnum.updateTask)}>{t('update_btn')}</button>
     </section>
   );
 };
