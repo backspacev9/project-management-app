@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { handleVisibleModal } from '../../../redux/app-reducer';
 import { createOneBoard, getBoards } from '../../../redux/boards-reducer';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { RootState } from '../../../redux/store';
@@ -23,6 +24,7 @@ const CreateBoard = () => {
     await dispatch(createOneBoard(args));
     await dispatch(getBoards(token));
     reset();
+    dispatch(handleVisibleModal(false));
   };
 
   return (

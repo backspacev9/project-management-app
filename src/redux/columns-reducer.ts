@@ -102,21 +102,9 @@ export const columnsReducer = createSlice({
         state.columns = action.payload.sort((a, b) => (a.order > b.order ? 1 : -1));
       }
     });
-    builder.addCase(createOneColumn.fulfilled, (state, action) => {
-      if (action.payload) {
-        console.log('column-created');
-      }
-    });
-    builder.addCase(updateOneColumn.fulfilled, (state, action) => {
-      if (action.payload) {
-        console.log('column-updated--', action.payload);
-      }
-    });
-    builder.addCase(deleteOneColumn.fulfilled, (state, action) => {
-      if (action.payload) {
-        console.log('column-deleted--', action.payload);
-      }
-    });
+    builder.addCase(createOneColumn.fulfilled, () => {});
+    builder.addCase(updateOneColumn.fulfilled, () => {});
+    builder.addCase(deleteOneColumn.fulfilled, () => {});
   },
 });
 

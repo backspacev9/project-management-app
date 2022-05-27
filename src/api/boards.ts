@@ -28,8 +28,31 @@ export const createBoard = async (
   return axios
     .post(
       `${BASE_URL}boards`,
-      { title: title, description: description },
+      { title, description },
       { headers: { Authorization: `Bearer ${token}` } }
     )
     .then((res): Promise<IBoard> => res.data);
+};
+
+export const updateBoard = async (
+  token: string,
+  idBoard: string,
+  title: string,
+  description: string
+): Promise<void | IBoard> => {
+  return axios
+    .put(
+      `${BASE_URL}boards/${idBoard}`,
+      { title, description },
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
+    .then((res): Promise<IBoard> => res.data);
+};
+
+export const deleteBoard = async (token: string, idBoard: string): Promise<void | IBoard> => {
+  return axios
+    .delete(`${BASE_URL}boards/${idBoard}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res): Promise<void> => res.data);
 };

@@ -126,7 +126,6 @@ export const uploadFile = createAsyncThunk(
     const { token, taskId, file } = args;
     try {
       const res = await addFile(token, taskId, file);
-      console.log(res);
       return res;
     } catch (error) {
       if (error instanceof Error) return rejectWithValue(error.message);
@@ -140,7 +139,6 @@ export const downloadFile = createAsyncThunk(
     const { token, taskId, fileName } = args;
     try {
       const res = await getFile(token, taskId, fileName);
-      console.log(res);
       return res;
     } catch (error) {
       if (error instanceof Error) return rejectWithValue(error.message);
@@ -186,9 +184,7 @@ export const tasksReducer = createSlice({
       }
     });
     builder.addCase(deleteOneTask.fulfilled, () => {});
-    builder.addCase(uploadFile.fulfilled, () => {
-      console.log('file is uploaded');
-    });
+    builder.addCase(uploadFile.fulfilled, () => {});
     builder.addCase(downloadFile.fulfilled, () => {});
   },
 });
