@@ -1,54 +1,89 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createColumn, getAllColumns, getColumnById, updateColumn } from '../api/columns';
-import { IColumn, IColumnWithTasks } from '../utils/columns-type';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  createColumn,
+  deleteColumn,
+  getAllColumns,
+  getColumnById,
+  updateColumn,
+} from '../api/columns';
+import { IColumn } from '../utils/columns-type';
 
 interface IColumnsStore {
   columns: IColumn[];
   currentColumnId: string;
-  //columnsWithTasks: IColumnWithTasks[];
 }
 const initialState: IColumnsStore = {
   columns: [] as Array<IColumn>,
   currentColumnId: '',
-  //columnsWithTasks: [] as Array<IColumnWithTasks>,
 };
 
 export const getColumns = createAsyncThunk(
   'reducer/getColumns',
-  async (args: { token: string; id: string }) => {
+  async (args: { token: string; id: string }, { rejectWithValue }) => {
     const { token, id } = args;
-    const res = await getAllColumns(token, id);
-    return res;
+    try {
+      const res = await getAllColumns(token, id);
+      return res;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
   }
 );
 export const getOneColumn = createAsyncThunk(
   'reducer/getColumnById',
-  async (args: { token: string; idBoard: string; idColumn: string }) => {
+  async (args: { token: string; idBoard: string; idColumn: string }, { rejectWithValue }) => {
     const { token, idBoard, idColumn } = args;
-    const res = await getColumnById(token, idBoard, idColumn);
-    return res;
+    try {
+      const res = await getColumnById(token, idBoard, idColumn);
+      return res;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
   }
 );
 export const createOneColumn = createAsyncThunk(
   'reducer/createOneColumn',
-  async (args: { token: string; title: string; idBoard: string }) => {
+  async (args: { token: string; title: string; idBoard: string }, { rejectWithValue }) => {
     const { token, title, idBoard } = args;
-    const res = await createColumn(token, title, idBoard);
-    return res;
+    try {
+      const res = await createColumn(token, title, idBoard);
+      return res;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
   }
 );
 export const updateOneColumn = createAsyncThunk(
   'reducer/updateColumn',
-  async (args: {
-    token: string;
-    title: string;
-    idBoard: string;
-    idColumn: string;
-    order: number;
-  }) => {
+  async (
+    args: {
+      token: string;
+      title: string;
+      idBoard: string;
+      idColumn: string;
+      order: number;
+    },
+    { rejectWithValue }
+  ) => {
     const { token, title, idBoard, idColumn, order } = args;
-    const res = await updateColumn(token, title, idBoard, idColumn, order);
-    return res;
+    try {
+      const res = await updateColumn(token, title, idBoard, idColumn, order);
+      return res;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  }
+);
+export const deleteOneColumn = createAsyncThunk(
+  'reducer/deleteOneColumn',
+  async (args: { token: string; idBoard: string; idColumn: string }, { rejectWithValue }) => {
+    const { token, idBoard, idColumn } = args;
+    try {
+      const res = await deleteColumn(token, idBoard, idColumn);
+      return res;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
   }
 );
 
@@ -75,6 +110,11 @@ export const columnsReducer = createSlice({
     builder.addCase(updateOneColumn.fulfilled, (state, action) => {
       if (action.payload) {
         console.log('column-updated--', action.payload);
+      }
+    });
+    builder.addCase(deleteOneColumn.fulfilled, (state, action) => {
+      if (action.payload) {
+        console.log('column-deleted--', action.payload);
       }
     });
   },

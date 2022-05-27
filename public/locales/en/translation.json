@@ -3,15 +3,16 @@
     "title": "Title",
     "descr": "Description",
     "file": "Upload file",
-    "save": "Save task",
+    "save": "Save",
     "create_btn": "Create task",
     "delete_msg": "Are you sure you want to delete this task?"
   },
   "column": {
-    "create_btn": "Create column"
+    "create_btn": "Create column",
+    "delete_msg": "Are you sure you want to delete this column?"
   },
   "delete_btn": "Delete",
-  "cansel_btn": "Cansel",
+  "cansel_btn": "Cancel",
   "update_btn": "Update",
   "no_permission_msg": "You don't have access to this action!",
   "page_404": "Page Not Found"

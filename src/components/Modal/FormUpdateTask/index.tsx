@@ -91,6 +91,9 @@ export const FormUpdateTask = () => {
         placeholder={t('task_form.descr')}
         onChange={(e) => handleChange(e)}
       ></textarea>
+      <div className="message-container">
+        {errors.description && <div className="error-message">{errors.description.message}</div>}
+      </div>
       <button type="submit">{t('task_form.save')}</button>
     </form>
   );

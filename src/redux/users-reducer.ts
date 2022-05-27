@@ -18,9 +18,8 @@ export const getAllUsers = createAsyncThunk(
     try {
       const res = await getUsers(token);
       return res;
-    } catch (error: any) {
-      const code: number = error.response.status;
-      return rejectWithValue(code);
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
     }
   }
 );
@@ -32,9 +31,8 @@ export const getCurrentUser = createAsyncThunk(
     try {
       const res = await getUserById(token, id);
       return res;
-    } catch (error: any) {
-      const code: number = error.response.status;
-      return rejectWithValue(code);
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
     }
   }
 );
@@ -46,9 +44,8 @@ export const deleteCurrentUser = createAsyncThunk(
     try {
       const res = await deleteUser(token, id);
       return res;
-    } catch (error: any) {
-      const code: number = error.response.status;
-      return rejectWithValue(code);
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
     }
   }
 );
@@ -63,9 +60,8 @@ export const updateCurrentUser = createAsyncThunk(
     try {
       const res = await updateUser(token, id, name, login, password);
       return res;
-    } catch (error: any) {
-      const code: number = error.response.status;
-      return rejectWithValue(code);
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
     }
   }
 );

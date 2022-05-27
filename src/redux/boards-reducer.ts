@@ -13,27 +13,42 @@ const initialState: IBoardsStore = {
   currentBoard: {} as IBoardWithColumns,
 };
 
-export const getBoards = createAsyncThunk('reducer/getAllBoards', async (token: string) => {
-  const res = await getAllBoards(token);
-  return res;
-});
+export const getBoards = createAsyncThunk(
+  'reducer/getAllBoards',
+  async (token: string, { rejectWithValue }) => {
+    try {
+      const res = await getAllBoards(token);
+      return res;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const getBoardByID = createAsyncThunk(
   'reducer/getBoardByID',
-  async (args: { token: string; id: string }) => {
+  async (args: { token: string; id: string }, { rejectWithValue }) => {
     const { token, id } = args;
-    const res = await getBoardById(token, id);
-    return res;
+    try {
+      const res = await getBoardById(token, id);
+      return res;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
   }
 );
 
 //----------------POST Query-----------------
 export const createOneBoard = createAsyncThunk(
   'reducer/createOneBoard',
-  async (args: { token: string; title: string; description: string }) => {
+  async (args: { token: string; title: string; description: string }, { rejectWithValue }) => {
     const { token, title, description } = args;
-    const res = await createBoard(token, title, description);
-    return res;
+    try {
+      const res = await createBoard(token, title, description);
+      return res;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
   }
 );
 
