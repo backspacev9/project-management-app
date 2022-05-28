@@ -1,4 +1,4 @@
-import { handleVisibleModal, setModalAction } from '../../redux/app-reducer';
+import { setModalAction } from '../../redux/app-reducer';
 import { useAppDispatch } from '../../redux/hooks';
 import { modalActionEnum } from '../../utils/enums';
 
@@ -7,7 +7,6 @@ const BtnAddColumn = () => {
 
   const handleOnClick = () => {
     dispatch(setModalAction(modalActionEnum.createColumn));
-    dispatch(handleVisibleModal(true));
   };
 
   return (

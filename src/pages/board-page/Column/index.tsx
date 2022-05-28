@@ -16,7 +16,7 @@ import { modalActionEnum } from '../../../utils/enums';
 import Task from '../Task';
 import './index.scss';
 import { useTranslation } from 'react-i18next';
-import { handleVisibleModal, setModalAction } from '../../../redux/app-reducer';
+import { setModalAction } from '../../../redux/app-reducer';
 
 interface ColumnProps {
   column: IColumnWithTasks;
@@ -45,7 +45,6 @@ const Column = (props: ColumnProps) => {
   const [updateMode, setUpdateMode] = useState(false);
 
   const handleDelete = () => {
-    dispatch(handleVisibleModal(true));
     dispatch(setCurrentColumnId(id));
     dispatch(setModalAction(modalActionEnum.deleteColumn));
   };

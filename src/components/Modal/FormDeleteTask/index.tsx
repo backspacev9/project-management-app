@@ -32,7 +32,6 @@ export const FormDeleteTask = () => {
       dispatch(handleVisibleModal(false));
       await dispatch(getBoardByID({ token, id: currentBoard.id }));
     } else {
-      dispatch(handleVisibleModal(true));
       dispatch(setModalAction(modalActionEnum.noPermission));
     }
   };

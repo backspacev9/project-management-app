@@ -1,12 +1,16 @@
 import React from 'react';
-import { handleVisibleModal } from '../../../redux/app-reducer';
-import { useAppDispatch } from '../../../redux/hooks';
+import { handleVisibleModal, setErrorMessage } from '../../../redux/app-reducer';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { RootState } from '../../../redux/store';
+import { modalActionEnum } from '../../../utils/enums';
 import './index.scss';
 
 export const ModalContainer = ({ children }: { children: JSX.Element }) => {
+  const { modalAction } = useAppSelector((state: RootState) => state.app);
   const dispatch = useAppDispatch();
 
   const hideModal = () => {
+    if (modalAction === modalActionEnum.error) dispatch(setErrorMessage(''));
     dispatch(handleVisibleModal(false));
   };
 

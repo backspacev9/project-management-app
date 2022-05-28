@@ -1,16 +1,20 @@
-import React from 'react';
+import Cookies from 'js-cookie';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { handleVisibleModal, setModalAction } from '../../redux/app-reducer';
+import { useNavigate } from 'react-router-dom';
+import { setErrorMessage, setModalAction } from '../../redux/app-reducer';
+import { setToken } from '../../redux/auth-reducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
-import { updateCurrentUser } from '../../redux/users-reducer';
+import { getCurrentUser, updateCurrentUser } from '../../redux/users-reducer';
 import { IUserInfo } from '../../utils/auth-types';
 import { modalActionEnum } from '../../utils/enums';
 import { useTranslation } from 'react-i18next';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
-  const { token } = useAppSelector((state: RootState) => state.auth);
+  const navigation = useNavigate();
+  const { token, userId } = useAppSelector((state: RootState) => state.auth);
   const { name, login, id } = useAppSelector((state: RootState) => state.users.currentUser);
   const {
     register,
@@ -26,9 +30,19 @@ const EditProfile = () => {
   });
   const { t } = useTranslation();
 
+  useEffect(() => {
+    if (token) {
+      dispatch(getCurrentUser({ token, id: userId }));
+    } else {
+      const token = Cookies.get('token');
+      if (token) {
+        Promise.all([getCurrentUser({ token, id: userId }), dispatch(setToken(token))]);
+      } else navigation('/');
+    }
+  }, [dispatch, navigation, token, userId]);
+
   const handleDelete = () => {
     dispatch(setModalAction(modalActionEnum.deleteUser));
-    dispatch(handleVisibleModal(true));
   };
 
   const onSubmit = (data: IUserInfo) => {
@@ -38,8 +52,11 @@ const EditProfile = () => {
       .then((result) => {
         if (result) {
           dispatch(setModalAction(modalActionEnum.updateUser));
-          dispatch(handleVisibleModal(true));
         }
+      })
+      .catch((err) => {
+        dispatch(setErrorMessage(err.message));
+        dispatch(setModalAction(modalActionEnum.error));
       });
   };
 
@@ -51,6 +68,7 @@ const EditProfile = () => {
           type="text"
           placeholder={t('name')}
           id="user-name"
+          autoComplete="off"
           {...register('name', {
             required: true,
             value: name,
@@ -62,6 +80,7 @@ const EditProfile = () => {
           type="text"
           placeholder={t('login')}
           id="user-login"
+          autoComplete="off"
           maxLength={22}
           {...register('login', {
             required: true,
@@ -73,6 +92,7 @@ const EditProfile = () => {
           type="password"
           placeholder={t('password')}
           id="user-password"
+          autoComplete="off"
           maxLength={22}
           {...register('password', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
         />

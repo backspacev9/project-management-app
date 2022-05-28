@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
-import { getAllUsers, setToken } from './redux/auth-reducer';
+import { setToken } from './redux/auth-reducer';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { RootState } from './redux/store';
 import Cookies from 'js-cookie';
@@ -14,6 +14,7 @@ import {
   Board,
   EditProfile,
 } from './pages';
+import { getAllUsers } from './redux/users-reducer';
 
 const App = () => {
   const { isAuth } = useAppSelector((state: RootState) => state.auth);
@@ -23,16 +24,7 @@ const App = () => {
   useEffect(() => {
     const token = Cookies.get('token');
     if (token) {
-      dispatch(getAllUsers(token))
-        .unwrap()
-        .then((originalPromiseResult) => {
-          if (originalPromiseResult) {
-            dispatch(setToken(token));
-          }
-        })
-        .catch(() => {
-          Cookies.remove('token');
-        });
+      Promise.all([dispatch(getAllUsers(token)), dispatch(setToken(token))]);
     }
   }, [dispatch]);
 
@@ -41,7 +33,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<WelcomePage />} />
-          <Route path="/main" element={isAuth ? <MainPage /> : <Navigate replace to="/" />} />
+          <Route path="/main" element={<MainPage />} />
           <Route
             path="/signin"
             element={isAuth ? <Navigate replace to="/main" /> : <Authorization />}
@@ -50,11 +42,8 @@ const App = () => {
             path="/signup"
             element={isAuth ? <Navigate replace to="/main" /> : <Registration />}
           />
-          <Route
-            path="/edit-profile"
-            element={isAuth ? <EditProfile /> : <Navigate replace to="/" />}
-          />
-          <Route path="main/b/:id" element={isAuth ? <Board /> : <Navigate replace to="/" />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="main/b/:id" element={<Board />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         {isModalVisible && <Modal />}

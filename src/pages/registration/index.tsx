@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NavLink } from 'react-router-dom';
-import { fetchSignIn, fetchSignUp, setMessage } from '../../redux/auth-reducer';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { RootState } from '../../redux/store';
+import { fetchSignUp } from '../../redux/auth-reducer';
+import { useAppDispatch } from '../../redux/hooks';
 import { IUserInfo } from '../../utils/auth-types';
 import './index.scss';
 import { useTranslation } from 'react-i18next';
@@ -15,20 +14,10 @@ const Registration = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IUserInfo>({ mode: 'onSubmit' });
-  const { errorMessage } = useAppSelector((state: RootState) => state.auth);
   const { t } = useTranslation();
 
-  useEffect(() => {
-    return () => {
-      dispatch(setMessage(''));
-    };
-  }, [dispatch]);
-
   const onSubmit = (data: IUserInfo) => {
-    const args = { login: data.login, password: data.password };
-    dispatch(fetchSignUp(data)).then((res) => {
-      if (res.meta.requestStatus !== 'rejected') dispatch(fetchSignIn(args));
-    });
+    dispatch(fetchSignUp(data));
   };
 
   return (
@@ -40,6 +29,7 @@ const Registration = () => {
             type="text"
             placeholder={t('name')}
             id="user-name"
+            autoComplete="off"
             {...register('name', { required: true, pattern: /^[A-Za-zА-Яа-яЁё]+$/ })}
           />
           <div className="error-message">{errors.name && t('name_error')}</div>
@@ -47,6 +37,7 @@ const Registration = () => {
             type="text"
             placeholder={t('login')}
             id="user-login"
+            autoComplete="off"
             {...register('login', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
           />
           <div className="error-message">{errors.login && t('login_error')}</div>
@@ -54,6 +45,7 @@ const Registration = () => {
             type="password"
             placeholder={t('password')}
             id="user-password"
+            autoComplete="off"
             {...register('password', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
           />
           <div className="error-message">{errors.password && t('password_error')}</div>
@@ -61,7 +53,6 @@ const Registration = () => {
             {t('sign_Up')}
           </button>
         </form>
-        <div>{errorMessage}</div>
         <div>
           <span>{t('registration_msg')}</span>
           <NavLink to="/signin">

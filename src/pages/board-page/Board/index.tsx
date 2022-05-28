@@ -2,8 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import Column from '../Column';
 import { RootState } from '../../../redux/store';
 import { useEffect } from 'react';
-import { createOneColumn, updateOneColumn } from '../../../redux/columns-reducer';
-import BoardHeader from '../components/header';
+import { updateOneColumn } from '../../../redux/columns-reducer';
 import { useParams } from 'react-router-dom';
 import { getBoardByID, setColumns, setTasks } from '../../../redux/boards-reducer';
 import BtnAddColumn from '../../../components/board/btn-addColumn';
@@ -14,9 +13,7 @@ import { ITaskWithFiles } from '../../../utils/task-types';
 import { updateOneTask } from '../../../redux/tasks-reducer';
 import './index.scss';
 import Preloader from '../../../components/preloader';
-import EditProfileButton from '../../../components/header/EditProfileButton';
-import { LocaleSelect } from '../../../components/header/LocalesSelect';
-import SignOutButton from '../../../components/header/SignOut';
+import Header from '../../../components/header';
 
 const Board = () => {
   const { token } = useAppSelector((state: RootState) => state.auth);
@@ -90,7 +87,6 @@ const Board = () => {
         })
       );
       setBoard();
-      console.log(orderTask);
     }
 
     if (type === DropColumnType) {
@@ -118,52 +114,42 @@ const Board = () => {
 
   return (
     <>
-      <header className="header">
-        <EditProfileButton />
-        <SignOutButton />
-        <LocaleSelect />
-      </header>
-      {isFetch ? (
-        <Preloader />
-      ) : (
-        <div className="Board">
-          <BoardHeader title={currentBoard.title} />
-
-          <DragDropContext onDragEnd={(param) => dragEnd(param)}>
-            <Droppable droppableId="board-drop-area" type={DropColumnType} direction="horizontal">
-              {(provided, snapshot) => (
-                <div
-                  className="board-columns-container"
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                >
-                  {columns && Object.keys(columns).length !== 0
-                    ? columns.map((el, index) => (
-                        <Draggable key={index} draggableId={`cdrag-${index}`} index={index}>
-                          {(providedDrag, snapshot) => (
-                            <Droppable droppableId={el.id} type={DropTaskType}>
-                              {(providedDrop, snapshotDrop) => (
-                                <Column
-                                  column={el}
-                                  key={el.id}
-                                  providedDrop={providedDrop}
-                                  providedDrag={providedDrag}
-                                  snapshotDrop={snapshotDrop}
-                                />
-                              )}
-                            </Droppable>
-                          )}
-                        </Draggable>
-                      ))
-                    : ''}
-                  {provided.placeholder}
-                  <BtnAddColumn />
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-        </div>
-      )}
+      <Header />
+      <div className="Board">
+        <DragDropContext onDragEnd={(param) => dragEnd(param)}>
+          <Droppable droppableId="board-drop-area" type={DropColumnType} direction="horizontal">
+            {(provided) => (
+              <div
+                className="board-columns-container"
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {columns && Object.keys(columns).length !== 0
+                  ? columns.map((el, index) => (
+                      <Draggable key={index} draggableId={`cdrag-${index}`} index={index}>
+                        {(providedDrag) => (
+                          <Droppable droppableId={el.id} type={DropTaskType}>
+                            {(providedDrop, snapshotDrop) => (
+                              <Column
+                                column={el}
+                                key={el.id}
+                                providedDrop={providedDrop}
+                                providedDrag={providedDrag}
+                                snapshotDrop={snapshotDrop}
+                              />
+                            )}
+                          </Droppable>
+                        )}
+                      </Draggable>
+                    ))
+                  : ''}
+                {provided.placeholder}
+                <BtnAddColumn />
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </div>
     </>
   );
 };

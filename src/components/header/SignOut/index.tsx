@@ -1,14 +1,15 @@
-import Cookies from 'js-cookie';
 import React from 'react';
-import { setAuth } from '../../../redux/auth-reducer';
+import { useNavigate } from 'react-router-dom';
+import { removeAuth } from '../../../redux/auth-reducer';
 import { useAppDispatch } from '../../../redux/hooks';
 
 const SignOutButton = () => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigate();
 
   const handleSignOut = () => {
-    Cookies.remove('token');
-    dispatch(setAuth(false));
+    dispatch(removeAuth());
+    navigation('/');
   };
 
   return (
