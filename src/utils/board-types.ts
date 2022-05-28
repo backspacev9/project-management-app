@@ -8,5 +8,6 @@ export interface IBoard {
 export interface IBoardWithColumns {
   id: string;
   title: string;
+  description: string;
   columns: Array<IColumnWithTasks>;
 }

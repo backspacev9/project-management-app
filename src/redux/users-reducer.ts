@@ -1,19 +1,70 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getUsers } from '../api/users';
+import { deleteUser, getUserById, getUsers, updateUser } from '../api/users';
 import { IUsers } from '../utils/auth-types';
 
 interface IUsersStore {
   users: IUsers[];
+  currentUser: IUsers;
 }
 
 const initialState: IUsersStore = {
   users: [] as IUsers[],
+  currentUser: {} as IUsers,
 };
 
-export const getAllUsers = createAsyncThunk('reducer/getAllUsers', async (token: string) => {
-  const res = await getUsers(token);
-  return res;
-});
+export const getAllUsers = createAsyncThunk(
+  'reducer/getAllUsers',
+  async (token: string, { rejectWithValue }) => {
+    try {
+      const res = await getUsers(token);
+      return res;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getCurrentUser = createAsyncThunk(
+  'reducer/getCurrentUser',
+  async (args: { token: string; id: string }, { rejectWithValue }) => {
+    const { token, id } = args;
+    try {
+      const res = await getUserById(token, id);
+      return res;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteCurrentUser = createAsyncThunk(
+  'reducer/deleteCurrentUser',
+  async (args: { token: string; id: string }, { rejectWithValue }) => {
+    const { token, id } = args;
+    try {
+      const res = await deleteUser(token, id);
+      return res;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateCurrentUser = createAsyncThunk(
+  'reducer/updateCurrentUser',
+  async (
+    args: { token: string; id: string; name: string; login: string; password: string },
+    { rejectWithValue }
+  ) => {
+    const { token, id, name, login, password } = args;
+    try {
+      const res = await updateUser(token, id, name, login, password);
+      return res;
+    } catch (error) {
+      if (error instanceof Error) return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const usersReducer = createSlice({
   name: 'usersReducer',
@@ -26,7 +77,13 @@ export const usersReducer = createSlice({
         state.users = action.payload;
       }
     });
+    builder.addCase(getCurrentUser.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.currentUser = action.payload;
+      }
+    });
   },
 });
 
+export const {} = usersReducer.actions;
 export default usersReducer.reducer;

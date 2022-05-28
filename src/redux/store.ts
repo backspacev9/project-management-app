@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import appReducer from './app-reducer';
 import authReducer from './auth-reducer';
 import boardsReducer from './boards-reducer';
 import columnsReducer from './columns-reducer';
@@ -12,6 +13,7 @@ export const store = configureStore({
     boards: boardsReducer,
     columns: columnsReducer,
     tasks: tasksReducer,
+    app: appReducer,
   },
 });
 

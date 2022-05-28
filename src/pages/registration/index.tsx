@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { fetchSignIn, fetchSignUp } from '../../redux/auth-reducer';
+import { NavLink } from 'react-router-dom';
+import { fetchSignIn, fetchSignUp, setMessage } from '../../redux/auth-reducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import { IUserInfo } from '../../utils/auth-types';
+import './index.scss';
 
 const Registration = () => {
   const dispatch = useAppDispatch();
@@ -14,10 +16,16 @@ const Registration = () => {
   } = useForm<IUserInfo>({ mode: 'onSubmit' });
   const { errorMessage } = useAppSelector((state: RootState) => state.auth);
 
-  const onSubmit = async (data: IUserInfo) => {
+  useEffect(() => {
+    return () => {
+      dispatch(setMessage(''));
+    };
+  }, [dispatch]);
+
+  const onSubmit = (data: IUserInfo) => {
     const args = { login: data.login, password: data.password };
-    dispatch(fetchSignUp(data)).then(() => {
-      dispatch(fetchSignIn(args));
+    dispatch(fetchSignUp(data)).then((res) => {
+      if (res.meta.requestStatus !== 'rejected') dispatch(fetchSignIn(args));
     });
   };
 
@@ -58,6 +66,12 @@ const Registration = () => {
           </button>
         </form>
         <div>{errorMessage}</div>
+        <div>
+          <span>Already have an account? Go to </span>
+          <NavLink to="/signin">
+            <span className="page-link">authorization page.</span>
+          </NavLink>
+        </div>
       </section>
     </>
   );

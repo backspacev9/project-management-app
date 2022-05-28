@@ -1,103 +1,104 @@
-import { useEffect, useState } from 'react';
-import { getColumnById } from '../../../api/columns';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import BtnAddTask from '../../../components/board/btn-addTask';
+import { handleVisibleModal, setModalAction } from '../../../redux/app-reducer';
+import { getBoardByID } from '../../../redux/boards-reducer';
+import { setCurrentColumnId, updateOneColumn } from '../../../redux/columns-reducer';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { RootState } from '../../../redux/store';
-import { createOneTask } from '../../../redux/tasks-reducer';
-import { IColumn, IColumnWithTasks } from '../../../utils/columns-type';
-import Task, { ITaskDragEvents } from '../Task';
+import { IColumnWithTasks } from '../../../utils/columns-type';
+import { modalActionEnum } from '../../../utils/enums';
+import Task from '../Task';
 import './index.scss';
-export interface IColumnDragEvents {
-  dragStartColumn: (ev: React.DragEvent<HTMLDivElement>, column: IColumnWithTasks) => void;
-  // dragLeaveColumn: (ev: React.DragEvent<HTMLDivElement>) => void;
-  // dragEndColumn: (ev: React.DragEvent<HTMLDivElement>) => void;
-  dragOverColumn: (ev: React.DragEvent<HTMLDivElement>) => void;
-  dragDropColumn: (ev: React.DragEvent<HTMLDivElement>, column: IColumnWithTasks) => void;
-}
 
 interface ColumnProps {
-  column: IColumn;
-  columnDragEvents: IColumnDragEvents;
-  taskDragEvents: ITaskDragEvents;
+  column: IColumnWithTasks;
+}
+
+interface IUpdateColumn {
+  colTitle: string;
 }
 
 const Column = (props: ColumnProps) => {
-  const { column } = props;
-  const dispatch = useAppDispatch();
-  const { token, userId } = useAppSelector((state: RootState) => state.auth);
+  const { id, title, order, tasks } = props.column;
+  const { token } = useAppSelector((state: RootState) => state.auth);
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
-  // const { columns } = useAppSelector((state: RootState) => state.columns);
-  const { dragStartColumn, dragDropColumn, dragOverColumn } = props.columnDragEvents;
-  const { dragStartTask, dragDropTask, dragOverTask, dragLeaveTask, dragEndTask } =
-    props.taskDragEvents!;
+  const dispatch = useAppDispatch();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<IUpdateColumn>({ mode: 'onSubmit' });
+  const [updateMode, setUpdateMode] = useState(false);
 
-  const [fullColumn, setFullColumn] = useState<IColumnWithTasks>(Object);
-  const getColumn = async () => {
-    const res = await getColumnById(token, currentBoard.id, column.id);
-    setFullColumn(res!);
+  const handleDelete = () => {
+    dispatch(handleVisibleModal(true));
+    dispatch(setCurrentColumnId(id));
+    dispatch(setModalAction(modalActionEnum.deleteColumn));
   };
 
-  useEffect(() => {
-    getColumn();
-  }, [column]);
+  const handleCancel = () => {
+    setUpdateMode(false);
+    reset();
+  };
 
-  const addTaskCard = async (text: string) => {
+  const handleUpdateMode = () => {
+    setUpdateMode(true);
+  };
+
+  const onSubmit = async (data: IUpdateColumn) => {
+    const { colTitle } = data;
     await dispatch(
-      createOneTask({
-        token: token,
-        title: text,
-        description: 'ddd',
-        boardId: currentBoard.id,
-        columnId: column.id,
-        userId: userId,
+      updateOneColumn({
+        token,
+        title: colTitle,
+        idBoard: currentBoard.id,
+        idColumn: id,
+        order,
       })
     );
-    getColumn();
+    await dispatch(getBoardByID({ token, id: currentBoard.id }));
+    setUpdateMode(false);
   };
 
   return (
-    <div
-      className="wrapper-column"
-      onDragOver={(e) => e.preventDefault()}
-      onDrop={(e) => dragDropColumn(e, fullColumn!)}
-    >
-      <div
-        className="column-item"
-        draggable={true}
-        onDragStart={(e) => dragStartColumn(e, fullColumn!)}
-        // onDragLeave={(e) => dragLeaveColumn(e)}
-        // onDragEnd={(e) => dragEndColumn(e)}
-        onDragOver={(e) => dragOverColumn(e)}
-        //onDrop={(e) => dragDropColumn(e, fullColumn!)}
-      >
+    <div className="wrapper-column">
+      <div className="column-item">
         <div className="header-column">
-          <span>{column.title}</span>
-          {/* <input type="text" defaultValue={column.title || ''} /> */}
+          {updateMode ? (
+            <form className="form" onSubmit={handleSubmit(onSubmit)}>
+              <input
+                type="text"
+                defaultValue={title}
+                {...register('colTitle', {
+                  required: 'Title cannot be empty',
+                  minLength: { value: 2, message: "Title can't be less than 2 characters" },
+                })}
+              />
+              <div className="message-container">
+                {errors.colTitle && <div className="error-message">{errors.colTitle.message}</div>}
+              </div>
+              <br />
+              <button type="submit">submit</button>
+              <button type="button" onClick={handleCancel}>
+                cancel
+              </button>
+            </form>
+          ) : (
+            <>
+              <div onClick={handleUpdateMode}>{title}</div>
+              <button onClick={handleDelete}>delete</button>
+            </>
+          )}
         </div>
-        <div
-          className="task-container"
-          onDragOver={(e) => e.preventDefault()}
-          onDragStart={(e) => e.preventDefault()}
-          onDrop={(e) => e.preventDefault()}
-        >
-          {fullColumn && Object.keys(fullColumn).length !== 0
-            ? fullColumn.tasks.map((el) => (
-                <Task
-                  taskDragEvents={{
-                    dragStartTask: dragStartTask,
-                    dragLeaveTask: dragLeaveTask,
-                    dragEndTask: dragEndTask,
-                    dragOverTask: dragOverTask,
-                    dragDropTask: dragDropTask,
-                  }}
-                  task={el}
-                  key={el.id}
-                />
-              ))
+        <div className="task-container">
+          {tasks && Object.keys(tasks).length !== 0
+            ? tasks.map((el) => <Task task={el} columnId={id} key={el.id} />)
             : ''}
         </div>
-        <div className="footer-column" draggable={true} onDragStart={(e) => e.preventDefault()}>
-          <BtnAddTask btnOnclick={addTaskCard} />
+        <div className="footer-column">
+          <BtnAddTask columnId={id} />
         </div>
       </div>
     </div>

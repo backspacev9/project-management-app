@@ -72,13 +72,23 @@ export const authReducer = createSlice({
       state.login = decoded.login;
       state.isAuth = true;
     },
+    setMessage: (state, action) => {
+      state.errorMessage = action.payload;
+    },
+    setAuth: (state, action) => {
+      state.isAuth = action.payload;
+    },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchSignUp.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.errorMessage = 'User successfully created.';
+      }
+    });
     builder.addCase(fetchSignUp.rejected, (state, action) => {
-      //TODO figure out why doesn't return error code
       switch (action.payload) {
         case HttpErrors.Conflict:
-          state.errorMessage = 'Sorry, this user already exists.';
+          state.errorMessage = 'Sorry, this user is already exists.';
           break;
       }
     });
@@ -90,7 +100,7 @@ export const authReducer = createSlice({
         state.login = decoded.login;
         state.errorMessage = '';
         state.isAuth = true;
-        Cookies.set('token', action.payload.token, { expires: 1 });
+        Cookies.set('token', action.payload.token, { expires: 7 });
       }
     });
     builder.addCase(fetchSignIn.rejected, (state, action) => {
@@ -103,6 +113,6 @@ export const authReducer = createSlice({
   },
 });
 
-export const { setToken } = authReducer.actions;
+export const { setToken, setMessage, setAuth } = authReducer.actions;
 
 export default authReducer.reducer;
