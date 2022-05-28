@@ -49,6 +49,7 @@ const EditProfile = () => {
           type="text"
           placeholder="Name"
           id="user-name"
+          autoComplete="off"
           {...register('name', {
             required: true,
             value: name,
@@ -62,6 +63,7 @@ const EditProfile = () => {
           type="text"
           placeholder="Login"
           id="user-login"
+          autoComplete="off"
           maxLength={22}
           {...register('login', {
             required: true,
@@ -75,6 +77,7 @@ const EditProfile = () => {
           type="password"
           placeholder="Password"
           id="user-password"
+          autoComplete="off"
           maxLength={22}
           {...register('password', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
         />

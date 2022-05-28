@@ -38,6 +38,7 @@ const Registration = () => {
             type="text"
             placeholder="Name"
             id="user-name"
+            autoComplete="off"
             {...register('name', { required: true, pattern: /^[A-Za-zА-Яа-яЁё]+$/ })}
           />
           <div className="error-message">
@@ -47,6 +48,7 @@ const Registration = () => {
             type="text"
             placeholder="Login"
             id="user-login"
+            autoComplete="off"
             {...register('login', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
           />
           <div className="error-message">
@@ -56,6 +58,7 @@ const Registration = () => {
             type="password"
             placeholder="Password"
             id="user-password"
+            autoComplete="off"
             {...register('password', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
           />
           <div className="error-message">

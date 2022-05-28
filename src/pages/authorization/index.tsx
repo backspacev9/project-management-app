@@ -35,6 +35,7 @@ const Authorization = () => {
             type="text"
             placeholder="Login"
             id="user-login"
+            autoComplete="off"
             maxLength={22}
             {...register('login', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
           />
@@ -45,6 +46,7 @@ const Authorization = () => {
             type="password"
             placeholder="Password"
             id="user-password"
+            autoComplete="off"
             maxLength={22}
             {...register('password', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
           />
