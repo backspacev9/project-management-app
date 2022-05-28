@@ -2,9 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { deleteUser, getUserById, getUsers, updateUser } from '../api/users';
 import { IUsers } from '../utils/auth-types';
-import { HttpErrors, modalActionEnum } from '../utils/enums';
-import { handleVisibleModal, openErrorModal, setModalAction } from './app-reducer';
-import { removeAuth } from './auth-reducer';
+import { handleErrors } from './app-reducer';
 
 interface IUsersStore {
   users: IUsers[];
@@ -39,15 +37,8 @@ export const getCurrentUser = createAsyncThunk(
       return res;
     } catch (error) {
       if (error instanceof AxiosError) {
-        if (error?.response?.data.statusCode === HttpErrors.Unauthorized) {
-          dispatch(removeAuth());
-          dispatch(handleVisibleModal(true));
-          dispatch(setModalAction(modalActionEnum.unauthorized));
-          return rejectWithValue(error?.response?.data);
-        } else {
-          dispatch(openErrorModal(error?.response?.data.message));
-          return rejectWithValue(error?.response?.data);
-        }
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
       }
     }
   }
@@ -62,15 +53,8 @@ export const deleteCurrentUser = createAsyncThunk(
       return res;
     } catch (error) {
       if (error instanceof AxiosError) {
-        if (error?.response?.data.statusCode === HttpErrors.Unauthorized) {
-          dispatch(removeAuth());
-          dispatch(handleVisibleModal(true));
-          dispatch(setModalAction(modalActionEnum.unauthorized));
-          return rejectWithValue(error?.response?.data);
-        } else {
-          dispatch(openErrorModal(error?.response?.data.message));
-          return rejectWithValue(error?.response?.data);
-        }
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
       }
     }
   }
@@ -88,15 +72,8 @@ export const updateCurrentUser = createAsyncThunk(
       return res;
     } catch (error) {
       if (error instanceof AxiosError) {
-        if (error?.response?.data.statusCode === HttpErrors.Unauthorized) {
-          dispatch(removeAuth());
-          dispatch(handleVisibleModal(true));
-          dispatch(setModalAction(modalActionEnum.unauthorized));
-          return rejectWithValue(error?.response?.data);
-        } else {
-          dispatch(openErrorModal(error?.response?.data.message));
-          return rejectWithValue(error?.response?.data);
-        }
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
       }
     }
   }

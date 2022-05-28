@@ -34,7 +34,7 @@ const EditProfile = () => {
     } else {
       const token = Cookies.get('token');
       if (token) {
-        Promise.all([dispatch(setToken(token)), getCurrentUser({ token, id: userId })]);
+        Promise.all([getCurrentUser({ token, id: userId }), dispatch(setToken(token))]);
       } else navigation('/');
     }
   }, [dispatch, navigation, token, userId]);

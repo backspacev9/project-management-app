@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { createBoard, deleteBoard, getAllBoards, getBoardById, updateBoard } from '../api/boards';
 import { IBoard, IBoardWithColumns } from '../utils/board-types';
+import { handleErrors } from './app-reducer';
 
 interface IBoardsStore {
   boards: IBoard[];
@@ -15,39 +16,50 @@ const initialState: IBoardsStore = {
 
 export const getBoards = createAsyncThunk(
   'reducer/getAllBoards',
-  async (token: string, { rejectWithValue }) => {
+  async (token: string, { rejectWithValue, dispatch }) => {
     try {
       const res = await getAllBoards(token);
       return res;
     } catch (error) {
-      if (error instanceof AxiosError) return rejectWithValue(error?.response?.data);
+      if (error instanceof AxiosError) {
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
+      }
     }
   }
 );
 
 export const getBoardByID = createAsyncThunk(
   'reducer/getBoardByID',
-  async (args: { token: string; id: string }, { rejectWithValue }) => {
+  async (args: { token: string; id: string }, { rejectWithValue, dispatch }) => {
     const { token, id } = args;
     try {
       const res = await getBoardById(token, id);
       return res;
     } catch (error) {
-      if (error instanceof AxiosError) return rejectWithValue(error?.response?.data);
+      if (error instanceof AxiosError) {
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
+      }
     }
   }
 );
 
-//----------------POST Query-----------------
 export const createOneBoard = createAsyncThunk(
   'reducer/createOneBoard',
-  async (args: { token: string; title: string; description: string }, { rejectWithValue }) => {
+  async (
+    args: { token: string; title: string; description: string },
+    { rejectWithValue, dispatch }
+  ) => {
     const { token, title, description } = args;
     try {
       const res = await createBoard(token, title, description);
       return res;
     } catch (error) {
-      if (error instanceof AxiosError) return rejectWithValue(error?.response?.data);
+      if (error instanceof AxiosError) {
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
+      }
     }
   }
 );
@@ -56,26 +68,32 @@ export const updateOneBoard = createAsyncThunk(
   'reducer/updateOneBoard',
   async (
     args: { token: string; idBoard: string; title: string; description: string },
-    { rejectWithValue }
+    { rejectWithValue, dispatch }
   ) => {
     const { token, idBoard, title, description } = args;
     try {
       const res = await updateBoard(token, idBoard, title, description);
       return res;
     } catch (error) {
-      if (error instanceof AxiosError) return rejectWithValue(error?.response?.data);
+      if (error instanceof AxiosError) {
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
+      }
     }
   }
 );
 export const deleteOneBoard = createAsyncThunk(
   'reducer/deleteOneBoard',
-  async (args: { token: string; idBoard: string }, { rejectWithValue }) => {
+  async (args: { token: string; idBoard: string }, { rejectWithValue, dispatch }) => {
     const { token, idBoard } = args;
     try {
       const res = await deleteBoard(token, idBoard);
       return res;
     } catch (error) {
-      if (error instanceof AxiosError) return rejectWithValue(error?.response?.data);
+      if (error instanceof AxiosError) {
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
+      }
     }
   }
 );

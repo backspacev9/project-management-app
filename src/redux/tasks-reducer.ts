@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
 import { addFile, getFile } from '../api/file';
 import { createTask, deleteTask, getTask, getTasks, updateTask } from '../api/tasks';
 import { ITask } from '../utils/task-types';
+import { handleErrors } from './app-reducer';
 
 interface ITasksStore {
   tasks: ITask[];
@@ -20,13 +22,19 @@ const initialState: ITasksStore = {
 
 export const getAllTasks = createAsyncThunk(
   'reducer/getAllTasks',
-  async (args: { token: string; boardId: string; columnId: string }, { rejectWithValue }) => {
+  async (
+    args: { token: string; boardId: string; columnId: string },
+    { rejectWithValue, dispatch }
+  ) => {
     const { token, boardId, columnId } = args;
     try {
       const res = await getTasks(token, boardId, columnId);
       return res;
     } catch (error) {
-      if (error instanceof Error) return rejectWithValue(error.message);
+      if (error instanceof AxiosError) {
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
+      }
     }
   }
 );
@@ -35,14 +43,17 @@ export const getOneTask = createAsyncThunk(
   'reducer/getOneTask',
   async (
     args: { token: string; boardId: string; columnId: string; taskId: string },
-    { rejectWithValue }
+    { rejectWithValue, dispatch }
   ) => {
     const { token, boardId, columnId, taskId } = args;
     try {
       const res = await getTask(token, boardId, columnId, taskId);
       return res;
     } catch (error) {
-      if (error instanceof Error) return rejectWithValue(error.message);
+      if (error instanceof AxiosError) {
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
+      }
     }
   }
 );
@@ -58,14 +69,17 @@ export const createOneTask = createAsyncThunk(
       description: string;
       userId: string;
     },
-    { rejectWithValue }
+    { rejectWithValue, dispatch }
   ) => {
     const { token, boardId, columnId, title, description, userId } = args;
     try {
       const res = await createTask(token, boardId, columnId, title, description, userId);
       return res;
     } catch (error) {
-      if (error instanceof Error) return rejectWithValue(error.message);
+      if (error instanceof AxiosError) {
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
+      }
     }
   }
 );
@@ -83,7 +97,7 @@ export const updateOneTask = createAsyncThunk(
       description: string;
       userId: string;
     },
-    { rejectWithValue }
+    { rejectWithValue, dispatch }
   ) => {
     const { token, boardId, columnId, taskId, title, order, description, userId } = args;
     try {
@@ -99,7 +113,10 @@ export const updateOneTask = createAsyncThunk(
       );
       return res;
     } catch (error) {
-      if (error instanceof Error) return rejectWithValue(error.message);
+      if (error instanceof AxiosError) {
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
+      }
     }
   }
 );
@@ -108,40 +125,52 @@ export const deleteOneTask = createAsyncThunk(
   'reducer/deleteOneTask',
   async (
     args: { token: string; boardId: string; columnId: string; taskId: string },
-    { rejectWithValue }
+    { rejectWithValue, dispatch }
   ) => {
     const { token, boardId, columnId, taskId } = args;
     try {
       const res = await deleteTask(token, boardId, columnId, taskId);
       return res;
     } catch (error) {
-      if (error instanceof Error) return rejectWithValue(error.message);
+      if (error instanceof AxiosError) {
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
+      }
     }
   }
 );
 
 export const uploadFile = createAsyncThunk(
   'reducer/uploadFile',
-  async (args: { token: string; taskId: string; file: File }, { rejectWithValue }) => {
+  async (args: { token: string; taskId: string; file: File }, { rejectWithValue, dispatch }) => {
     const { token, taskId, file } = args;
     try {
       const res = await addFile(token, taskId, file);
       return res;
     } catch (error) {
-      if (error instanceof Error) return rejectWithValue(error.message);
+      if (error instanceof AxiosError) {
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
+      }
     }
   }
 );
 
 export const downloadFile = createAsyncThunk(
   'reducer/downloadFile',
-  async (args: { token: string; taskId: string; fileName: string }, { rejectWithValue }) => {
+  async (
+    args: { token: string; taskId: string; fileName: string },
+    { rejectWithValue, dispatch }
+  ) => {
     const { token, taskId, fileName } = args;
     try {
       const res = await getFile(token, taskId, fileName);
       return res;
     } catch (error) {
-      if (error instanceof Error) return rejectWithValue(error.message);
+      if (error instanceof AxiosError) {
+        dispatch(handleErrors(error));
+        return rejectWithValue(error?.response?.data);
+      }
     }
   }
 );
