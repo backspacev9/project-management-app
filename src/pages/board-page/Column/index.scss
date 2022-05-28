@@ -15,22 +15,12 @@
   display: flex;
   flex-direction: column;
   width: 200px;
-  height: fit-content;
+  height: 90%;
   border: 1px solid #ff7272;
   pointer-events: all;
 
   .header-column {
     display: flex;
     border-bottom: 1px solid #d2d2d2;
-  }
-  .task-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    .task-item {
-      width: 100%;
-      border: 1px solid #ff8a8a;
-      margin-top: 10px;
-    }
   }
 }

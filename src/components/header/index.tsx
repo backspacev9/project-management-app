@@ -1,11 +1,15 @@
 import React from 'react';
-import BoardCreation from './board-creation';
+import BoardCreateButton from './CreateBoardButton';
 import { LocaleSelect } from './LocalesSelect';
+import SignOutButton from './SignOut';
+import EditProfileButton from './EditProfileButton';
 
 const Header = () => {
   return (
     <>
-      <BoardCreation />
+      <EditProfileButton />
+      <SignOutButton />
+      <BoardCreateButton />
       <LocaleSelect />
     </>
   );

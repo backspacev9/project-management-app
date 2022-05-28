@@ -10,15 +10,7 @@ export const getAllColumns = async (
     .get(`${BASE_URL}boards/${idBoard}/columns`, {
       headers: { Authorization: `Bearer ${token}` },
     })
-    .then((res): Promise<Array<IColumn>> => res.data)
-    .catch((error) => {
-      if (error.response.status === 404) {
-        //TODO add error codes to enum
-        console.log(error.response.message); //TODO open message on error page
-      } else {
-        throw new Error(error);
-      }
-    });
+    .then((res): Promise<Array<IColumn>> => res.data);
 };
 export const getColumnById = async (
   token: string,
@@ -29,15 +21,7 @@ export const getColumnById = async (
     .get(`${BASE_URL}boards/${idBoard}/columns/${idColumn}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
-    .then((res): Promise<IColumnWithTasks> => res.data)
-    .catch((error) => {
-      if (error.response.status === 404) {
-        //TODO add error codes to enum
-        console.log(error.response.message); //TODO open message on error page
-      } else {
-        throw new Error(error);
-      }
-    });
+    .then((res): Promise<IColumnWithTasks> => res.data);
 };
 
 export const createColumn = async (
@@ -51,15 +35,7 @@ export const createColumn = async (
       { title: title },
       { headers: { Authorization: `Bearer ${token}` } }
     )
-    .then((res): Promise<IColumn> => res.data)
-    .catch((error) => {
-      if (error.response.status === 404) {
-        //TODO add error codes to enum
-        console.log(error.response.message); //TODO open message on error page
-      } else {
-        throw new Error(error);
-      }
-    });
+    .then((res): Promise<IColumn> => res.data);
 };
 export const updateColumn = async (
   token: string,
@@ -74,13 +50,17 @@ export const updateColumn = async (
       { title: title, order: order },
       { headers: { Authorization: `Bearer ${token}` } }
     )
-    .then((res): Promise<IColumn> => res.data)
-    .catch((error) => {
-      if (error.response.status === 404) {
-        //TODO add error codes to enum
-        console.log(error.response.message); //TODO open message on error page
-      } else {
-        throw new Error(error);
-      }
-    });
+    .then((res): Promise<IColumn> => res.data);
+};
+
+export const deleteColumn = async (
+  token: string,
+  idBoard: string,
+  idColumn: string
+): Promise<void | IColumn> => {
+  return axios
+    .delete(`${BASE_URL}boards/${idBoard}/columns/${idColumn}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res): Promise<void> => res.data);
 };

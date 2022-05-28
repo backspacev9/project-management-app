@@ -21,16 +21,3 @@ export interface FileInterface {
   filename: string;
   fileSize: number;
 }
-export interface ITaskWithFiles {
-  id: string;
-  title: string;
-  order: number;
-  done: boolean;
-  description: string;
-  userId: string;
-  files: Array<FileInterface>;
-}
-export interface FileInterface {
-  filename: string;
-  fileSize: number;
-}

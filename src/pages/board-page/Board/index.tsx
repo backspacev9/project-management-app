@@ -1,5 +1,3 @@
-import './index.scss';
-
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import Column from '../Column';
 import { RootState } from '../../../redux/store';
@@ -14,7 +12,7 @@ import { IColumnWithTasks } from '../../../utils/columns-type';
 import { DropColumnType, DropTaskType } from '../constants';
 import { ITaskWithFiles } from '../../../utils/task-types';
 import { updateOneTask } from '../../../redux/tasks-reducer';
-
+import './index.scss';
 const Board = () => {
   const { token } = useAppSelector((state: RootState) => state.auth);
   const params = useParams();
@@ -155,7 +153,7 @@ const Board = () => {
                   ))
                 : ''}
               {provided.placeholder}
-              <BtnAddColumn btnOnclick={addColumn} />
+              <BtnAddColumn />
             </div>
           )}
         </Droppable>
