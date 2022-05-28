@@ -47,8 +47,8 @@ export const UpdateBoard = () => {
         defaultValue={currentBoard.title}
         placeholder={t('task_form.title')}
         {...register('boardTitle', {
-          required: 'Title cannot be empty',
-          minLength: { value: 2, message: "Title can't be less than 2 characters" },
+          required: t('title_error_req'),
+          minLength: { value: 2, message: t('title_error_length') },
         })}
       />
       <div className="message-container">
@@ -58,8 +58,8 @@ export const UpdateBoard = () => {
       <textarea
         id="boardDescription"
         {...register('boardDescription', {
-          required: 'Description cannot be empty',
-          minLength: { value: 2, message: "Description can't be less than 2 characters" },
+          required: t('descr_error_req'),
+          minLength: { value: 2, message: t('descr_error_length') },
         })}
         defaultValue={currentBoard.description}
         placeholder={t('task_form.descr')}

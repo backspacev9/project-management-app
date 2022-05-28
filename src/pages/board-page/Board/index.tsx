@@ -9,6 +9,9 @@ import BtnAddColumn from '../../../components/board/btn-addColumn';
 import './index.scss';
 import Header from '../../../components/header';
 import Preloader from '../../../components/preloader';
+import EditProfileButton from '../../../components/header/EditProfileButton';
+import { LocaleSelect } from '../../../components/header/LocalesSelect';
+import SignOutButton from '../../../components/header/SignOut';
 
 const Board = () => {
   const { token } = useAppSelector((state: RootState) => state.auth);
@@ -30,7 +33,11 @@ const Board = () => {
 
   return (
     <>
-      <Header />
+      <header className="header">
+        <EditProfileButton />
+        <SignOutButton />
+        <LocaleSelect />
+      </header>
       {isFetch ? (
         <Preloader />
       ) : (

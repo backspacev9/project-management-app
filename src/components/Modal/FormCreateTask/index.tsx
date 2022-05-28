@@ -50,8 +50,8 @@ export const FormCreateTask = () => {
         id="title"
         placeholder={t('task_form.title')}
         {...register('title', {
-          required: 'Title cannot be empty',
-          minLength: { value: 2, message: "Title can't be less than 2 characters" },
+          required: t('title_error_req'),
+          minLength: { value: 2, message: t('title_error_length') },
         })}
         name="title"
       />
@@ -61,8 +61,8 @@ export const FormCreateTask = () => {
       <textarea
         id="description"
         {...register('description', {
-          required: 'Description cannot be empty',
-          minLength: { value: 2, message: "Description can't be less than 2 characters" },
+          required: t('descr_error_req'),
+          minLength: { value: 2, message: t('descr_error_length') },
         })}
         name="description"
         placeholder={t('task_form.descr')}

@@ -10,6 +10,7 @@ import { IColumnWithTasks } from '../../../utils/columns-type';
 import { modalActionEnum } from '../../../utils/enums';
 import Task from '../Task';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
 
 interface ColumnProps {
   column: IColumnWithTasks;
@@ -30,6 +31,7 @@ const Column = (props: ColumnProps) => {
     formState: { errors },
     reset,
   } = useForm<IUpdateColumn>({ mode: 'onSubmit' });
+  const { t } = useTranslation();
   const [updateMode, setUpdateMode] = useState(false);
 
   const handleDelete = () => {
@@ -72,8 +74,8 @@ const Column = (props: ColumnProps) => {
                 type="text"
                 defaultValue={title}
                 {...register('colTitle', {
-                  required: 'Title cannot be empty',
-                  minLength: { value: 2, message: "Title can't be less than 2 characters" },
+                  required: t('title_error_req'),
+                  minLength: { value: 2, message: t('title_error_length') },
                 })}
               />
               <div className="message-container">

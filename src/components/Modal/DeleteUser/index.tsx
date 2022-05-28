@@ -6,12 +6,14 @@ import { useAppSelector, useAppDispatch } from '../../../redux/hooks';
 import { RootState } from '../../../redux/store';
 import { deleteCurrentUser } from '../../../redux/users-reducer';
 import { HttpErrors } from '../../../utils/enums';
+import { useTranslation } from 'react-i18next';
 
 export const DeleteUser = () => {
   const { token } = useAppSelector((state: RootState) => state.auth);
   const { id } = useAppSelector((state: RootState) => state.users.currentUser);
   const dispatch = useAppDispatch();
   const [isDeleted, setIsDeleted] = useState(false);
+  const { t } = useTranslation();
 
   const handleCancel = () => {
     dispatch(handleVisibleModal(false));
@@ -33,12 +35,12 @@ export const DeleteUser = () => {
     <div>
       {!isDeleted && (
         <>
-          <p>Are you sure that you want to delete your profile?</p>
-          <button onClick={handleDelete}>Delete</button>
-          <button onClick={handleCancel}>Cancel</button>
+          <p>{t('user.delete_answ')}</p>
+          <button onClick={handleDelete}>{t('delete_btn')}</button>
+          <button onClick={handleCancel}>{t('cansel_btn')}</button>
         </>
       )}
-      {isDeleted && <p>Your profile was deleted.</p>}
+      {isDeleted && <p>{t('user.delete_msg')}</p>}
     </div>
   );
 };

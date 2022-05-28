@@ -20,17 +20,12 @@ export const ViewTask = () => {
 
   return (
     <section>
+      <p>{t('task_form.author')}</p>
       <p>{author?.name}</p>
+      <p>{t('task_form.title')}</p>
       <p>{title}</p>
+      <p>{t('task_form.descr')}</p>
       <p>{description}</p>
-      <ul>
-        {files.map((file, i) => (
-          <li key={i}>
-            <span>{file.filename}</span>
-            <button>download</button>
-          </li>
-        ))}
-      </ul>
       <button onClick={() => handleClick(modalActionEnum.updateTask)}>{t('update_btn')}</button>
     </section>
   );
