@@ -104,6 +104,7 @@ export const boardsReducer = createSlice({
       state.isFetch = true;
     });
     builder.addCase(getBoardByID.fulfilled, (state, action) => {
+      state.isFetch = false;
       if (action.payload) {
         state.currentBoard = action.payload;
         state.currentBoard.columns = state.currentBoard.columns.sort((a, b) =>
