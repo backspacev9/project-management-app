@@ -18,4 +18,5 @@ export enum modalActionEnum {
   deleteColumn = 'deleteColumn',
   updateBoard = 'updateBoard',
   deleteBoard = 'deleteBoard',
+  error = 'error',
 }
