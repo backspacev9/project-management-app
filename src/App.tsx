@@ -52,10 +52,9 @@ const App = () => {
           />
           <Route
             path="/edit-profile"
-            element={!isAuth ? <Navigate replace to="/main" /> : <EditProfile />}
+            element={isAuth ? <EditProfile /> : <Navigate replace to="/" />}
           />
-          <Route path="main/b/:id" element={<Board />} />
-          <Route path="/404" element={<ErrorPage />} />
+          <Route path="main/b/:id" element={isAuth ? <Board /> : <Navigate replace to="/" />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         {isModalVisible && <Modal />}
