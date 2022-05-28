@@ -30,16 +30,6 @@ const Board = () => {
     setBoard();
   }, [token]);
 
-  const addColumn = async (columnName: string) => {
-    await dispatch(
-      createOneColumn({
-        token: token,
-        title: columnName,
-        idBoard: currentBoard.id,
-      })
-    );
-    setBoard();
-  };
   const reorderColumns = (startIndex: number, endIndex: number) => {
     const result = Array.from(columns);
     const [removed] = result.splice(startIndex, 1);
