@@ -9,6 +9,9 @@ export const ViewTask = () => {
   const { currentTask } = useAppSelector((state: RootState) => state.tasks);
   const { title, description, files } = currentTask;
   const dispatch = useAppDispatch();
+  const { users } = useAppSelector((state: RootState) => state.users);
+
+  const author = users.find((user) => user.id === currentTask.userId);
   const { t } = useTranslation();
 
   const handleClick = (modalAction: string) => {
@@ -17,6 +20,7 @@ export const ViewTask = () => {
 
   return (
     <section>
+      <p>{author?.name}</p>
       <p>{title}</p>
       <p>{description}</p>
       <ul>
