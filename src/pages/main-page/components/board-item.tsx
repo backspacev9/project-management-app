@@ -24,13 +24,19 @@ const BoardItem: React.FC<IProps> = (props: IProps) => {
     <div className="board-item">
       <Link to={`b/${board.id}`}>
         <div className="board-info">
-          <div>{board.title}</div>
-          <div>{board.description}</div>
+          <div className="board-title">{board.title}</div>
+          <div className="board-descr">{board.description}</div>
         </div>
       </Link>
-      <div>
-        <button onClick={() => handleClick(modalActionEnum.updateBoard)}>update</button>
-        <button onClick={() => handleClick(modalActionEnum.deleteBoard)}>delete</button>
+      <div className="button-group">
+        <button
+          className="update-board"
+          onClick={() => handleClick(modalActionEnum.updateBoard)}
+        ></button>
+        <button
+          className="delete-board"
+          onClick={() => handleClick(modalActionEnum.deleteBoard)}
+        ></button>
       </div>
     </div>
   );

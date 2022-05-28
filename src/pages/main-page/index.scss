@@ -1,0 +1,43 @@
+.board-container {
+  display: flex;
+  gap: 1rem;
+}
+.board-item {
+  display: flex;
+  justify-content: space-between;
+  min-width: 300px;
+  min-height: 70px;
+  padding: 1rem;
+  cursor: pointer;
+  border: 2px solid black;
+  a {
+    display: block;
+    width: 100%;
+  }
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  button {
+    width: 35px;
+    height: 35px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+  }
+  .update-board {
+    background-image: url('../../../public/img/edit.svg');
+  }
+  .delete-board {
+    background-image: url('../../../public/img/close.svg');
+  }
+}
+.board-info {
+  text-align: center;
+  width: 100%;
+  padding: 0.5rem;
+  .board-title {
+    font-weight: bold;
+  }
+}

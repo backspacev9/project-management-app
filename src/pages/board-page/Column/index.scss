@@ -9,6 +9,13 @@
   width: 200px;
   height: 90%;
   border: 1px solid #ff7272;
+  button {
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    background-size: 100%;
+  }
 
   .header-column {
     display: flex;
@@ -21,41 +28,25 @@
     width: 45px;
     height: 45px;
     background-image: url('../../../../public/img/close.svg');
-    background-repeat: no-repeat;
     background-size: 70%;
-    background-position: center;
   }
 }
 .col-submit {
-  width: 35px;
-  height: 35px;
   background-image: url('../../../../public/img/checked.svg');
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: center;
 }
 .col-cancel {
-  width: 35px;
-  height: 35px;
   background-image: url('../../../../public/img/cancel.svg');
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: center;
 }
 .add-task {
   width: 45px;
   height: 45px;
   background-image: url('../../../../public/img/add.svg');
-  background-repeat: no-repeat;
   background-size: 70%;
-  background-position: center;
 }
 .add-column {
   width: 65px;
   height: 65px;
   background-image: url('../../../../public/img/add.svg');
-  background-repeat: no-repeat;
   background-size: 100%;
-  background-position: center;
   margin: 1rem;
 }

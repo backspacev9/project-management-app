@@ -5,7 +5,7 @@ import { getBoards } from '../../redux/boards-reducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import BoardsContainer from './components/boards-container';
-import './index.css';
+import './index.scss';
 
 const MainPage = () => {
   const { token } = useAppSelector((state: RootState) => state.auth);
