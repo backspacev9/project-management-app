@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
 import { createBoard, deleteBoard, getAllBoards, getBoardById, updateBoard } from '../api/boards';
 import { IBoard, IBoardWithColumns } from '../utils/board-types';
 
@@ -19,7 +20,7 @@ export const getBoards = createAsyncThunk(
       const res = await getAllBoards(token);
       return res;
     } catch (error) {
-      if (error instanceof Error) return rejectWithValue(error.message);
+      if (error instanceof AxiosError) return rejectWithValue(error?.response?.data);
     }
   }
 );
@@ -32,7 +33,7 @@ export const getBoardByID = createAsyncThunk(
       const res = await getBoardById(token, id);
       return res;
     } catch (error) {
-      if (error instanceof Error) return rejectWithValue(error.message);
+      if (error instanceof AxiosError) return rejectWithValue(error?.response?.data);
     }
   }
 );
@@ -46,7 +47,7 @@ export const createOneBoard = createAsyncThunk(
       const res = await createBoard(token, title, description);
       return res;
     } catch (error) {
-      if (error instanceof Error) return rejectWithValue(error.message);
+      if (error instanceof AxiosError) return rejectWithValue(error?.response?.data);
     }
   }
 );
@@ -62,7 +63,7 @@ export const updateOneBoard = createAsyncThunk(
       const res = await updateBoard(token, idBoard, title, description);
       return res;
     } catch (error) {
-      if (error instanceof Error) return rejectWithValue(error.message);
+      if (error instanceof AxiosError) return rejectWithValue(error?.response?.data);
     }
   }
 );
@@ -74,7 +75,7 @@ export const deleteOneBoard = createAsyncThunk(
       const res = await deleteBoard(token, idBoard);
       return res;
     } catch (error) {
-      if (error instanceof Error) return rejectWithValue(error.message);
+      if (error instanceof AxiosError) return rejectWithValue(error?.response?.data);
     }
   }
 );
@@ -88,7 +89,6 @@ export const boardsReducer = createSlice({
     },
   },
   extraReducers: (builder) => {
-    //TODO add peinding and failed cases
     builder.addCase(getBoards.fulfilled, (state, action) => {
       if (action.payload) {
         state.boards = action.payload;

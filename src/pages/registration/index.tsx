@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NavLink } from 'react-router-dom';
-import { handleVisibleModal, setErrorMessage, setModalAction } from '../../redux/app-reducer';
-import { fetchSignIn, fetchSignUp, setMessage } from '../../redux/auth-reducer';
+import { fetchSignUp } from '../../redux/auth-reducer';
 import { useAppDispatch } from '../../redux/hooks';
 import { IUserInfo } from '../../utils/auth-types';
-import { modalActionEnum } from '../../utils/enums';
 import './index.scss';
 
 const Registration = () => {
@@ -16,24 +14,8 @@ const Registration = () => {
     formState: { errors },
   } = useForm<IUserInfo>({ mode: 'onSubmit' });
 
-  useEffect(() => {
-    return () => {
-      dispatch(setMessage(''));
-    };
-  }, [dispatch]);
-
   const onSubmit = (data: IUserInfo) => {
-    const args = { login: data.login, password: data.password };
-    dispatch(fetchSignUp(data))
-      .unwrap()
-      .then((res) => {
-        if (res) dispatch(fetchSignIn(args));
-      })
-      .catch((err) => {
-        dispatch(setErrorMessage(err));
-        dispatch(setModalAction(modalActionEnum.error));
-        dispatch(handleVisibleModal(true));
-      });
+    dispatch(fetchSignUp(data));
   };
 
   return (

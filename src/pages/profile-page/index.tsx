@@ -1,15 +1,19 @@
-import React from 'react';
+import Cookies from 'js-cookie';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { handleVisibleModal, setModalAction } from '../../redux/app-reducer';
+import { useNavigate } from 'react-router-dom';
+import { handleVisibleModal, setErrorMessage, setModalAction } from '../../redux/app-reducer';
+import { setToken } from '../../redux/auth-reducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
-import { updateCurrentUser } from '../../redux/users-reducer';
+import { getCurrentUser, updateCurrentUser } from '../../redux/users-reducer';
 import { IUserInfo } from '../../utils/auth-types';
 import { modalActionEnum } from '../../utils/enums';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
-  const { token } = useAppSelector((state: RootState) => state.auth);
+  const navigation = useNavigate();
+  const { token, userId } = useAppSelector((state: RootState) => state.auth);
   const { name, login, id } = useAppSelector((state: RootState) => state.users.currentUser);
   const {
     register,
@@ -23,6 +27,17 @@ const EditProfile = () => {
       password: '',
     },
   });
+
+  useEffect(() => {
+    if (token) {
+      dispatch(getCurrentUser({ token, id: userId }));
+    } else {
+      const token = Cookies.get('token');
+      if (token) {
+        Promise.all([dispatch(setToken(token)), getCurrentUser({ token, id: userId })]);
+      } else navigation('/');
+    }
+  }, [dispatch, navigation, token, userId]);
 
   const handleDelete = () => {
     dispatch(setModalAction(modalActionEnum.deleteUser));
@@ -38,6 +53,11 @@ const EditProfile = () => {
           dispatch(setModalAction(modalActionEnum.updateUser));
           dispatch(handleVisibleModal(true));
         }
+      })
+      .catch((err) => {
+        dispatch(setErrorMessage(err.message));
+        dispatch(setModalAction(modalActionEnum.error));
+        dispatch(handleVisibleModal(true));
       });
   };
 

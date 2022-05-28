@@ -1,23 +1,12 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { RootState } from '../../../redux/store';
-import { getCurrentUser } from '../../../redux/users-reducer';
+import { NavLink } from 'react-router-dom';
 
 const EditProfileButton = () => {
-  const dispatch = useAppDispatch();
-  const { token, userId } = useAppSelector((state: RootState) => state.auth);
-  const navigation = useNavigate();
-
-  const handleEditProfile = () => {
-    dispatch(getCurrentUser({ token, id: userId })).then(() => {
-      navigation('/edit-profile', { replace: true });
-    });
-  };
-
   return (
     <>
-      <button onClick={handleEditProfile}>Edit profile</button>
+      <NavLink to="/edit-profile">
+        <button>Edit profile</button>
+      </NavLink>
     </>
   );
 };

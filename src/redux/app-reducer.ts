@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { modalActionEnum } from '../utils/enums';
 
 interface IAppStore {
   isModalVisible: boolean;
@@ -25,8 +26,14 @@ export const appReducer = createSlice({
     setErrorMessage(state, action) {
       state.errorMessage = action.payload;
     },
+    openErrorModal(state, action) {
+      state.isModalVisible = true;
+      state.modalAction = modalActionEnum.error;
+      state.errorMessage = action.payload;
+    },
   },
 });
 
-export const { handleVisibleModal, setModalAction, setErrorMessage } = appReducer.actions;
+export const { handleVisibleModal, setModalAction, setErrorMessage, openErrorModal } =
+  appReducer.actions;
 export default appReducer.reducer;

@@ -15,6 +15,7 @@ import { DeleteColumn } from './DeleteColumn';
 import { DeleteBoard } from './DeleteBoard';
 import { UpdateBoard } from './UpdateBoard';
 import { ErrorMessage } from './ErrorMessage';
+import { UnauthorizedPage } from './Unauthorized';
 
 export const Modal = () => {
   const { modalAction } = useAppSelector((state: RootState) => state.app);
@@ -47,6 +48,8 @@ export const Modal = () => {
         <UpdateBoard />
       ) : modalAction === modalActionEnum.error ? (
         <ErrorMessage />
+      ) : modalAction === modalActionEnum.unauthorized ? (
+        <UnauthorizedPage />
       ) : (
         <div></div>
       )}

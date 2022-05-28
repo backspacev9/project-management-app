@@ -1,5 +1,6 @@
 export enum HttpErrors {
   Success = 204,
+  Unauthorized = 401,
   Forbidden = 403,
   NotFound = 404,
   Conflict = 409,
@@ -19,4 +20,5 @@ export enum modalActionEnum {
   updateBoard = 'updateBoard',
   deleteBoard = 'deleteBoard',
   error = 'error',
+  unauthorized = 'Unauthorized',
 }

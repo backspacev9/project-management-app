@@ -4,13 +4,13 @@ import { IAuthInfo, IUserInfo } from '../utils/auth-types';
 import jwtDecode from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { AxiosError } from 'axios';
+import { openErrorModal } from './app-reducer';
 
 interface IAuthStore {
   login: string;
   userId: string;
   token: string;
   isAuth: boolean;
-  errorMessage: string;
 }
 
 interface JwtPayload {
@@ -24,31 +24,37 @@ const initialState: IAuthStore = {
   userId: '',
   token: '',
   isAuth: false,
-  errorMessage: '',
 };
 
 export const fetchSignUp = createAsyncThunk(
   'reducer/fetchSignUp',
-  async (args: IUserInfo, { rejectWithValue }) => {
+  async (args: IUserInfo, { rejectWithValue, dispatch }) => {
     const { name, login, password } = args;
     try {
       const res = await signUp(name, login, password);
+      dispatch(fetchSignIn(args));
       return res;
     } catch (error) {
-      if (error instanceof AxiosError) return rejectWithValue(error?.response?.data.message);
+      if (error instanceof AxiosError) {
+        dispatch(openErrorModal(error?.response?.data.message));
+        return rejectWithValue(error?.response?.data);
+      }
     }
   }
 );
 
 export const fetchSignIn = createAsyncThunk(
   'reducer/fetchSignIn',
-  async (args: IAuthInfo, { rejectWithValue }) => {
+  async (args: IAuthInfo, { rejectWithValue, dispatch }) => {
     const { login, password } = args;
     try {
       const res = await signIn(login, password);
       return res;
     } catch (error) {
-      if (error instanceof AxiosError) return rejectWithValue(error?.response?.data.message);
+      if (error instanceof AxiosError) {
+        dispatch(openErrorModal(error?.response?.data.message));
+        return rejectWithValue(error?.response?.data);
+      }
     }
   }
 );
@@ -64,26 +70,21 @@ export const authReducer = createSlice({
       state.login = decoded.login;
       state.isAuth = true;
     },
-    setMessage: (state, action) => {
-      state.errorMessage = action.payload;
-    },
     setAuth: (state, action) => {
       state.isAuth = action.payload;
     },
+    removeAuth: (state) => {
+      state.isAuth = false;
+      Cookies.remove('token');
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchSignUp.fulfilled, (state, action) => {
-      if (action.payload) {
-        state.errorMessage = 'User successfully created.';
-      }
-    });
     builder.addCase(fetchSignIn.fulfilled, (state, action) => {
       if (action.payload) {
         state.token = action.payload.token;
         const decoded = jwtDecode<JwtPayload>(action.payload.token);
         state.userId = decoded.userId;
         state.login = decoded.login;
-        state.errorMessage = '';
         state.isAuth = true;
         Cookies.set('token', action.payload.token, { expires: 7 });
       }
@@ -91,6 +92,6 @@ export const authReducer = createSlice({
   },
 });
 
-export const { setToken, setMessage, setAuth } = authReducer.actions;
+export const { setToken, setAuth, removeAuth } = authReducer.actions;
 
 export default authReducer.reducer;

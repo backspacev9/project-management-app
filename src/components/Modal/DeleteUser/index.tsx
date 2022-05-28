@@ -1,7 +1,7 @@
-import Cookies from 'js-cookie';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { handleVisibleModal } from '../../../redux/app-reducer';
-import { setAuth } from '../../../redux/auth-reducer';
+import { removeAuth } from '../../../redux/auth-reducer';
 import { useAppSelector, useAppDispatch } from '../../../redux/hooks';
 import { RootState } from '../../../redux/store';
 import { deleteCurrentUser } from '../../../redux/users-reducer';
@@ -12,6 +12,7 @@ export const DeleteUser = () => {
   const { id } = useAppSelector((state: RootState) => state.users.currentUser);
   const dispatch = useAppDispatch();
   const [isDeleted, setIsDeleted] = useState(false);
+  const navigation = useNavigate();
 
   const handleCancel = () => {
     dispatch(handleVisibleModal(false));
@@ -23,8 +24,8 @@ export const DeleteUser = () => {
       .then((res) => {
         if (res === HttpErrors.Success) {
           setIsDeleted(true);
-          Cookies.remove('token');
-          dispatch(setAuth(false));
+          removeAuth();
+          navigation('/');
         }
       });
   };
