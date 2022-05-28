@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import BtnAddTask from '../../../components/board/btn-addTask';
-import { handleVisibleModal, setModalAction } from '../../../redux/app-reducer';
+import { setModalAction } from '../../../redux/app-reducer';
 import { getBoardByID } from '../../../redux/boards-reducer';
 import { setCurrentColumnId, updateOneColumn } from '../../../redux/columns-reducer';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
@@ -33,7 +33,6 @@ const Column = (props: ColumnProps) => {
   const [updateMode, setUpdateMode] = useState(false);
 
   const handleDelete = () => {
-    dispatch(handleVisibleModal(true));
     dispatch(setCurrentColumnId(id));
     dispatch(setModalAction(modalActionEnum.deleteColumn));
   };

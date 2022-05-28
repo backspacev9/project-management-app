@@ -1,5 +1,5 @@
 import React from 'react';
-import { handleVisibleModal, setModalAction } from '../../../redux/app-reducer';
+import { setModalAction } from '../../../redux/app-reducer';
 import { useAppDispatch } from '../../../redux/hooks';
 import { modalActionEnum } from '../../../utils/enums';
 
@@ -8,7 +8,6 @@ const BoardCreateButton = () => {
 
   const showCreateBoard = () => {
     dispatch(setModalAction(modalActionEnum.createBoard));
-    dispatch(handleVisibleModal(true));
   };
 
   return (

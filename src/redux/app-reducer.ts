@@ -21,7 +21,6 @@ export const handleErrors = createAsyncThunk(
     if (error instanceof AxiosError) {
       if (error?.response?.data.statusCode === HttpErrors.Unauthorized) {
         dispatch(removeAuth());
-        dispatch(handleVisibleModal(true));
         dispatch(setModalAction(modalActionEnum.unauthorized));
         return rejectWithValue(error?.response?.data);
       } else {
@@ -40,6 +39,7 @@ export const appReducer = createSlice({
       state.isModalVisible = action.payload;
     },
     setModalAction(state, action) {
+      state.isModalVisible = true;
       state.modalAction = action.payload;
     },
     setErrorMessage(state, action) {

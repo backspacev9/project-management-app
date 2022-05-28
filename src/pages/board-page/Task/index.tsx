@@ -1,4 +1,4 @@
-import { handleVisibleModal, setModalAction } from '../../../redux/app-reducer';
+import { setModalAction } from '../../../redux/app-reducer';
 import { setCurrentColumnId } from '../../../redux/columns-reducer';
 import { useAppDispatch } from '../../../redux/hooks';
 import { setCurrentTask } from '../../../redux/tasks-reducer';
@@ -16,7 +16,6 @@ const Task = (props: TaskProps) => {
   const dispatch = useAppDispatch();
 
   const handleClick = (modalAction: string) => {
-    dispatch(handleVisibleModal(true));
     dispatch(setCurrentColumnId(columnId));
     dispatch(setCurrentTask(task));
     dispatch(setModalAction(modalAction));

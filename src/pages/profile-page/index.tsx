@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { handleVisibleModal, setErrorMessage, setModalAction } from '../../redux/app-reducer';
+import { setErrorMessage, setModalAction } from '../../redux/app-reducer';
 import { setToken } from '../../redux/auth-reducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
@@ -41,7 +41,6 @@ const EditProfile = () => {
 
   const handleDelete = () => {
     dispatch(setModalAction(modalActionEnum.deleteUser));
-    dispatch(handleVisibleModal(true));
   };
 
   const onSubmit = (data: IUserInfo) => {
@@ -51,13 +50,11 @@ const EditProfile = () => {
       .then((result) => {
         if (result) {
           dispatch(setModalAction(modalActionEnum.updateUser));
-          dispatch(handleVisibleModal(true));
         }
       })
       .catch((err) => {
         dispatch(setErrorMessage(err.message));
         dispatch(setModalAction(modalActionEnum.error));
-        dispatch(handleVisibleModal(true));
       });
   };
 

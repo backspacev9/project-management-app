@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { handleVisibleModal, setModalAction } from '../../../redux/app-reducer';
+import { setModalAction } from '../../../redux/app-reducer';
 import { setCurrentBoard } from '../../../redux/boards-reducer';
 import { useAppDispatch } from '../../../redux/hooks';
 import { IBoard } from '../../../utils/board-types';
@@ -15,7 +15,6 @@ const BoardItem: React.FC<IProps> = (props: IProps) => {
   const dispatch = useAppDispatch();
 
   const handleClick = (modalAction: string) => {
-    dispatch(handleVisibleModal(true));
     dispatch(setCurrentBoard(board));
     dispatch(setModalAction(modalAction));
   };
