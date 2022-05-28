@@ -15,6 +15,7 @@ import { IColumnWithTasks } from '../../../utils/columns-type';
 import { modalActionEnum } from '../../../utils/enums';
 import Task from '../Task';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
 import { handleVisibleModal, setModalAction } from '../../../redux/app-reducer';
 
 interface ColumnProps {
@@ -40,6 +41,7 @@ const Column = (props: ColumnProps) => {
     formState: { errors },
     reset,
   } = useForm<IUpdateColumn>({ mode: 'onSubmit' });
+  const { t } = useTranslation();
   const [updateMode, setUpdateMode] = useState(false);
 
   const handleDelete = () => {
@@ -84,29 +86,25 @@ const Column = (props: ColumnProps) => {
           <div className="header-column">
             {updateMode ? (
               <form className="form" onSubmit={handleSubmit(onSubmit)}>
-                <input
-                  type="text"
-                  defaultValue={title}
-                  {...register('colTitle', {
-                    required: 'Title cannot be empty',
-                    minLength: { value: 2, message: "Title can't be less than 2 characters" },
-                  })}
-                />
-                <div className="message-container">
-                  {errors.colTitle && (
-                    <div className="error-message">{errors.colTitle.message}</div>
-                  )}
-                </div>
-                <br />
-                <button type="submit">submit</button>
-                <button type="button" onClick={handleCancel}>
-                  cancel
-                </button>
-              </form>
+              <input
+                type="text"
+                defaultValue={title}
+                {...register('colTitle', {
+                  required: t('title_error_req'),
+                  minLength: { value: 2, message: t('title_error_length') },
+                })}
+              />
+              <div className="message-container">
+                {errors.colTitle && <div className="error-message">{errors.colTitle.message}</div>}
+              </div>
+              <br />
+              <button className="col-submit" type="submit"></button>
+              <button className="col-cancel" type="button" onClick={handleCancel}></button>
+            </form>
             ) : (
               <>
                 <div onClick={handleUpdateMode}>{title}</div>
-                <button onClick={handleDelete}>delete</button>
+              <button className="column-delete" onClick={handleDelete}></button>
               </>
             )}
           </div>

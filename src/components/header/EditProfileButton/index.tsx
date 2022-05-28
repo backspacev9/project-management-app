@@ -17,7 +17,7 @@ const EditProfileButton = () => {
 
   return (
     <>
-      <button onClick={handleEditProfile}>Edit profile</button>
+      <button className="editProfile-btn" onClick={handleEditProfile}></button>
     </>
   );
 };

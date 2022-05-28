@@ -45,8 +45,8 @@ export const CreateColumn = () => {
         id="title"
         placeholder={t('task_form.title')}
         {...register('title', {
-          required: 'Title cannot be empty',
-          minLength: { value: 2, message: "Title can't be less than 2 characters" },
+          required: t('title_error_req'),
+          minLength: { value: 2, message: t('title_error_length') },
         })}
         name="title"
       />

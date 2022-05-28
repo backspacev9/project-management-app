@@ -17,10 +17,44 @@
   width: 200px;
   height: 90%;
   border: 1px solid #ff7272;
+  button {
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    background-size: 100%;
+  }
   pointer-events: all;
-
   .header-column {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid #d2d2d2;
+    padding: 0.7rem 0.5rem;
   }
+  .column-delete {
+    width: 45px;
+    height: 45px;
+    background-image: url('../../../../public/img/close.svg');
+    background-size: 70%;
+  }
+}
+.col-submit {
+  background-image: url('../../../../public/img/checked.svg');
+}
+.col-cancel {
+  background-image: url('../../../../public/img/cancel.svg');
+}
+.add-task {
+  width: 45px;
+  height: 45px;
+  background-image: url('../../../../public/img/add.svg');
+  background-size: 70%;
+}
+.add-column {
+  width: 65px;
+  height: 65px;
+  background-image: url('../../../../public/img/add.svg');
+  background-size: 100%;
+  margin: 1rem;
 }

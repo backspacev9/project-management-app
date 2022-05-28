@@ -13,11 +13,16 @@ import { DropColumnType, DropTaskType } from '../constants';
 import { ITaskWithFiles } from '../../../utils/task-types';
 import { updateOneTask } from '../../../redux/tasks-reducer';
 import './index.scss';
+import Preloader from '../../../components/preloader';
+import EditProfileButton from '../../../components/header/EditProfileButton';
+import { LocaleSelect } from '../../../components/header/LocalesSelect';
+import SignOutButton from '../../../components/header/SignOut';
+
 const Board = () => {
   const { token } = useAppSelector((state: RootState) => state.auth);
   const params = useParams();
   const { id } = params;
-  const { currentBoard } = useAppSelector((state: RootState) => state.boards);
+  const { currentBoard, isFetch } = useAppSelector((state: RootState) => state.boards);
   const { columns } = useAppSelector((state: RootState) => state.boards.currentBoard);
   const dispatch = useAppDispatch();
   const setBoard = async () => {
@@ -112,7 +117,16 @@ const Board = () => {
   };
 
   return (
-    <div className="Board">
+     <>
+      <header className="header">
+        <EditProfileButton />
+        <SignOutButton />
+        <LocaleSelect />
+      </header>
+      {isFetch ? (
+        <Preloader />
+      ) : (
+      <div className="Board">
       <BoardHeader title={currentBoard.title} />
 
       <DragDropContext onDragEnd={(param) => dragEnd(param)}>
@@ -148,7 +162,8 @@ const Board = () => {
           )}
         </Droppable>
       </DragDropContext>
-    </div>
+    </div>)
+    </>
   );
 };
 
