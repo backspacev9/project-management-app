@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createBoard, getAllBoards, getBoardById } from '../api/boards';
 import { IBoard, IBoardWithColumns } from '../utils/board-types';
 import { IColumnWithTasks } from '../utils/columns-type';
+import { ITaskWithFiles } from '../utils/task-types';
 
 interface IBoardsStore {
   boards: IBoard[];
@@ -44,6 +45,9 @@ export const boardsReducer = createSlice({
     setColumns(state, action: PayloadAction<Array<IColumnWithTasks>>) {
       state.currentBoard.columns = action.payload;
     },
+    setTasks(state, action: PayloadAction<{ indexColumn: number; tasks: Array<ITaskWithFiles> }>) {
+      state.currentBoard.columns[action.payload.indexColumn].tasks = action.payload.tasks;
+    },
   },
   extraReducers: (builder) => {
     //TODO add peinding and failed cases
@@ -58,6 +62,9 @@ export const boardsReducer = createSlice({
         state.currentBoard.columns = state.currentBoard.columns.sort((a, b) =>
           a.order > b.order ? 1 : -1
         );
+        state.currentBoard.columns.forEach((el) => {
+          el.tasks.sort((a, b) => (a.order > b.order ? 1 : -1));
+        });
       }
     });
 
@@ -70,5 +77,5 @@ export const boardsReducer = createSlice({
   },
 });
 
-export const { setColumns } = boardsReducer.actions;
+export const { setColumns, setTasks } = boardsReducer.actions;
 export default boardsReducer.reducer;

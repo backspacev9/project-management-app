@@ -1,21 +1,21 @@
+import React from 'react';
+import { DraggableProvided } from 'react-beautiful-dnd';
 import { ITaskWithFiles } from '../../../utils/task-types';
-
-export interface ITaskDragEvents {
-  dragStartTask: (ev: React.DragEvent<HTMLDivElement>, task: ITaskWithFiles) => void;
-  dragLeaveTask: (ev: React.DragEvent<HTMLDivElement>) => void;
-  dragEndTask: (ev: React.DragEvent<HTMLDivElement>) => void;
-  dragOverTask: (ev: React.DragEvent<HTMLDivElement>) => void;
-  dragDropTask: (ev: React.DragEvent<HTMLDivElement>, task: ITaskWithFiles) => void;
-}
 
 interface TaskProps {
   task: ITaskWithFiles;
+  provided: DraggableProvided;
 }
 
 const Task = (props: TaskProps) => {
-  const { task } = props;
+  const { task, provided } = props;
   return (
-    <div className="task-item">
+    <div
+      className="task-item"
+      ref={provided.innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+    >
       {task.title}
       <br />
       <button>Update</button>
