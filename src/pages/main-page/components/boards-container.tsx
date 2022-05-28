@@ -9,7 +9,7 @@ const BoardsContainer = () => {
   const { boards } = useAppSelector((state: RootState) => state.boards);
 
   return (
-    <div>
+    <div className="board-container">
       {boards.map((el: IBoard) => (
         <BoardItem board={el} key={el.id}></BoardItem>
       ))}

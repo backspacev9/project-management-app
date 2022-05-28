@@ -38,6 +38,7 @@ export const FormUpdateTask = () => {
         token,
         boardId: currentBoard.id,
         columnId: currentColumnId,
+        updateColumnId: currentColumnId,
         taskId: currentTask.id,
         title,
         order: currentTask.order,
@@ -71,8 +72,8 @@ export const FormUpdateTask = () => {
         value={currentTask.title}
         placeholder={t('task_form.title')}
         {...register('title', {
-          required: 'Title cannot be empty',
-          minLength: { value: 2, message: "Title can't be less than 2 characters" },
+          required: t('title_error_req'),
+          minLength: { value: 2, message: t('title_error_length') },
         })}
         name="title"
         onChange={(e) => handleChange(e)}
@@ -83,8 +84,8 @@ export const FormUpdateTask = () => {
       <textarea
         id="description"
         {...register('description', {
-          required: 'Description cannot be empty',
-          minLength: { value: 2, message: "Description can't be less than 2 characters" },
+          required: t('descr_error_req'),
+          minLength: { value: 2, message: t('descr_error_length') },
         })}
         name="description"
         value={currentTask.description}

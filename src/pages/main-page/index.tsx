@@ -3,14 +3,16 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/header';
 import { setToken } from '../../redux/auth-reducer';
+import Preloader from '../../components/preloader';
 import { getBoards } from '../../redux/boards-reducer';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import BoardsContainer from './components/boards-container';
-import './index.css';
+import './index.scss';
 
 const MainPage = () => {
   const { token } = useAppSelector((state: RootState) => state.auth);
+  const { isFetch } = useAppSelector((state: RootState) => state.boards);
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
 
@@ -28,7 +30,7 @@ const MainPage = () => {
   return (
     <>
       <Header />
-      <BoardsContainer />
+      {isFetch ? <Preloader /> : <BoardsContainer />}
     </>
   );
 };

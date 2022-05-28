@@ -3,11 +3,9 @@ import { NavLink } from 'react-router-dom';
 
 const EditProfileButton = () => {
   return (
-    <>
-      <NavLink to="/edit-profile">
-        <button>Edit profile</button>
-      </NavLink>
-    </>
+    <NavLink to="/edit-profile">
+      <button>Edit profile</button>
+    </NavLink>
   );
 };
 

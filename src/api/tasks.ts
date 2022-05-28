@@ -69,7 +69,8 @@ export const updateTask = async (
   title: string,
   order: number,
   description: string,
-  userId: string
+  userId: string,
+  updateColumnId: string
 ): Promise<void | ITask> => {
   return axios
     .put(
@@ -80,7 +81,7 @@ export const updateTask = async (
         description,
         userId,
         boardId,
-        columnId,
+        columnId: updateColumnId,
       },
       { headers: { Authorization: `Bearer ${token}` } }
     )

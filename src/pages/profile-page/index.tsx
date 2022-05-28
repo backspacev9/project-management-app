@@ -9,6 +9,7 @@ import { RootState } from '../../redux/store';
 import { getCurrentUser, updateCurrentUser } from '../../redux/users-reducer';
 import { IUserInfo } from '../../utils/auth-types';
 import { modalActionEnum } from '../../utils/enums';
+import { useTranslation } from 'react-i18next';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ const EditProfile = () => {
       password: '',
     },
   });
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (token) {
@@ -60,11 +62,11 @@ const EditProfile = () => {
 
   return (
     <section>
-      <h2>Edit Profile</h2>
+      <h2>{t('edit_profile')}</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           type="text"
-          placeholder="Name"
+          placeholder={t('name')}
           id="user-name"
           autoComplete="off"
           {...register('name', {
@@ -73,12 +75,10 @@ const EditProfile = () => {
             pattern: /^[A-Za-zА-Яа-яЁё]+$/,
           })}
         />
-        <div className="error-message">
-          {errors.name && 'Please, enter valid name (only letters)'}
-        </div>
+        <div className="error-message">{errors.name && t('name_error')}</div>
         <input
           type="text"
-          placeholder="Login"
+          placeholder={t('login')}
           id="user-login"
           autoComplete="off"
           maxLength={22}
@@ -87,25 +87,21 @@ const EditProfile = () => {
             pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/,
           })}
         />
-        <div className="error-message">
-          {errors.login && 'Please, enter valid login (number or letters)'}
-        </div>
+        <div className="error-message">{errors.login && t('login_error')}</div>
         <input
           type="password"
-          placeholder="Password"
+          placeholder={t('password')}
           id="user-password"
           autoComplete="off"
           maxLength={22}
           {...register('password', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
         />
-        <div className="error-message">
-          {errors.password && 'Please, enter valid password (number or letters)'}
-        </div>
+        <div className="error-message">{errors.password && t('password_error')}</div>
         <button type="submit" className="update-btn">
-          Update Info
+          {t('update_info')}
         </button>
       </form>
-      <button onClick={handleDelete}>Delete User</button>
+      <button onClick={handleDelete}>{t('delete_user')}</button>
     </section>
   );
 };

@@ -1,17 +1,21 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { createBoard, deleteBoard, getAllBoards, getBoardById, updateBoard } from '../api/boards';
 import { IBoard, IBoardWithColumns } from '../utils/board-types';
 import { handleErrors } from './app-reducer';
+import { IColumnWithTasks } from '../utils/columns-type';
+import { ITaskWithFiles } from '../utils/task-types';
 
 interface IBoardsStore {
   boards: IBoard[];
   currentBoard: IBoardWithColumns;
+  isFetch: boolean;
 }
 
 const initialState: IBoardsStore = {
   boards: [] as IBoard[],
   currentBoard: {} as IBoardWithColumns,
+  isFetch: false,
 };
 
 export const getBoards = createAsyncThunk(
@@ -102,22 +106,39 @@ export const boardsReducer = createSlice({
   name: 'boardsReducer',
   initialState,
   reducers: {
+    setColumns(state, action: PayloadAction<Array<IColumnWithTasks>>) {
+      state.currentBoard.columns = action.payload;
+    },
+    setTasks(state, action: PayloadAction<{ indexColumn: number; tasks: Array<ITaskWithFiles> }>) {
+      state.currentBoard.columns[action.payload.indexColumn].tasks = action.payload.tasks;
+    },
     setCurrentBoard(state, action) {
       state.currentBoard = action.payload;
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(getBoards.pending, (state) => {
+      state.isFetch = true;
+    });
     builder.addCase(getBoards.fulfilled, (state, action) => {
+      state.isFetch = false;
       if (action.payload) {
         state.boards = action.payload;
       }
     });
+    builder.addCase(getBoardByID.pending, (state) => {
+      state.isFetch = true;
+    });
     builder.addCase(getBoardByID.fulfilled, (state, action) => {
+      state.isFetch = false;
       if (action.payload) {
         state.currentBoard = action.payload;
         state.currentBoard.columns = state.currentBoard.columns.sort((a, b) =>
           a.order > b.order ? 1 : -1
         );
+        state.currentBoard.columns.forEach((el) => {
+          el.tasks.sort((a, b) => (a.order > b.order ? 1 : -1));
+        });
       }
     });
     builder.addCase(createOneBoard.fulfilled, () => {});
@@ -126,6 +147,6 @@ export const boardsReducer = createSlice({
   },
 });
 
-export const { setCurrentBoard } = boardsReducer.actions;
+export const { setCurrentBoard, setColumns, setTasks } = boardsReducer.actions;
 
 export default boardsReducer.reducer;

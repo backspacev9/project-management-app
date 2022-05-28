@@ -44,7 +44,6 @@ const App = () => {
           />
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="main/b/:id" element={<Board />} />
-          <Route path="/404" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         {isModalVisible && <Modal />}

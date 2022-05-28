@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  justify-content: space-around;
+  button {
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 35px;
+    height: 35px;
+    background-size: 100%;
+  }
+  .signOut-btn {
+    background-image: url('../../../public/img/previous.svg');
+  }
+  .editProfile-btn {
+    background-image: url('../../../public/img/user.svg');
+  }
+}
