@@ -86,25 +86,27 @@ const Column = (props: ColumnProps) => {
           <div className="header-column">
             {updateMode ? (
               <form className="form" onSubmit={handleSubmit(onSubmit)}>
-              <input
-                type="text"
-                defaultValue={title}
-                {...register('colTitle', {
-                  required: t('title_error_req'),
-                  minLength: { value: 2, message: t('title_error_length') },
-                })}
-              />
-              <div className="message-container">
-                {errors.colTitle && <div className="error-message">{errors.colTitle.message}</div>}
-              </div>
-              <br />
-              <button className="col-submit" type="submit"></button>
-              <button className="col-cancel" type="button" onClick={handleCancel}></button>
-            </form>
+                <input
+                  type="text"
+                  defaultValue={title}
+                  {...register('colTitle', {
+                    required: t('title_error_req'),
+                    minLength: { value: 2, message: t('title_error_length') },
+                  })}
+                />
+                <div className="message-container">
+                  {errors.colTitle && (
+                    <div className="error-message">{errors.colTitle.message}</div>
+                  )}
+                </div>
+                <br />
+                <button className="col-submit" type="submit"></button>
+                <button className="col-cancel" type="button" onClick={handleCancel}></button>
+              </form>
             ) : (
               <>
                 <div onClick={handleUpdateMode}>{title}</div>
-              <button className="column-delete" onClick={handleDelete}></button>
+                <button className="column-delete" onClick={handleDelete}></button>
               </>
             )}
           </div>

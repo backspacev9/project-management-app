@@ -117,7 +117,7 @@ const Board = () => {
   };
 
   return (
-     <>
+    <>
       <header className="header">
         <EditProfileButton />
         <SignOutButton />
@@ -126,43 +126,44 @@ const Board = () => {
       {isFetch ? (
         <Preloader />
       ) : (
-      <div className="Board">
-      <BoardHeader title={currentBoard.title} />
+        <div className="Board">
+          <BoardHeader title={currentBoard.title} />
 
-      <DragDropContext onDragEnd={(param) => dragEnd(param)}>
-        <Droppable droppableId="board-drop-area" type={DropColumnType} direction="horizontal">
-          {(provided, snapshot) => (
-            <div
-              className="board-columns-container"
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              {columns && Object.keys(columns).length !== 0
-                ? columns.map((el, index) => (
-                    <Draggable key={index} draggableId={`cdrag-${index}`} index={index}>
-                      {(providedDrag, snapshot) => (
-                        <Droppable droppableId={el.id} type={DropTaskType}>
-                          {(providedDrop, snapshotDrop) => (
-                            <Column
-                              column={el}
-                              key={el.id}
-                              providedDrop={providedDrop}
-                              providedDrag={providedDrag}
-                              snapshotDrop={snapshotDrop}
-                            />
+          <DragDropContext onDragEnd={(param) => dragEnd(param)}>
+            <Droppable droppableId="board-drop-area" type={DropColumnType} direction="horizontal">
+              {(provided, snapshot) => (
+                <div
+                  className="board-columns-container"
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {columns && Object.keys(columns).length !== 0
+                    ? columns.map((el, index) => (
+                        <Draggable key={index} draggableId={`cdrag-${index}`} index={index}>
+                          {(providedDrag, snapshot) => (
+                            <Droppable droppableId={el.id} type={DropTaskType}>
+                              {(providedDrop, snapshotDrop) => (
+                                <Column
+                                  column={el}
+                                  key={el.id}
+                                  providedDrop={providedDrop}
+                                  providedDrag={providedDrag}
+                                  snapshotDrop={snapshotDrop}
+                                />
+                              )}
+                            </Droppable>
                           )}
-                        </Droppable>
-                      )}
-                    </Draggable>
-                  ))
-                : ''}
-              {provided.placeholder}
-              <BtnAddColumn />
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </div>)
+                        </Draggable>
+                      ))
+                    : ''}
+                  {provided.placeholder}
+                  <BtnAddColumn />
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </div>
+      )}
     </>
   );
 };
