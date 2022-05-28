@@ -1,6 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createBoard, deleteBoard, getAllBoards, getBoardById, updateBoard } from '../api/boards';
 import { IBoard, IBoardWithColumns } from '../utils/board-types';
+import { IColumnWithTasks } from '../utils/columns-type';
+import { ITaskWithFiles } from '../utils/task-types';
 
 interface IBoardsStore {
   boards: IBoard[];
@@ -39,7 +41,6 @@ export const getBoardByID = createAsyncThunk(
   }
 );
 
-//----------------POST Query-----------------
 export const createOneBoard = createAsyncThunk(
   'reducer/createOneBoard',
   async (args: { token: string; title: string; description: string }, { rejectWithValue }) => {
@@ -85,6 +86,12 @@ export const boardsReducer = createSlice({
   name: 'boardsReducer',
   initialState,
   reducers: {
+    setColumns(state, action: PayloadAction<Array<IColumnWithTasks>>) {
+      state.currentBoard.columns = action.payload;
+    },
+    setTasks(state, action: PayloadAction<{ indexColumn: number; tasks: Array<ITaskWithFiles> }>) {
+      state.currentBoard.columns[action.payload.indexColumn].tasks = action.payload.tasks;
+    },
     setCurrentBoard(state, action) {
       state.currentBoard = action.payload;
     },
@@ -110,6 +117,9 @@ export const boardsReducer = createSlice({
         state.currentBoard.columns = state.currentBoard.columns.sort((a, b) =>
           a.order > b.order ? 1 : -1
         );
+        state.currentBoard.columns.forEach((el) => {
+          el.tasks.sort((a, b) => (a.order > b.order ? 1 : -1));
+        });
       }
     });
     builder.addCase(createOneBoard.fulfilled, () => {});
@@ -118,6 +128,6 @@ export const boardsReducer = createSlice({
   },
 });
 
-export const { setCurrentBoard } = boardsReducer.actions;
+export const { setCurrentBoard, setColumns, setTasks } = boardsReducer.actions;
 
 export default boardsReducer.reducer;

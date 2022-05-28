@@ -1,7 +1,12 @@
+import {
+  Draggable,
+  DraggableProvided,
+  DroppableProvided,
+  DroppableStateSnapshot,
+} from 'react-beautiful-dnd';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import BtnAddTask from '../../../components/board/btn-addTask';
-import { handleVisibleModal, setModalAction } from '../../../redux/app-reducer';
 import { getBoardByID } from '../../../redux/boards-reducer';
 import { setCurrentColumnId, updateOneColumn } from '../../../redux/columns-reducer';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
@@ -11,9 +16,13 @@ import { modalActionEnum } from '../../../utils/enums';
 import Task from '../Task';
 import './index.scss';
 import { useTranslation } from 'react-i18next';
+import { handleVisibleModal, setModalAction } from '../../../redux/app-reducer';
 
 interface ColumnProps {
   column: IColumnWithTasks;
+  providedDrag: DraggableProvided;
+  providedDrop: DroppableProvided;
+  snapshotDrop: DroppableStateSnapshot;
 }
 
 interface IUpdateColumn {
@@ -21,6 +30,7 @@ interface IUpdateColumn {
 }
 
 const Column = (props: ColumnProps) => {
+  const { providedDrag, providedDrop } = props;
   const { id, title, order, tasks } = props.column;
   const { token } = useAppSelector((state: RootState) => state.auth);
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
@@ -65,11 +75,17 @@ const Column = (props: ColumnProps) => {
   };
 
   return (
-    <div className="wrapper-column">
-      <div className="column-item">
-        <div className="header-column">
-          {updateMode ? (
-            <form className="form" onSubmit={handleSubmit(onSubmit)}>
+    <div
+      className="wrapper-column"
+      ref={providedDrag.innerRef}
+      {...providedDrag.draggableProps}
+      {...providedDrag.dragHandleProps}
+    >
+      <div className="drop-column" ref={providedDrop.innerRef} {...providedDrop.droppableProps}>
+        <div className="column-item">
+          <div className="header-column">
+            {updateMode ? (
+              <form className="form" onSubmit={handleSubmit(onSubmit)}>
               <input
                 type="text"
                 defaultValue={title}
@@ -85,20 +101,30 @@ const Column = (props: ColumnProps) => {
               <button className="col-submit" type="submit"></button>
               <button className="col-cancel" type="button" onClick={handleCancel}></button>
             </form>
-          ) : (
-            <>
-              <div onClick={handleUpdateMode}>{title}</div>
+            ) : (
+              <>
+                <div onClick={handleUpdateMode}>{title}</div>
               <button className="column-delete" onClick={handleDelete}></button>
-            </>
-          )}
-        </div>
-        <div className="task-container">
-          {tasks && Object.keys(tasks).length !== 0
-            ? tasks.map((el) => <Task task={el} columnId={id} key={el.id} />)
-            : ''}
-        </div>
-        <div className="footer-column">
-          <BtnAddTask columnId={id} />
+              </>
+            )}
+          </div>
+
+          <div className="task-container">
+            {tasks && Object.keys(tasks).length !== 0
+              ? tasks.map((el, index) => (
+                  <Draggable key={el.id} draggableId={el.id} index={index}>
+                    {(provided, snapshotDragTask) => (
+                      <Task task={el} key={el.id} provided={provided} columnId={el.id} />
+                    )}
+                  </Draggable>
+                ))
+              : ''}
+            {providedDrop.placeholder}
+          </div>
+
+          <div className="footer-column">
+            <BtnAddTask columnId={id} />
+          </div>
         </div>
       </div>
     </div>

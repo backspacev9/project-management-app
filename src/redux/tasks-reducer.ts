@@ -82,10 +82,12 @@ export const updateOneTask = createAsyncThunk(
       order: number;
       description: string;
       userId: string;
+      updateColumnId: string;
     },
     { rejectWithValue }
   ) => {
-    const { token, boardId, columnId, taskId, title, order, description, userId } = args;
+    const { token, boardId, columnId, taskId, title, order, description, userId, updateColumnId } =
+      args;
     try {
       const res = await updateTask(
         token,
@@ -95,7 +97,8 @@ export const updateOneTask = createAsyncThunk(
         title,
         order,
         description,
-        userId
+        userId,
+        updateColumnId
       );
       return res;
     } catch (error) {
