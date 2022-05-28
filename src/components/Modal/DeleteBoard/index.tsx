@@ -28,7 +28,7 @@ export const DeleteBoard = () => {
 
   return (
     <div>
-      <p>{t('task_form.delete_msg')}</p>
+      <p>{t('board.delete_msg')}</p>
       <button onClick={handleDeleteYes}>{t('delete_btn')}</button>
       <button onClick={handleDeleteNo}>{t('cansel_btn')}</button>
     </div>

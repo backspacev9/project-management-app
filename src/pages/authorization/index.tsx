@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import { IUserInfo } from '../../utils/auth-types';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
 
 const Authorization = () => {
   const dispatch = useAppDispatch();
@@ -15,6 +16,7 @@ const Authorization = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IUserInfo>({ mode: 'onSubmit' });
+  const { t } = useTranslation();
 
   useEffect(() => {
     return () => {
@@ -29,37 +31,33 @@ const Authorization = () => {
   return (
     <>
       <section className="auth">
-        <h3>Authorization: </h3>
+        <h3>{t('authorization')}</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
             type="text"
-            placeholder="Login"
+            placeholder={t('login')}
             id="user-login"
             maxLength={22}
             {...register('login', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
           />
-          <div className="error-message">
-            {errors.login && 'Please, enter valid login (number or letters)'}
-          </div>
+          <div className="error-message">{errors.login && t('login_error')}</div>
           <input
             type="password"
-            placeholder="Password"
+            placeholder={t('password')}
             id="user-password"
             maxLength={22}
             {...register('password', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
           />
-          <div className="error-message">
-            {errors.password && 'Please, enter valid password (number or letters)'}
-          </div>
+          <div className="error-message">{errors.password && t('password_error')}</div>
           <button type="submit" className="registration-btn">
-            Authorization
+            {t('sign_In')}
           </button>
         </form>
         <div>{errorMessage}</div>
         <div>
-          <span>Do not have an account? Go to </span>
+          <span>{t('autorization_msg')}</span>
           <NavLink to="/signup">
-            <span className="page-link">registration page.</span>
+            <span className="page-link">{t('to_registration_page')}</span>
           </NavLink>
         </div>
       </section>
