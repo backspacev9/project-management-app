@@ -22,36 +22,38 @@ const Authorization = () => {
 
   return (
     <>
-      <section className="auth">
-        <h3>{t('authorization')}</h3>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type="text"
-            placeholder={t('login')}
-            id="user-login"
-            autoComplete="off"
-            maxLength={22}
-            {...register('login', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
-          />
-          <div className="error-message">{errors.login && t('login_error')}</div>
-          <input
-            type="password"
-            placeholder={t('password')}
-            id="user-password"
-            autoComplete="off"
-            maxLength={22}
-            {...register('password', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
-          />
-          <div className="error-message">{errors.password && t('password_error')}</div>
-          <button type="submit" className="registration-btn">
-            {t('sign_In')}
-          </button>
-        </form>
-        <div>
-          <span>{t('autorization_msg')}</span>
-          <NavLink to="/signup">
-            <span className="page-link">{t('to_registration_page')}</span>
-          </NavLink>
+      <section className="auth-page">
+        <div className="auth-container">
+          <h3>{t('authorization')}</h3>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input
+              type="text"
+              placeholder={t('login')}
+              id="user-login"
+              autoComplete="off"
+              maxLength={22}
+              {...register('login', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
+            />
+            <div className="error-message">{errors.login && t('login_error')}</div>
+            <input
+              type="password"
+              placeholder={t('password')}
+              id="user-password"
+              autoComplete="off"
+              maxLength={22}
+              {...register('password', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
+            />
+            <div className="error-message">{errors.password && t('password_error')}</div>
+            <button type="submit" className="registration-btn button">
+              {t('sign_In')}
+            </button>
+          </form>
+          <div>
+            <span>{t('autorization_msg')}</span>
+            <NavLink to="/signup">
+              <span className="page-link">{t('to_registration_page')}</span>
+            </NavLink>
+          </div>
         </div>
       </section>
     </>

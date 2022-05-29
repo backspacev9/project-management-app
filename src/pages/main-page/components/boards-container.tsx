@@ -9,11 +9,11 @@ const BoardsContainer = () => {
   const { boards } = useAppSelector((state: RootState) => state.boards);
 
   return (
-    <div className="board-container">
+    <section className="board-container">
       {boards.map((el: IBoard) => (
         <BoardItem board={el} key={el.id}></BoardItem>
       ))}
-    </div>
+    </section>
   );
 };
 

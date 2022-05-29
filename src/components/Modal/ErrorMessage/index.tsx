@@ -5,5 +5,5 @@ import { RootState } from '../../../redux/store';
 export const ErrorMessage = () => {
   const { errorMessage } = useAppSelector((state: RootState) => state.app);
 
-  return <div>{errorMessage}</div>;
+  return <p>{errorMessage}</p>;
 };

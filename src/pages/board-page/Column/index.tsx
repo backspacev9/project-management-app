@@ -6,7 +6,7 @@ import {
   DroppableProvided,
   DroppableStateSnapshot,
 } from 'react-beautiful-dnd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import BtnAddTask from '../../../components/board/btn-addTask';
 import { getBoardByID } from '../../../redux/boards-reducer';
@@ -103,6 +103,9 @@ const Column = (props: ColumnProps) => {
             </form>
           ) : (
             <>
+              <div className="column-title" onClick={handleUpdateMode}>
+                {title}
+              </div>
               <div onClick={handleUpdateMode}>{title}</div>
               <button className="column-delete" onClick={handleDelete}></button>
             </>

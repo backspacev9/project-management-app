@@ -29,8 +29,10 @@ export const DeleteBoard = () => {
   return (
     <div>
       <p>{t('board.delete_msg')}</p>
-      <button onClick={handleDeleteYes}>{t('delete_btn')}</button>
-      <button onClick={handleDeleteNo}>{t('cansel_btn')}</button>
+      <div className="btn-group">
+        <button onClick={handleDeleteYes}>{t('delete_btn')}</button>
+        <button onClick={handleDeleteNo}>{t('cansel_btn')}</button>
+      </div>
     </div>
   );
 };

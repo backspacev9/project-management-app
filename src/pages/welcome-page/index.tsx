@@ -3,33 +3,34 @@ import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hooks';
 import { RootState } from '../../redux/store';
 import { useTranslation } from 'react-i18next';
+import './index.scss';
 
 const WelcomePage = () => {
   const { isAuth } = useAppSelector((state: RootState) => state.auth);
   const { t } = useTranslation();
 
   return (
-    <>
-      <section>
+    <main className="welcome">
+      <section className="buttons-container">
         {!isAuth ? (
           <>
             <NavLink to="/signin">
-              <button>{t('sign_In')}</button>
+              <button className="button">{t('sign_In')}</button>
             </NavLink>
             <NavLink to="/signup">
-              <button>{t('sign_Up')}</button>
+              <button className="button">{t('sign_Up')}</button>
             </NavLink>
           </>
         ) : (
           <NavLink to="/main">
-            <button>{t('go_to_mainPage')}</button>
+            <button className="button">{t('go_to_mainPage')}</button>
           </NavLink>
         )}
       </section>
-      <section>
+      <section className="about-container">
         <h1>{t('about_us')}</h1>
       </section>
-    </>
+    </main>
   );
 };
 

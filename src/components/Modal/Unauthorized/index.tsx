@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { handleVisibleModal } from '../../../redux/app-reducer';
 import { useAppDispatch } from '../../../redux/hooks';
+import { useTranslation } from 'react-i18next';
 
 export const UnauthorizedPage = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     navigation('/');
@@ -17,8 +19,8 @@ export const UnauthorizedPage = () => {
 
   return (
     <div>
-      <div>User is unauthorized, please, login</div>
-      <button onClick={hideModal}>OK</button>
+      <p>{t('unauthorized_msg')}</p>
+      <button onClick={hideModal}>{t('ok_btn')}</button>
     </div>
   );
 };

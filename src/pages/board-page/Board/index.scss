@@ -1,8 +1,10 @@
+@import '../../../consts';
 .Board {
   display: flex;
   flex-direction: column;
-  height: 90vh;
-
+  height: calc(100vh - 8rem);
+  padding: 1rem 0;
+  
   .board-header {
     display: flex;
     align-items: center;

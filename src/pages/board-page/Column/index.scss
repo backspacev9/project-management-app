@@ -1,14 +1,19 @@
+@import '../../../consts';
 .wrapper-column {
   display: flex;
   flex-direction: column;
   height: 100%;
   min-width: 200px;
   pointer-events: none;
+  border-radius: 5px;
+  background-color: rgba($light, .4);
+  box-shadow: 0px 0px 5px 0px #040405;
 }
 .drop-column {
   display: flex;
   height: 100%;
   flex-direction: column;
+  border-radius: 5px;
   pointer-events: none;
   overflow: hidden;
 
@@ -28,6 +33,7 @@
   width: 200px;
   height: 100%;
   border: 1px solid #cfcfcf;
+  border-radius: 5px;
   button {
     background-position: center;
     background-repeat: no-repeat;
@@ -40,18 +46,22 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #d2d2d2;
     padding: 0.7rem 0.5rem;
     pointer-events: all;
-
+      color: $light;
+    font-weight: bold;
+    border-radius: 5px 5px 0 0;
+    background-color: $c3;
     div {
       cursor: pointer;
     }
-  }
+  .column-title {
+      cursor: text;
+    }
   .column-delete {
     width: 45px;
     height: 45px;
-    background-image: url('../../../../public/img/close.svg');
+    background-image: url('../../../../public/img/col-delete.svg');
     background-size: 70%;
   }
 }
@@ -64,13 +74,13 @@
 .add-task {
   width: 45px;
   height: 45px;
-  background-image: url('../../../../public/img/add.svg');
+  background-image: url('../../../../public/img/add-task.svg');
   background-size: 70%;
 }
 .add-column {
   width: 65px;
   height: 65px;
-  background-image: url('../../../../public/img/add.svg');
+  background-image: url('../../../../public/img/add-col.svg');
   background-size: 100%;
   margin: 1rem;
 }
