@@ -39,12 +39,11 @@ const CreateBoard = () => {
             id="board-title"
             {...register('title')}
           />
-          <input
-            type="text"
+          <textarea
             placeholder={t('task_form.descr')}
             id="board-description"
             {...register('description')}
-          />
+          ></textarea>
           <button type="submit" className="registration-btn">
             {t('board.create_btn')}
           </button>

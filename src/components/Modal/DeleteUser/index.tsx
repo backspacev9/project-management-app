@@ -37,8 +37,10 @@ export const DeleteUser = () => {
       {!isDeleted && (
         <>
           <p>{t('user.delete_answ')}</p>
-          <button onClick={handleDelete}>{t('delete_btn')}</button>
-          <button onClick={handleCancel}>{t('cansel_btn')}</button>
+          <div className="btn-group">
+            <button onClick={handleDelete}>{t('delete_btn')}</button>
+            <button onClick={handleCancel}>{t('cansel_btn')}</button>
+          </div>
         </>
       )}
       {isDeleted && <p>{t('user.delete_msg')}</p>}

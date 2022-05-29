@@ -19,7 +19,7 @@ export const UnauthorizedPage = () => {
 
   return (
     <div>
-      <div>{t('unauthorized_msg')}</div>
+      <p>{t('unauthorized_msg')}</p>
       <button onClick={hideModal}>{t('ok_btn')}</button>
     </div>
   );
