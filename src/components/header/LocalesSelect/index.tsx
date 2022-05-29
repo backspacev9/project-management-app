@@ -23,8 +23,8 @@ const LocaleSelect = () => {
   return (
     <div className="local-select">
       <select name="locales" id="locales" value={lang} onChange={(e) => changeLanguage(e)}>
-        <option value="en">EN</option>
-        <option value="ru">RU</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
       </select>
     </div>
   );

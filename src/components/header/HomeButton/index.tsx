@@ -1,11 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const HomeButton = () => {
-  const { t } = useTranslation();
+  const location = useLocation();
   return (
-    <NavLink to="/main">
+    <NavLink to={location.pathname.includes('/main/b/') ? '/main' : '/'}>
       <button className="home-btn"></button>
     </NavLink>
   );
