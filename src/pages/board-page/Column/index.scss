@@ -6,6 +6,7 @@
   pointer-events: none;
   border-radius: 5px;
   background-color: rgba($light, .4);
+  box-shadow: 0px 0px 5px 0px #040405;
 }
 .drop-column {
   display: flex;
@@ -35,7 +36,7 @@
     // background-color: $color_2;
     color: $dark;
     border-radius: 5px 5px 0 0;
-    background-color: rgba($color_2, .7);
+    background-color: $c3;
     .column-title {
       cursor: alias;
     }
