@@ -28,8 +28,10 @@ const Task = (props: TaskProps) => {
       {...provided.draggableProps}
       {...provided.dragHandleProps}
     >
-      <div onClick={() => handleClick(modalActionEnum.viewTask)}>{task.title}</div>
-      <button onClick={() => handleClick(modalActionEnum.deleteTask)}></button>
+      <div className="task-content">
+        <div onClick={() => handleClick(modalActionEnum.viewTask)}>{task.title}</div>
+        <button onClick={() => handleClick(modalActionEnum.deleteTask)}></button>
+      </div>
     </div>
   );
 };

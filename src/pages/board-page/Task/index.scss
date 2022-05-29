@@ -1,16 +1,24 @@
 .task-container {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  //gap: 0.5rem;
   width: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
+
   .task-item {
     display: flex;
-    justify-content: space-between;
+    padding-bottom: 10px;
     align-items: center;
-    width: 100%;
-    border: 1px solid #ff8a8a;
+
     cursor: pointer;
+    .task-content {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #ff8a8a;
+    }
     div {
       width: 85%;
       padding: 0.5rem;

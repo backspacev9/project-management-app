@@ -1,22 +1,33 @@
 .wrapper-column {
   display: flex;
-
+  flex-direction: column;
   height: 100%;
   min-width: 200px;
-  border: 1px solid #84bdff;
   pointer-events: none;
 }
 .drop-column {
   display: flex;
   height: 100%;
   flex-direction: column;
+  pointer-events: none;
+  overflow: hidden;
+
+  .add-task,
+  .task-container,
+  .task-item {
+    pointer-events: all;
+  }
+  .task-item {
+    cursor: grab;
+  }
 }
+
 .column-item {
   display: flex;
   flex-direction: column;
   width: 200px;
-  height: 90%;
-  border: 1px solid #ff7272;
+  height: 100%;
+  border: 1px solid #cfcfcf;
   button {
     background-position: center;
     background-repeat: no-repeat;
@@ -24,13 +35,18 @@
     height: 35px;
     background-size: 100%;
   }
-  pointer-events: all;
+  pointer-events: none;
   .header-column {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #d2d2d2;
     padding: 0.7rem 0.5rem;
+    pointer-events: all;
+
+    div {
+      cursor: pointer;
+    }
   }
   .column-delete {
     width: 45px;

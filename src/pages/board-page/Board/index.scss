@@ -17,8 +17,8 @@
   display: flex;
   height: 100%;
   padding: 10px 20px 0 20px;
-  .wrapper-column:nth-child(n + 2) {
-    margin-left: 10px;
+  .wrapper-column {
+    padding-right: 10px;
   }
 
   .addColumn {
