@@ -104,7 +104,9 @@ const Column = (props: ColumnProps) => {
               </form>
             ) : (
               <>
-                <div onClick={handleUpdateMode}>{title}</div>
+                <div className="column-title" onClick={handleUpdateMode}>
+                  {title}
+                </div>
                 <button className="column-delete" onClick={handleDelete}></button>
               </>
             )}

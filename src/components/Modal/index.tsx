@@ -1,8 +1,8 @@
 import { ModalContainer } from './ModalContainer';
 import CreateBoard from './CreateBoard';
-import { FormCreateTask } from './FormCreateTask';
-import { FormDeleteTask } from './FormDeleteTask';
-import { FormUpdateTask } from './FormUpdateTask';
+import { FormCreateTask } from './CreateTask';
+import { FormDeleteTask } from './DeleteTask';
+import { FormUpdateTask } from './UpdateTask';
 import { DeleteUser } from './DeleteUser';
 import { UpdateUser } from './UpdateUser';
 import { modalActionEnum } from '../../utils/enums';

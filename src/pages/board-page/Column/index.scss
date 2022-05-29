@@ -1,22 +1,24 @@
+@import '../../../consts';
 .wrapper-column {
   display: flex;
-
   height: 100%;
   min-width: 200px;
-  border: 1px solid #84bdff;
   pointer-events: none;
+  border-radius: 5px;
+  background-color: rgba($light, .4);
 }
 .drop-column {
   display: flex;
   height: 100%;
   flex-direction: column;
+  border-radius: 5px;
 }
 .column-item {
   display: flex;
   flex-direction: column;
   width: 200px;
   height: 90%;
-  border: 1px solid #ff7272;
+  border-radius: 5px;
   button {
     background-position: center;
     background-repeat: no-repeat;
@@ -29,8 +31,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #d2d2d2;
     padding: 0.7rem 0.5rem;
+    // background-color: $color_2;
+    color: $dark;
+    border-radius: 5px 5px 0 0;
+    background-color: rgba($color_2, .7);
+    .column-title {
+      cursor: alias;
+    }
   }
   .column-delete {
     width: 45px;
@@ -54,7 +62,7 @@
 .add-column {
   width: 65px;
   height: 65px;
-  background-image: url('../../../../public/img/add.svg');
+  background-image: url('../../../../public/img/add-col.svg');
   background-size: 100%;
   margin: 1rem;
 }
