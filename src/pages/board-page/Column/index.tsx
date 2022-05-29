@@ -4,7 +4,7 @@ import {
   DroppableProvided,
   DroppableStateSnapshot,
 } from 'react-beautiful-dnd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import BtnAddTask from '../../../components/board/btn-addTask';
 import { getBoardByID } from '../../../redux/boards-reducer';
@@ -48,6 +48,10 @@ const Column = (props: ColumnProps) => {
     dispatch(setCurrentColumnId(id));
     dispatch(setModalAction(modalActionEnum.deleteColumn));
   };
+
+  useEffect(() => {
+    console.log(props.column.id, props.column.tasks);
+  }, []);
 
   const handleCancel = () => {
     setUpdateMode(false);

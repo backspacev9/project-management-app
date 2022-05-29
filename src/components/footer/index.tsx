@@ -38,7 +38,7 @@ export const Footer = () => {
       </div>
       <div className="footer-container">© 2022</div>
       <div className="footer-container">
-        <a href="https://rs.school/js/" target="_blank" rel="noreferrer">
+        <a href="https://rs.school/react/" target="_blank" rel="noreferrer">
           <div className="rss"></div>
         </a>
       </div>
