@@ -38,12 +38,12 @@ export const FormUpdateTask = () => {
         token,
         boardId: currentBoard.id,
         columnId: currentColumnId,
-        updateColumnId: currentColumnId,
         taskId: currentTask.id,
         title,
         order: currentTask.order,
         description,
         userId,
+        updateColumnId: currentColumnId,
       })
     );
 

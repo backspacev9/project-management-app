@@ -34,7 +34,9 @@ export const DeleteColumn = () => {
       <p>{t('column.delete_msg')}</p>
       <div className="btn-group">
         <button onClick={handleDeleteYes}>{t('delete_btn')}</button>
-        <button onClick={handleDeleteNo}>{t('cansel_btn')}</button>
+        <button className="cancel-btn" onClick={handleDeleteNo}>
+          {t('cansel_btn')}
+        </button>
       </div>
     </div>
   );

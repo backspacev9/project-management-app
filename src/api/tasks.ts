@@ -76,11 +76,11 @@ export const updateTask = async (
     .put(
       `${BASE_URL}boards/${boardId}/columns/${columnId}/tasks/${taskId}`,
       {
-        title,
-        order,
-        description,
-        userId,
-        boardId,
+        title: title,
+        order: order,
+        description: description,
+        userId: userId,
+        boardId: boardId,
         columnId: updateColumnId,
       },
       { headers: { Authorization: `Bearer ${token}` } }

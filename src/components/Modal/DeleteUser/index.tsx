@@ -39,7 +39,9 @@ export const DeleteUser = () => {
           <p>{t('user.delete_answ')}</p>
           <div className="btn-group">
             <button onClick={handleDelete}>{t('delete_btn')}</button>
-            <button onClick={handleCancel}>{t('cansel_btn')}</button>
+            <button className="cancel-btn" onClick={handleCancel}>
+              {t('cansel_btn')}
+            </button>
           </div>
         </>
       )}

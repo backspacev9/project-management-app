@@ -18,7 +18,8 @@
 .board-columns-container {
   display: flex;
   height: 100%;
-  padding: 10px 20px 0 20px;
+  padding: 1rem 2rem;
+  overflow-x: auto;
   .wrapper-column:nth-child(n + 2) {
     margin-left: 10px;
   }

@@ -16,16 +16,23 @@ export const ViewTask = () => {
 
   const handleClick = (modalAction: string) => {
     dispatch(setModalAction(modalAction));
+    console.log(currentTask);
   };
 
   return (
-    <section>
-      <p>{t('task_form.author')}</p>
-      <p>{author?.name}</p>
-      <p>{t('task_form.title')}</p>
-      <p>{title}</p>
-      <p>{t('task_form.descr')}</p>
-      <p>{description}</p>
+    <section className="view-task">
+      <p>
+        <span className="task-field">{t('task_form.author') + ': '}</span>
+        <span>{author?.name}</span>
+      </p>
+      <p>
+        <span className="task-field">{t('task_form.title') + ': '}</span>
+        <span>{title}</span>
+      </p>
+      <p>
+        <span className="task-field">{t('task_form.descr') + ': '}</span>
+        <span>{description}</span>
+      </p>
       <button onClick={() => handleClick(modalActionEnum.updateTask)}>{t('update_btn')}</button>
     </section>
   );

@@ -40,6 +40,12 @@
     .column-title {
       cursor: text;
     }
+    input {
+      width: 85%;
+      border-bottom: 2px solid $c1;
+      background: $c3;
+      color: $light;
+    }
   }
   .column-delete {
     width: 45px;
@@ -52,7 +58,7 @@
   background-image: url('../../../../public/img/checked.svg');
 }
 .col-cancel {
-  background-image: url('../../../../public/img/cancel.svg');
+  background-image: url('../../../../public/img/col-upd-cancel.svg');
 }
 .add-task {
   width: 45px;

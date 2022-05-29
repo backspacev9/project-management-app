@@ -117,7 +117,7 @@ const Column = (props: ColumnProps) => {
               ? tasks.map((el, index) => (
                   <Draggable key={el.id} draggableId={el.id} index={index}>
                     {(provided, snapshotDragTask) => (
-                      <Task task={el} key={el.id} provided={provided} columnId={el.id} />
+                      <Task task={el} key={el.id} provided={provided} columnId={id} />
                     )}
                   </Draggable>
                 ))
