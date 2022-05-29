@@ -50,5 +50,7 @@
   "edit_profile": "Edit Profile",
   "update_info": "Update Info",
   "delete_user": "Delete User",
-  "update_user_msg": "Information about User was updated"
+  "update_user_msg": "Information about User was updated",
+  "unauthorized_msg": "User is unauthorized, please, login",
+  "ok_btn": "OK"
 }

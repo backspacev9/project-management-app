@@ -6,6 +6,7 @@
   pointer-events: none;
   border-radius: 5px;
   background-color: rgba($light, .4);
+  box-shadow: 0px 0px 5px 0px #040405;
 }
 .drop-column {
   display: flex;
@@ -32,18 +33,18 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.7rem 0.5rem;
-    // background-color: $color_2;
-    color: $dark;
+    color: $light;
+    font-weight: bold;
     border-radius: 5px 5px 0 0;
-    background-color: rgba($color_2, .7);
+    background-color: $c3;
     .column-title {
-      cursor: alias;
+      cursor: text;
     }
   }
   .column-delete {
     width: 45px;
     height: 45px;
-    background-image: url('../../../../public/img/close.svg');
+    background-image: url('../../../../public/img/col-delete.svg');
     background-size: 70%;
   }
 }
@@ -56,7 +57,7 @@
 .add-task {
   width: 45px;
   height: 45px;
-  background-image: url('../../../../public/img/add.svg');
+  background-image: url('../../../../public/img/add-task.svg');
   background-size: 70%;
 }
 .add-column {
