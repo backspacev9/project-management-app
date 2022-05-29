@@ -11,7 +11,7 @@ i18n
     fallbackLng: 'en',
     debug: false,
     detection: {
-      order: ['localStorage', 'cookie'],
+      order: ['localStorage', 'cookie', 'html'],
       cahe: ['cookie'],
     },
     interpolation: {

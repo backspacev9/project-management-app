@@ -18,7 +18,8 @@
   },
   "user": {
     "delete_answ": "Are you sure that you want to delete your profile?",
-    "delete_msg": "Your profile was deleted."
+    "delete_msg": "Your profile was deleted.",
+    "update_btn": "Edit profile"
   },
   "title_error_req": "Title cannot be empty",
   "title_error_length": "Title can't be less than 2 characters",

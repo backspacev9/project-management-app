@@ -13,7 +13,10 @@ const BoardCreateButton = () => {
 
   return (
     <>
-      <button onClick={showCreateBoard}>{t('create_board')}</button>
+      <button className="add-board-btn" onClick={showCreateBoard}>
+        <img src="../../../../img/add.svg" alt={t('create_board')} />
+        {t('create_board')}
+      </button>
     </>
   );
 };

@@ -1,7 +1,17 @@
+@import '../../../consts';
 .Board {
   display: flex;
   flex-direction: column;
   height: 90vh;
+  // background: rgb(81,59,86);
+  // background: radial-gradient(circle, rgba(81,59,86,1) 0%, rgba(4,4,5,1) 100%);
+  background: rgb(45,125,152);
+  background: radial-gradient(circle, rgba(45,125,152,1) 0%, rgba(4,4,5,1) 100%);
+  padding: 1rem 0;
+  // background-image: url('../../../../public/img/bg.svg');
+  // background-repeat: no-repeat;
+  // background-position: center;
+  
 
   .board-header {
     display: flex;

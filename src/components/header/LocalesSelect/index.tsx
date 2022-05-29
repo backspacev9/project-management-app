@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const LocaleSelect = () => {
+const LocaleSelect = () => {
   const { i18n } = useTranslation();
   const [lang, setLang] = useState('');
 
@@ -29,3 +29,5 @@ export const LocaleSelect = () => {
     </div>
   );
 };
+
+export default LocaleSelect;

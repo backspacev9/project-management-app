@@ -12,6 +12,26 @@
     background-image: url('../../../public/img/previous.svg');
   }
   .editProfile-btn {
-    background-image: url('../../../public/img/user.svg');
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    min-width: 100px;
+    height: 35px;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  .home-btn {
+    background-image: url('../../../public/img/home.svg');
+  }
+  .add-board-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    img {
+      width: 20px;
+      height: 20px;
+    }
   }
 }
