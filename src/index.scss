@@ -27,24 +27,6 @@ button {
   background: none;
 }
 
-select {
-  border: none;
-  border-bottom: 1px solid $dark;
-  background-color: transparent;
-  color: $c4;
-  font-weight: 900;
-  padding: 0.1rem;
-  cursor: pointer;
-  &:focus {
-    outline: none;
-  } 
-  option {
-    text-shadow: none;
-    color: $c4;
-  }
-
-}
-
 ::-webkit-scrollbar {
   width: 6px; 
   height: 6px;
