@@ -65,10 +65,15 @@ export const authReducer = createSlice({
   reducers: {
     setToken: (state, action) => {
       state.token = action.payload;
-      const decoded = jwtDecode<JwtPayload>(action.payload);
-      state.userId = decoded.userId;
-      state.login = decoded.login;
-      state.isAuth = true;
+      try {
+        const decoded = jwtDecode<JwtPayload>(action.payload);
+        console.log(decoded);
+        state.userId = decoded.userId;
+        state.login = decoded.login;
+        state.isAuth = true;
+      } catch (err) {
+        state.isAuth = false;
+      }
     },
     setAuth: (state, action) => {
       state.isAuth = action.payload;
