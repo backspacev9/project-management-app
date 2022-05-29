@@ -15,6 +15,7 @@ import {
   EditProfile,
 } from './pages';
 import { getAllUsers } from './redux/users-reducer';
+import { Footer } from './components/footer';
 
 const App = () => {
   const { isAuth } = useAppSelector((state: RootState) => state.auth);
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         {isModalVisible && <Modal />}
+        <Footer />
       </Router>
     </div>
   );
