@@ -28,7 +28,21 @@ button {
   background: none;
   font-family: 'Montserrat', sans-serif;
 }
-input[type='text'], 
+
+.button {
+  width: 10rem;
+  height: 2rem;
+  border-radius: 0.15rem;
+  background-color: $c3;
+  color: $light;
+  transition: 0.4s ease-in-out;
+  &:hover {
+    background-color: $c4;
+  }
+}
+
+input[type='text'],
+input[type='password'], 
 textarea {
   border: none;
   outline: none;
@@ -36,10 +50,13 @@ textarea {
   padding: 0.3rem;
   font-family: 'Montserrat', sans-serif;
 }
+
 textarea {
   resize: none;
 }
-input[type='text']:focus, 
+
+input[type='text']:focus,
+input[type='password']:focus,
 textarea:focus {
   border: none;
   outline: none;
