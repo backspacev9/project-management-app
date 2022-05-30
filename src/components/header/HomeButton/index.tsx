@@ -1,7 +1,10 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { setActiveHeader } from '../../../redux/app-reducer';
+import { useAppDispatch } from '../../../redux/hooks';
 
 const HomeButton = () => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
   return (
     <NavLink
@@ -11,7 +14,7 @@ const HomeButton = () => {
           : '/'
       }
     >
-      <button className="home-btn"></button>
+      <button className="home-btn" onClick={() => dispatch(setActiveHeader(false))}></button>
     </NavLink>
   );
 };

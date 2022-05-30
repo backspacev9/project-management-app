@@ -1,12 +1,12 @@
 import {
   Draggable,
   DraggableProvided,
-  DropAnimation,
-  Droppable,
+  DraggableStateSnapshot,
+  DraggingState,
   DroppableProvided,
   DroppableStateSnapshot,
 } from 'react-beautiful-dnd';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import BtnAddTask from '../../../components/board/btn-addTask';
 import { getBoardByID } from '../../../redux/boards-reducer';
@@ -19,13 +19,13 @@ import Task from '../Task';
 import './index.scss';
 import { useTranslation } from 'react-i18next';
 import { setModalAction } from '../../../redux/app-reducer';
-import { DropTaskType } from '../constants';
 
 interface ColumnProps {
   column: IColumnWithTasks;
   providedDrag: DraggableProvided;
   providedDrop: DroppableProvided;
   snapshotDrop: DroppableStateSnapshot;
+  snapshotDrag: DraggableStateSnapshot;
 }
 
 interface IUpdateColumn {
@@ -33,7 +33,7 @@ interface IUpdateColumn {
 }
 
 const Column = (props: ColumnProps) => {
-  const { providedDrag, providedDrop, snapshotDrop } = props;
+  const { providedDrag, providedDrop, snapshotDrop, snapshotDrag } = props;
   const { id, title, order, tasks } = props.column;
   const { token } = useAppSelector((state: RootState) => state.auth);
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
@@ -104,7 +104,11 @@ const Column = (props: ColumnProps) => {
             </form>
           ) : (
             <>
-              <div className="column-title" onClick={handleUpdateMode}>
+              <div
+                className="column-title"
+                onClick={handleUpdateMode}
+                style={{ pointerEvents: snapshotDrag.isDragging ? 'none' : 'all' }}
+              >
                 {title}
               </div>
               <button className="column-delete" onClick={handleDelete}></button>
@@ -116,9 +120,7 @@ const Column = (props: ColumnProps) => {
             {tasks && Object.keys(tasks).length !== 0
               ? tasks.map((el, index) => (
                   <Draggable key={el.id} draggableId={el.id} index={index}>
-                    {(provided, snapshotDragTask) => (
-                      <Task task={el} key={el.id} provided={provided} columnId={id} />
-                    )}
+                    {(provided) => <Task task={el} key={el.id} provided={provided} columnId={id} />}
                   </Draggable>
                 ))
               : ''}

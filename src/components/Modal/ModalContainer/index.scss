@@ -66,6 +66,29 @@
       font-weight: bold;
       color: $c4;
     }
+    .file-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-bottom: 15px;
+      .file {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+      .file-download {
+        width: 17px;
+        height: 17px;
+        background-image: url(../../../../public/img/download.svg);
+        background-repeat: no-repeat;
+        cursor: pointer;
+        transition: 0.4s ease-in-out;
+        &:hover {
+          filter: opacity(0.5);
+        }
+      }
+    }
   }
 }
 .modal-close {
@@ -83,4 +106,28 @@
 .error-message {
   color: $error;
   min-height: 1em;
+}
+
+.file-container {
+  display: flex;
+}
+.custom-file-input {
+  width: 30px;
+  color: transparent;
+}
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.custom-file-input::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-image: url("../../../../public/img/upload.svg");
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+    &:hover {
+      filter: opacity(0.5);
+    }
 }

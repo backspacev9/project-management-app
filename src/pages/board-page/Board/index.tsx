@@ -12,14 +12,13 @@ import { DropColumnType, DropTaskType } from '../constants';
 import { ITaskWithFiles } from '../../../utils/task-types';
 import { updateOneTask } from '../../../redux/tasks-reducer';
 import './index.scss';
-import Preloader from '../../../components/preloader';
 import Header from '../../../components/header';
 
 const Board = () => {
   const { token } = useAppSelector((state: RootState) => state.auth);
   const params = useParams();
   const { id } = params;
-  const { currentBoard, isFetch } = useAppSelector((state: RootState) => state.boards);
+  const { currentBoard } = useAppSelector((state: RootState) => state.boards);
   const { columns } = useAppSelector((state: RootState) => state.boards.currentBoard);
   const dispatch = useAppDispatch();
   const setBoard = async () => {
@@ -97,7 +96,6 @@ const Board = () => {
       if (destination && destination.index === source.index) return;
 
       const items = reorderColumns(source.index, distIndex);
-      console.log(orderColumn);
       dispatch(setColumns(items));
       await dispatch(
         updateOneColumn({
@@ -127,7 +125,7 @@ const Board = () => {
                 {columns && Object.keys(columns).length !== 0
                   ? columns.map((el, index) => (
                       <Draggable key={index} draggableId={`cdrag-${index}`} index={index}>
-                        {(providedDrag) => (
+                        {(providedDrag, snapshotDrag) => (
                           <Droppable droppableId={el.id} type={DropTaskType}>
                             {(providedDrop, snapshotDrop) => (
                               <Column
@@ -136,6 +134,7 @@ const Board = () => {
                                 providedDrop={providedDrop}
                                 providedDrag={providedDrag}
                                 snapshotDrop={snapshotDrop}
+                                snapshotDrag={snapshotDrag}
                               />
                             )}
                           </Droppable>

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   changeCurrentTaskDescr,
   changeCurrentTaskTitle,
   updateOneTask,
+  uploadFile,
 } from '../../../redux/tasks-reducer';
 import { useTranslation } from 'react-i18next';
 import { handleVisibleModal } from '../../../redux/app-reducer';
@@ -26,6 +27,7 @@ export const FormUpdateTask = () => {
     reset,
   } = useForm<IUpdateTask>({ mode: 'onSubmit' });
   const { t } = useTranslation();
+  const [file, setFile] = useState<File>();
 
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
   const { currentColumnId } = useAppSelector((state: RootState) => state.columns);
@@ -47,6 +49,10 @@ export const FormUpdateTask = () => {
       })
     );
 
+    if (file) {
+      await dispatch(uploadFile({ token, taskId: currentTask.id, file }));
+    }
+
     reset();
     dispatch(handleVisibleModal(false));
     await dispatch(getBoardByID({ token, id: currentBoard.id }));
@@ -62,6 +68,12 @@ export const FormUpdateTask = () => {
     } else if (inpName === 'description') {
       dispatch(changeCurrentTaskDescr(target.value));
     }
+  };
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { target } = e;
+    const files = target.files?.[0] as File;
+    if (files) setFile(files);
   };
 
   return (
@@ -94,6 +106,17 @@ export const FormUpdateTask = () => {
         placeholder={t('task_form.descr')}
         onChange={(e) => handleChange(e)}
       ></textarea>
+      <div className="file-container">
+        <input
+          type="file"
+          className="custom-file-input"
+          id="file"
+          accept="image/*"
+          onChange={(e) => handleFile(e)}
+        />
+        <span>{file ? file?.name : t('task_form.file')}</span>
+      </div>
+
       <div className="message-container">
         {errors.description && <div className="error-message">{errors.description.message}</div>}
       </div>
