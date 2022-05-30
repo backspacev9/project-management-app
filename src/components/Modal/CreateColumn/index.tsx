@@ -43,6 +43,7 @@ export const CreateColumn = () => {
       <input
         type="text"
         id="title"
+        maxLength={26}
         placeholder={t('task_form.title')}
         {...register('title', {
           required: t('title_error_req'),

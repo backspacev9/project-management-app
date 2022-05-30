@@ -48,6 +48,7 @@ export const FormCreateTask = () => {
       <input
         type="text"
         id="title"
+        maxLength={26}
         placeholder={t('task_form.title')}
         {...register('title', {
           required: t('title_error_req'),
@@ -60,6 +61,7 @@ export const FormCreateTask = () => {
       </div>
       <textarea
         id="description"
+        maxLength={150}
         {...register('description', {
           required: t('descr_error_req'),
           minLength: { value: 2, message: t('descr_error_length') },

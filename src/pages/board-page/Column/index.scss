@@ -39,6 +39,8 @@
     background-color: $c3;
     .column-title {
       cursor: text;
+      width: 80%;
+      word-wrap: break-word;
     }
     input {
       width: 85%;
@@ -48,10 +50,10 @@
     }
   }
   .column-delete {
-    width: 45px;
-    height: 45px;
+    width: 25px;
+    height: 25px;
     background-image: url('../../../../public/img/col-delete.svg');
-    background-size: 70%;
+    background-size: 100%;
   }
 }
 .col-submit {
