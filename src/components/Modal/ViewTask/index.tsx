@@ -4,9 +4,11 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { RootState } from '../../../redux/store';
 import { modalActionEnum } from '../../../utils/enums';
 import { useTranslation } from 'react-i18next';
+import { downloadFile, IFile } from '../../../redux/tasks-reducer';
 
 export const ViewTask = () => {
   const { currentTask } = useAppSelector((state: RootState) => state.tasks);
+  const { token } = useAppSelector((state: RootState) => state.auth);
   const { title, description } = currentTask;
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state: RootState) => state.users);
@@ -16,6 +18,19 @@ export const ViewTask = () => {
 
   const handleClick = (modalAction: string) => {
     dispatch(setModalAction(modalAction));
+  };
+
+  const handleDownloadFile = (filename: string) => {
+    dispatch(downloadFile({ token: token, taskId: currentTask.id, fileName: filename }))
+      .unwrap()
+      .then((response) => {
+        const blob = new Blob([JSON.stringify(response)]);
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+      });
   };
 
   return (
@@ -32,6 +47,19 @@ export const ViewTask = () => {
         <span className="task-field">{t('task_form.descr') + ': '}</span>
         <span>{description}</span>
       </p>
+      {currentTask.files.length > 0 && (
+        <div>
+          <div className="task-field">{t('task_form.files') + ': '}</div>
+          {currentTask.files.map((el: IFile, i: number) => (
+            <p key={currentTask.id + i}>
+              <span>{el.filename}</span>
+              <span className="file-download" onClick={() => handleDownloadFile(el.filename)}>
+                {' ' + 'download'}
+              </span>
+            </p>
+          ))}
+        </div>
+      )}
       <button onClick={() => handleClick(modalActionEnum.updateTask)}>{t('update_btn')}</button>
     </section>
   );

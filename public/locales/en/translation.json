@@ -4,6 +4,7 @@
     "descr": "Description",
     "author": "Author",
     "file": "Upload file",
+    "files": "Files",
     "save": "Save",
     "create_btn": "Create task",
     "delete_msg": "Are you sure you want to delete this task?"
