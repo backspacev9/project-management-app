@@ -5,6 +5,7 @@ import SignOutButton from './SignOut';
 import EditProfileButton from './EditProfileButton';
 import './index.scss';
 import HomeButton from './HomeButton';
+import MenuButton from './MenuButton';
 
 const Header = () => {
   const isSticky = () => {
@@ -23,6 +24,7 @@ const Header = () => {
 
   return (
     <header className="header">
+      <MenuButton />
       <HomeButton />
       <BoardCreateButton />
       <LocaleSelect />
