@@ -10,7 +10,7 @@
     display: flex;
     padding-bottom: 10px;
     align-items: center;
-
+    user-select: none;
     cursor: pointer;
     .task-content {
       display: flex;

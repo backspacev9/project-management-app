@@ -41,12 +41,18 @@
     background-color: $c2;
     color: $light;
     transition: 0.4s ease-in-out;
+    &:hover {
+      background-color: $c4;
+    }
   }
   .btn-group {
     display: flex;
     gap: 0.5rem;
     .cancel-btn {
       background-color: $cancel;
+      &:hover {
+        background-color: $cancel_hov;
+      }
     }
   }
   p {
