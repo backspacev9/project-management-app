@@ -38,12 +38,12 @@ export const FormUpdateTask = () => {
         token,
         boardId: currentBoard.id,
         columnId: currentColumnId,
-        updateColumnId: currentColumnId,
         taskId: currentTask.id,
         title,
         order: currentTask.order,
         description,
         userId,
+        updateColumnId: currentColumnId,
       })
     );
 
@@ -69,6 +69,7 @@ export const FormUpdateTask = () => {
       <input
         type="text"
         id="title"
+        maxLength={26}
         value={currentTask.title}
         placeholder={t('task_form.title')}
         {...register('title', {
@@ -83,6 +84,7 @@ export const FormUpdateTask = () => {
       </div>
       <textarea
         id="description"
+        maxLength={150}
         {...register('description', {
           required: t('descr_error_req'),
           minLength: { value: 2, message: t('descr_error_length') },

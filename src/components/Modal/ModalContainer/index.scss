@@ -13,7 +13,7 @@
   background: white;
   width: 50%;
   height: auto;
-  top: 50%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%,-50%);
   border-radius: 5px;
@@ -23,12 +23,13 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  padding: 1rem;
+  padding: 2rem;
   form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     gap: 1rem;
+    width: 55%;
   }
   button {
     background-color: $c2;
@@ -44,9 +45,21 @@
   .btn-group {
     display: flex;
     gap: 0.5rem;
+    .cancel-btn {
+      background-color: $cancel;
+    }
   }
   p {
     padding: 2rem 0;
+  }
+  .view-task {
+    p {
+      padding: 0.7rem 0;
+    }
+    .task-field {
+      font-weight: bold;
+      color: $c4;
+    }
   }
 }
 .modal-close {
@@ -59,6 +72,6 @@
   background-repeat: no-repeat;
 }
 .error-message {
-  color: red;
+  color: $error;
   min-height: 1em;
 }

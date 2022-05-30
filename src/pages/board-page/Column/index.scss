@@ -58,6 +58,14 @@
     }
     .column-title {
       cursor: text;
+      width: 80%;
+      word-wrap: break-word;
+    }
+    input {
+      width: 85%;
+      border-bottom: 2px solid $c1;
+      background: $c3;
+      color: $light;
     }
     .column-delete {
       width: 45px;
@@ -66,18 +74,24 @@
       background-size: 70%;
     }
   }
-  .col-submit {
-    background-image: url('../../../../public/img/checked.svg');
+  .column-delete {
+    width: 25px;
+    height: 25px;
+    background-image: url('../../../../public/img/col-delete.svg');
+    background-size: 100%;
   }
-  .col-cancel {
-    background-image: url('../../../../public/img/cancel.svg');
-  }
-  .add-task {
-    width: 45px;
-    height: 45px;
-    background-image: url('../../../../public/img/add-task.svg');
-    background-size: 70%;
-  }
+}
+.col-submit {
+  background-image: url('../../../../public/img/checked.svg');
+}
+.col-cancel {
+  background-image: url('../../../../public/img/col-upd-cancel.svg');
+}
+.add-task {
+  width: 45px;
+  height: 45px;
+  background-image: url('../../../../public/img/add-task.svg');
+  background-size: 70%;
 }
 .add-column {
   width: 65px;
