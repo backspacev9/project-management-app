@@ -4,7 +4,7 @@
   flex-direction: column;
   height: calc(100vh - 8rem);
   padding: 1rem 0;
-  
+
   .board-header {
     display: flex;
     align-items: center;
@@ -18,10 +18,10 @@
 .board-columns-container {
   display: flex;
   height: 100%;
-  padding: 1rem 2rem;
   overflow-x: auto;
-  .wrapper-column:nth-child(n + 2) {
-    margin-left: 10px;
+  padding: 1rem 0 0.7rem;
+  .wrapper-column {
+    margin-left: 18px;
   }
 
   .addColumn {

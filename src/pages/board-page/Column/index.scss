@@ -1,25 +1,41 @@
 @import '../../../consts';
 .wrapper-column {
   display: flex;
+  flex-direction: column;
   height: 100%;
-  min-width: 200px;
+  min-width: 220px;
   pointer-events: none;
   border-radius: 5px;
-  background-color: rgba($light, .4);
-  box-shadow: 0px 0px 5px 0px #040405;
 }
 .drop-column {
   display: flex;
   height: 100%;
   flex-direction: column;
+  width: 100%;
   border-radius: 5px;
+  background-color: rgba($light, 0.4);
+  padding: 0.4rem;
+  pointer-events: none;
+  overflow: hidden;
+
+  .add-task,
+  .task-container,
+  .task-item {
+    pointer-events: all;
+  }
+  .task-item {
+    cursor: grab;
+  }
 }
+
 .column-item {
   display: flex;
   flex-direction: column;
-  width: 200px;
-  height: 90%;
+
+  height: 100%;
   border-radius: 5px;
+  pointer-events: none;
+  box-shadow: 0px 0px 5px 0px #040405;
   button {
     background-position: center;
     background-repeat: no-repeat;
@@ -27,16 +43,19 @@
     height: 35px;
     background-size: 100%;
   }
-  pointer-events: all;
   .header-column {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.7rem 0.5rem;
+    pointer-events: all;
     color: $light;
     font-weight: bold;
     border-radius: 5px 5px 0 0;
     background-color: $c3;
+    div {
+      cursor: pointer;
+    }
     .column-title {
       cursor: text;
       width: 80%;
@@ -48,6 +67,18 @@
       background: $c3;
       color: $light;
     }
+    .column-delete {
+      width: 45px;
+      height: 45px;
+      background-image: url('../../../../public/img/col-delete.svg');
+      background-size: 70%;
+    }
+  }
+  .col-submit {
+    background-image: url('../../../../public/img/checked.svg');
+  }
+  .col-cancel {
+    background-image: url('../../../../public/img/col-upd-cancel.svg');
   }
   .column-delete {
     width: 25px;
