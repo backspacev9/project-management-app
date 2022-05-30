@@ -106,7 +106,17 @@ export const FormUpdateTask = () => {
         placeholder={t('task_form.descr')}
         onChange={(e) => handleChange(e)}
       ></textarea>
-      <input type="file" id="file" accept="image/*" onChange={(e) => handleFile(e)} />
+      <div className="file-container">
+        <input
+          type="file"
+          className="custom-file-input"
+          id="file"
+          accept="image/*"
+          onChange={(e) => handleFile(e)}
+        />
+        <span>{file ? file?.name : t('task_form.file')}</span>
+      </div>
+
       <div className="message-container">
         {errors.description && <div className="error-message">{errors.description.message}</div>}
       </div>

@@ -104,3 +104,27 @@
   color: $error;
   min-height: 1em;
 }
+
+.file-container {
+  display: flex;
+}
+.custom-file-input {
+  width: 30px;
+  color: transparent;
+}
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.custom-file-input::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-image: url("../../../../public/img/upload.svg");
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+    &:hover {
+      filter: opacity(0.5);
+    }
+}
