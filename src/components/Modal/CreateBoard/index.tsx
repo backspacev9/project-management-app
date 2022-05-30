@@ -45,9 +45,7 @@ const CreateBoard = () => {
           maxLength={150}
           {...register('description')}
         ></textarea>
-        <button type="submit" className="registration-btn">
-          {t('board.create_btn')}
-        </button>
+        <button type="submit">{t('board.create_btn')}</button>
       </form>
     </>
   );

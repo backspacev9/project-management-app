@@ -89,6 +89,7 @@ const Column = (props: ColumnProps) => {
               <input
                 type="text"
                 defaultValue={title}
+                maxLength={26}
                 {...register('colTitle', {
                   required: t('title_error_req'),
                   minLength: { value: 2, message: t('title_error_length') },
@@ -110,7 +111,6 @@ const Column = (props: ColumnProps) => {
               >
                 {title}
               </div>
-
               <button className="column-delete" onClick={handleDelete}></button>
             </>
           )}
