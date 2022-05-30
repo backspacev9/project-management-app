@@ -26,6 +26,11 @@
         width: 85%;
         padding: 0.7rem;
       }
+      button {
+        &:hover {
+          filter: invert(72%) sepia(73%) saturate(6458%) hue-rotate(208deg) brightness(101%) contrast(99%);
+        }
+      }
     }
 
     button {
