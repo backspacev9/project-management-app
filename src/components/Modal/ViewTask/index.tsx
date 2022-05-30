@@ -48,15 +48,13 @@ export const ViewTask = () => {
         <span>{description}</span>
       </p>
       {currentTask.files.length > 0 && (
-        <div>
+        <div className="file-container">
           <div className="task-field">{t('task_form.files') + ': '}</div>
           {currentTask.files.map((el: IFile, i: number) => (
-            <p key={currentTask.id + i}>
-              <span>{el.filename}</span>
-              <span className="file-download" onClick={() => handleDownloadFile(el.filename)}>
-                {' ' + 'download'}
-              </span>
-            </p>
+            <div className="file" key={currentTask.id + i}>
+              <div>{el.filename}</div>
+              <div className="file-download" onClick={() => handleDownloadFile(el.filename)}></div>
+            </div>
           ))}
         </div>
       )}
