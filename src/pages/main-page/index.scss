@@ -1,17 +1,26 @@
+@import '../../consts.scss';
+
 .board-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
   gap: 1rem;
-  height: calc(100vh - 8rem);
+  min-height: calc(100vh - 8rem);
+  padding: 2rem;
+  color: $c4;
 }
+
 .board-item {
   display: flex;
   justify-content: space-between;
-  min-width: 300px;
-  min-height: 70px;
+  width: 450px;
+  height: 150px;
   padding: 1rem;
   cursor: pointer;
-  border: 2px solid black;
+  backdrop-filter: blur(5px);
+  background-color: hsla(0,0%,100%,.5);
+  border-radius: 0.5rem;
   a {
     display: block;
     width: 100%;
@@ -22,8 +31,8 @@
     gap: 0.5rem;
   }
   button {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
@@ -35,11 +44,17 @@
     background-image: url('../../../public/img/close.svg');
   }
 }
+
 .board-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   text-align: center;
   width: 100%;
   padding: 0.5rem;
   .board-title {
     font-weight: bold;
+    font-size: 1.2rem;
   }
 }
