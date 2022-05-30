@@ -7,12 +7,14 @@ interface IAppStore {
   isModalVisible: boolean;
   modalAction: string;
   errorMessage: string;
+  isHeaderActive: boolean;
 }
 
 const initialState: IAppStore = {
   isModalVisible: false,
   modalAction: '',
   errorMessage: '',
+  isHeaderActive: false,
 };
 
 export const handleErrors = createAsyncThunk(
@@ -50,9 +52,17 @@ export const appReducer = createSlice({
       state.modalAction = modalActionEnum.error;
       state.errorMessage = action.payload;
     },
+    setActiveHeader(state, action) {
+      state.isHeaderActive = action.payload;
+    },
   },
 });
 
-export const { handleVisibleModal, setModalAction, setErrorMessage, openErrorModal } =
-  appReducer.actions;
+export const {
+  handleVisibleModal,
+  setModalAction,
+  setErrorMessage,
+  openErrorModal,
+  setActiveHeader,
+} = appReducer.actions;
 export default appReducer.reducer;

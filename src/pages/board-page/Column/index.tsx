@@ -1,6 +1,8 @@
 import {
   Draggable,
   DraggableProvided,
+  DraggableStateSnapshot,
+  DraggingState,
   DroppableProvided,
   DroppableStateSnapshot,
 } from 'react-beautiful-dnd';
@@ -23,6 +25,7 @@ interface ColumnProps {
   providedDrag: DraggableProvided;
   providedDrop: DroppableProvided;
   snapshotDrop: DroppableStateSnapshot;
+  snapshotDrag: DraggableStateSnapshot;
 }
 
 interface IUpdateColumn {
@@ -30,7 +33,7 @@ interface IUpdateColumn {
 }
 
 const Column = (props: ColumnProps) => {
-  const { providedDrag, providedDrop, snapshotDrop } = props;
+  const { providedDrag, providedDrop, snapshotDrop, snapshotDrag } = props;
   const { id, title, order, tasks } = props.column;
   const { token } = useAppSelector((state: RootState) => state.auth);
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
@@ -101,7 +104,11 @@ const Column = (props: ColumnProps) => {
             </form>
           ) : (
             <>
-              <div className="column-title" onClick={handleUpdateMode}>
+              <div
+                className="column-title"
+                onClick={handleUpdateMode}
+                style={{ pointerEvents: snapshotDrag.isDragging ? 'none' : 'all' }}
+              >
                 {title}
               </div>
               <button className="column-delete" onClick={handleDelete}></button>
