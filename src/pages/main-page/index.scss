@@ -40,9 +40,15 @@
   }
   .update-board {
     background-image: url('../../../public/img/edit.svg');
+    &:hover{
+      filter: invert(72%) sepia(73%) saturate(6458%) hue-rotate(208deg) brightness(101%) contrast(99%);
+    }
   }
   .delete-board {
     background-image: url('../../../public/img/close.svg');
+    &:hover{
+      filter: invert(72%) sepia(73%) saturate(6458%) hue-rotate(208deg) brightness(101%) contrast(99%);
+    }
   }
 }
 
@@ -64,6 +70,7 @@
   .board-descr {
     word-wrap: break-word;
     width: 100%;
+    max-height: 100px;
     overflow-y: auto;
   }
 }

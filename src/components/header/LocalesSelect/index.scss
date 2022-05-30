@@ -1,21 +1,24 @@
 @import '../../../consts.scss';
 
-.react-select__control {
-  background-color: transparent !important;
-  border: none !important;
-  outline: none !important;
-  border-bottom: 2px solid $c4 !important;
-  border-radius: 0 !important;
-  padding: 0;
-  font-weight: 900;
-  font-size: 0.9rem;
-  min-height: 32px !important;
-  height: 32px;
-  cursor: pointer !important;
-  &:focus {
-    outline: none !important;
+  .react-select__control {
+    background-color: transparent!important;
+    border: none!important;
+    outline: none!important;
+    border-bottom: 2px solid $c4!important;
+    border-radius: 0!important;
+    padding: 0;
+    font-weight: 900;
+    font-size: 0.9rem;
+    min-height: 32px!important;
+    height: 32px;
+    cursor: pointer !important;
+    &:focus {
+      outline: none!important;
+    }
+    &:hover {
+      filter: invert(72%) sepia(73%) saturate(6458%) hue-rotate(208deg) brightness(101%) contrast(99%);
+    }
   }
-}
 
 .react-select__value-container {
   width: 80px;
@@ -42,11 +45,11 @@
   }
 }
 
-.react-select__indicator-separator {
-  display: none;
-}
-
-.react-select__indicator {
-  padding: 2px !important;
-  color: $c4 !important;
-}
+  .react-select__indicator-separator {
+    display: none;
+  }
+  
+  .react-select__indicator {
+    padding: 2px!important;
+    color: $c4!important;
+  }
