@@ -1,13 +1,16 @@
 import { useState } from 'react';
+import { setActiveHeader } from '../../../redux/app-reducer';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { RootState } from '../../../redux/store';
 import './index.scss';
 
 const MenuButton = () => {
-  const [isActive, setIsActive] = useState(false);
-
+  const { isHeaderActive } = useAppSelector((state: RootState) => state.app);
+  const dispatch = useAppDispatch();
   return (
     <div
-      className={`btn-menu ${isActive ? 'menuActive' : ''}`}
-      onClick={() => setIsActive((state) => !state)}
+      className={`btn-menu ${isHeaderActive ? 'menuActive' : ''}`}
+      onClick={() => dispatch(setActiveHeader(!isHeaderActive))}
     >
       <span></span>
       <span></span>

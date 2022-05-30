@@ -1,5 +1,5 @@
 import React from 'react';
-import { setModalAction } from '../../../redux/app-reducer';
+import { setActiveHeader, setModalAction } from '../../../redux/app-reducer';
 import { useAppDispatch } from '../../../redux/hooks';
 import { modalActionEnum } from '../../../utils/enums';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,7 @@ const BoardCreateButton = () => {
   const { t } = useTranslation();
   const showCreateBoard = () => {
     dispatch(setModalAction(modalActionEnum.createBoard));
+    dispatch(setActiveHeader(false));
   };
 
   return (
