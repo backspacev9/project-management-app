@@ -1,12 +1,10 @@
 import {
   Draggable,
   DraggableProvided,
-  DropAnimation,
-  Droppable,
   DroppableProvided,
   DroppableStateSnapshot,
 } from 'react-beautiful-dnd';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import BtnAddTask from '../../../components/board/btn-addTask';
 import { getBoardByID } from '../../../redux/boards-reducer';
@@ -19,7 +17,6 @@ import Task from '../Task';
 import './index.scss';
 import { useTranslation } from 'react-i18next';
 import { setModalAction } from '../../../redux/app-reducer';
-import { DropTaskType } from '../constants';
 
 interface ColumnProps {
   column: IColumnWithTasks;
@@ -116,9 +113,7 @@ const Column = (props: ColumnProps) => {
             {tasks && Object.keys(tasks).length !== 0
               ? tasks.map((el, index) => (
                   <Draggable key={el.id} draggableId={el.id} index={index}>
-                    {(provided, snapshotDragTask) => (
-                      <Task task={el} key={el.id} provided={provided} columnId={id} />
-                    )}
+                    {(provided) => <Task task={el} key={el.id} provided={provided} columnId={id} />}
                   </Draggable>
                 ))
               : ''}

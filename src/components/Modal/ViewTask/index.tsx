@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 export const ViewTask = () => {
   const { currentTask } = useAppSelector((state: RootState) => state.tasks);
-  const { title, description, files } = currentTask;
+  const { title, description } = currentTask;
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state: RootState) => state.users);
 
@@ -16,7 +16,6 @@ export const ViewTask = () => {
 
   const handleClick = (modalAction: string) => {
     dispatch(setModalAction(modalAction));
-    console.log(currentTask);
   };
 
   return (
