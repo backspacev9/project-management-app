@@ -11,4 +11,31 @@
     gap: 1rem;
     padding: 1rem;
   }
+
+  .about-container {
+    height: 100%;
+    padding: 5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    justify-content: space-between;
+    .about-app {
+      li {
+        margin-top: 1rem;
+      }
+    }
+    h1 {
+      color: $c3;
+      font-size: 1.6rem;
+      padding: 2rem 0;
+    }
+    .about {
+      display: flex;
+      gap: 2rem;
+      padding-top: 2rem;
+      li {
+        width: 33%;
+      }
+    }
+  }
 }

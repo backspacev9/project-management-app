@@ -28,7 +28,32 @@ const WelcomePage = () => {
         )}
       </section>
       <section className="about-container">
-        <h1>{t('about_us')}</h1>
+        <div className="about-app">
+          <h1>{t('welcome_title')}</h1>
+          <ul>
+            {t('welcome_descr_title')}
+            <li>{t('welcome_descr_text_1')}</li>
+            <li>{t('welcome_descr_text_2')}</li>
+            <li>{t('welcome_descr_text_3')}</li>
+          </ul>
+        </div>
+        <div>
+          <h2>{t('about_us')}</h2>
+          <ul className="about">
+            <li>
+              <h3>{t('about_us_title_1')}</h3>
+              <p>{t('about_us_descr_1')}</p>
+            </li>
+            <li>
+              <h3>{t('about_us_title_2')}</h3>
+              <p>{t('about_us_descr_2')}</p>
+            </li>
+            <li>
+              <h3>{t('about_us_title_3')}</h3>
+              <p>{t('about_us_descr_3')}</p>
+            </li>
+          </ul>
+        </div>
       </section>
     </main>
   );

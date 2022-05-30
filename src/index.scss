@@ -17,6 +17,10 @@ body {
   background-repeat: no-repeat;
 }
 
+li {
+  list-style-type: none;
+}
+
 a {
   text-decoration: none;
   color: $c4;
