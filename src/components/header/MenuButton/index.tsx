@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { setActiveHeader } from '../../../redux/app-reducer';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { RootState } from '../../../redux/store';
