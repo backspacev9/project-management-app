@@ -125,7 +125,7 @@ const Board = () => {
                 {columns && Object.keys(columns).length !== 0
                   ? columns.map((el, index) => (
                       <Draggable key={index} draggableId={`cdrag-${index}`} index={index}>
-                        {(providedDrag) => (
+                        {(providedDrag, snapshotDrag) => (
                           <Droppable droppableId={el.id} type={DropTaskType}>
                             {(providedDrop, snapshotDrop) => (
                               <Column
@@ -134,6 +134,7 @@ const Board = () => {
                                 providedDrop={providedDrop}
                                 providedDrag={providedDrag}
                                 snapshotDrop={snapshotDrop}
+                                snapshotDrag={snapshotDrag}
                               />
                             )}
                           </Droppable>
