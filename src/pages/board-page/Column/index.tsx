@@ -106,7 +106,7 @@ const Column = (props: ColumnProps) => {
               <div className="column-title" onClick={handleUpdateMode}>
                 {title}
               </div>
-              <div onClick={handleUpdateMode}>{title}</div>
+
               <button className="column-delete" onClick={handleDelete}></button>
             </>
           )}
@@ -124,7 +124,7 @@ const Column = (props: ColumnProps) => {
               : ''}
             <div
               style={{
-                display: snapshotDrop.isDraggingOver ? 'flex' : 'flex',
+                overflowY: !snapshotDrop.isDraggingOver ? 'auto' : 'hidden',
               }}
             >
               {providedDrop.placeholder}

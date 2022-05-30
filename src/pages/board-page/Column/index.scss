@@ -6,14 +6,14 @@
   min-width: 200px;
   pointer-events: none;
   border-radius: 5px;
-  background-color: rgba($light, .4);
-  box-shadow: 0px 0px 5px 0px #040405;
 }
 .drop-column {
   display: flex;
   height: 100%;
   flex-direction: column;
   border-radius: 5px;
+  background-color: rgba($light, 0.4);
+  padding: 0.4rem;
   pointer-events: none;
   overflow: hidden;
 
@@ -32,8 +32,9 @@
   flex-direction: column;
   width: 200px;
   height: 100%;
-  border: 1px solid #cfcfcf;
   border-radius: 5px;
+  pointer-events: none;
+  box-shadow: 0px 0px 5px 0px #040405;
   button {
     background-position: center;
     background-repeat: no-repeat;
@@ -41,41 +42,41 @@
     height: 35px;
     background-size: 100%;
   }
-  pointer-events: none;
   .header-column {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.7rem 0.5rem;
     pointer-events: all;
-      color: $light;
+    color: $light;
     font-weight: bold;
     border-radius: 5px 5px 0 0;
     background-color: $c3;
     div {
       cursor: pointer;
     }
-  .column-title {
+    .column-title {
       cursor: text;
     }
-  .column-delete {
+    .column-delete {
+      width: 45px;
+      height: 45px;
+      background-image: url('../../../../public/img/col-delete.svg');
+      background-size: 70%;
+    }
+  }
+  .col-submit {
+    background-image: url('../../../../public/img/checked.svg');
+  }
+  .col-cancel {
+    background-image: url('../../../../public/img/cancel.svg');
+  }
+  .add-task {
     width: 45px;
     height: 45px;
-    background-image: url('../../../../public/img/col-delete.svg');
+    background-image: url('../../../../public/img/add-task.svg');
     background-size: 70%;
   }
-}
-.col-submit {
-  background-image: url('../../../../public/img/checked.svg');
-}
-.col-cancel {
-  background-image: url('../../../../public/img/cancel.svg');
-}
-.add-task {
-  width: 45px;
-  height: 45px;
-  background-image: url('../../../../public/img/add-task.svg');
-  background-size: 70%;
 }
 .add-column {
   width: 65px;
