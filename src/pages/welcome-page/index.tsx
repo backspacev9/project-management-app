@@ -29,8 +29,9 @@ const WelcomePage = () => {
       </section>
       <section className="about-container">
         <div className="about-app">
-          <h1>{t('welcome_title')}</h1>
-          <ul>
+          <h1>{t('welcome_title1')}</h1>
+          <h2>{t('welcome_title2')}</h2>
+          <ul className="welcome-descr">
             {t('welcome_descr_title')}
             <li>{t('welcome_descr_text_1')}</li>
             <li>{t('welcome_descr_text_2')}</li>

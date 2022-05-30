@@ -55,7 +55,8 @@
   "unauthorized_msg": "User is unauthorized, please, login",
   "ok_btn": "OK",
 
-  "welcome_title": "Project Managment App is an indispensable tool for working on joint projects.",
+  "welcome_title1": "Project Managment App",
+  "welcome_title2": "is an indispensable tool for working on joint projects.",
   "welcome_descr_title": "Our application: ",
   "welcome_descr_text_1": "✔ helps minimize multitasking,",
   "welcome_descr_text_2": "✔ qualitatively visualizes workflow management,",
