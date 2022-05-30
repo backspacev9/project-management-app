@@ -15,12 +15,13 @@ interface TaskProps {
 
 const Task = (props: TaskProps) => {
   const dispatch = useAppDispatch();
+  const { task, provided, columnId } = props;
   const handleClick = (modalAction: string) => {
     dispatch(setCurrentColumnId(columnId));
     dispatch(setCurrentTask(task));
     dispatch(setModalAction(modalAction));
   };
-  const { task, provided, columnId } = props;
+
   return (
     <div
       className="task-item"
@@ -28,8 +29,10 @@ const Task = (props: TaskProps) => {
       {...provided.draggableProps}
       {...provided.dragHandleProps}
     >
-      <div onClick={() => handleClick(modalActionEnum.viewTask)}>{task.title}</div>
-      <button onClick={() => handleClick(modalActionEnum.deleteTask)}></button>
+      <div className="task-content">
+        <div onClick={() => handleClick(modalActionEnum.viewTask)}>{task.title}</div>
+        <button onClick={() => handleClick(modalActionEnum.deleteTask)}></button>
+      </div>
     </div>
   );
 };

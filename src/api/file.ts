@@ -14,10 +14,10 @@ export const addFile = async (token: string, taskId: string, file: File): Promis
     .then((res): Promise<void> => res.data);
 };
 
-export const getFile = async (token: string, taskId: string, fileName: string): Promise<void> => {
+export const getFile = async (token: string, taskId: string, fileName: string): Promise<File> => {
   return axios
     .get(`${BASE_URL}file/${taskId}/${fileName}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
-    .then((res): Promise<void> => res.data);
+    .then((res): Promise<File> => res.data);
 };

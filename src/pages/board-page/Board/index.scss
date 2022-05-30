@@ -1,7 +1,9 @@
+@import '../../../consts';
 .Board {
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: calc(100vh - 8rem);
+  padding: 1rem 0;
 
   .board-header {
     display: flex;
@@ -16,9 +18,10 @@
 .board-columns-container {
   display: flex;
   height: 100%;
-  padding: 10px 20px 0 20px;
-  .wrapper-column:nth-child(n + 2) {
-    margin-left: 10px;
+  overflow-x: auto;
+  padding: 1rem 0 0.7rem;
+  .wrapper-column {
+    margin-left: 18px;
   }
 
   .addColumn {

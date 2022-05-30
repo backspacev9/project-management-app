@@ -31,25 +31,22 @@ const CreateBoard = () => {
 
   return (
     <>
-      <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type="text"
-            placeholder={t('task_form.title')}
-            id="board-title"
-            {...register('title')}
-          />
-          <input
-            type="text"
-            placeholder={t('task_form.descr')}
-            id="board-description"
-            {...register('description')}
-          />
-          <button type="submit" className="registration-btn">
-            {t('board.create_btn')}
-          </button>
-        </form>
-      </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          type="text"
+          placeholder={t('task_form.title')}
+          id="board-title"
+          maxLength={26}
+          {...register('title')}
+        />
+        <textarea
+          placeholder={t('task_form.descr')}
+          id="board-description"
+          maxLength={150}
+          {...register('description')}
+        ></textarea>
+        <button type="submit">{t('board.create_btn')}</button>
+      </form>
     </>
   );
 };

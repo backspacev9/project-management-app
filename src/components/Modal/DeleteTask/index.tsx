@@ -39,8 +39,12 @@ export const FormDeleteTask = () => {
   return (
     <div>
       <p>{t('task_form.delete_msg')}</p>
-      <button onClick={handleDeleteYes}>{t('delete_btn')}</button>
-      <button onClick={handleDeleteNo}>{t('cansel_btn')}</button>
+      <div className="btn-group">
+        <button onClick={handleDeleteYes}>{t('delete_btn')}</button>
+        <button className="cancel-btn" onClick={handleDeleteNo}>
+          {t('cansel_btn')}
+        </button>
+      </div>
     </div>
   );
 };

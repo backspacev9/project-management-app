@@ -1,20 +1,32 @@
+@import '../../../consts';
 .task-container {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   width: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
+
   .task-item {
     display: flex;
-    justify-content: space-between;
+    padding-bottom: 10px;
     align-items: center;
-    width: 100%;
-    border: 1px solid #ff8a8a;
+    user-select: none;
     cursor: pointer;
-    div {
-      width: 85%;
-      padding: 0.5rem;
+    .task-content {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      background-color: $light;
+      border-radius: 3px;
+      box-shadow: 0px 1px 5px -2px $dark;
+      cursor: pointer;
+      div {
+        width: 85%;
+        padding: 0.7rem;
+      }
     }
+
     button {
       width: 30px;
       height: 30px;

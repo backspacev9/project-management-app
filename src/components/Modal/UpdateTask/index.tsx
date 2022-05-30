@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   changeCurrentTaskDescr,
   changeCurrentTaskTitle,
   updateOneTask,
+  uploadFile,
 } from '../../../redux/tasks-reducer';
 import { useTranslation } from 'react-i18next';
 import { handleVisibleModal } from '../../../redux/app-reducer';
@@ -26,6 +27,7 @@ export const FormUpdateTask = () => {
     reset,
   } = useForm<IUpdateTask>({ mode: 'onSubmit' });
   const { t } = useTranslation();
+  const [file, setFile] = useState<File>();
 
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
   const { currentColumnId } = useAppSelector((state: RootState) => state.columns);
@@ -38,14 +40,18 @@ export const FormUpdateTask = () => {
         token,
         boardId: currentBoard.id,
         columnId: currentColumnId,
-        updateColumnId: currentColumnId,
         taskId: currentTask.id,
         title,
         order: currentTask.order,
         description,
         userId,
+        updateColumnId: currentColumnId,
       })
     );
+
+    if (file) {
+      await dispatch(uploadFile({ token, taskId: currentTask.id, file }));
+    }
 
     reset();
     dispatch(handleVisibleModal(false));
@@ -64,11 +70,18 @@ export const FormUpdateTask = () => {
     }
   };
 
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { target } = e;
+    const files = target.files?.[0] as File;
+    if (files) setFile(files);
+  };
+
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <input
         type="text"
         id="title"
+        maxLength={26}
         value={currentTask.title}
         placeholder={t('task_form.title')}
         {...register('title', {
@@ -83,6 +96,7 @@ export const FormUpdateTask = () => {
       </div>
       <textarea
         id="description"
+        maxLength={150}
         {...register('description', {
           required: t('descr_error_req'),
           minLength: { value: 2, message: t('descr_error_length') },
@@ -92,6 +106,17 @@ export const FormUpdateTask = () => {
         placeholder={t('task_form.descr')}
         onChange={(e) => handleChange(e)}
       ></textarea>
+      <div className="file-container">
+        <input
+          type="file"
+          className="custom-file-input"
+          id="file"
+          accept="image/*"
+          onChange={(e) => handleFile(e)}
+        />
+        <span>{file ? file?.name : t('task_form.file')}</span>
+      </div>
+
       <div className="message-container">
         {errors.description && <div className="error-message">{errors.description.message}</div>}
       </div>

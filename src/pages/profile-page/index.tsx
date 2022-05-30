@@ -10,6 +10,8 @@ import { getCurrentUser, updateCurrentUser } from '../../redux/users-reducer';
 import { IUserInfo } from '../../utils/auth-types';
 import { modalActionEnum } from '../../utils/enums';
 import { useTranslation } from 'react-i18next';
+import Header from '../../components/header';
+import './index.scss';
 
 const EditProfile = () => {
   const dispatch = useAppDispatch();
@@ -61,48 +63,53 @@ const EditProfile = () => {
   };
 
   return (
-    <section>
-      <h2>{t('edit_profile')}</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="text"
-          placeholder={t('name')}
-          id="user-name"
-          autoComplete="off"
-          {...register('name', {
-            required: true,
-            value: name,
-            pattern: /^[A-Za-zА-Яа-яЁё]+$/,
-          })}
-        />
-        <div className="error-message">{errors.name && t('name_error')}</div>
-        <input
-          type="text"
-          placeholder={t('login')}
-          id="user-login"
-          autoComplete="off"
-          maxLength={22}
-          {...register('login', {
-            required: true,
-            pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/,
-          })}
-        />
-        <div className="error-message">{errors.login && t('login_error')}</div>
-        <input
-          type="password"
-          placeholder={t('password')}
-          id="user-password"
-          autoComplete="off"
-          maxLength={22}
-          {...register('password', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
-        />
-        <div className="error-message">{errors.password && t('password_error')}</div>
-        <button type="submit" className="update-btn">
-          {t('update_info')}
+    <>
+      <Header />
+      <section className="profile-page">
+        <h2>{t('edit_profile')}</h2>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            type="text"
+            placeholder={t('name')}
+            id="user-name"
+            autoComplete="off"
+            {...register('name', {
+              required: true,
+              value: name,
+              pattern: /^[A-Za-zА-Яа-яЁё]+$/,
+            })}
+          />
+          <div className="error-message">{errors.name && t('name_error')}</div>
+          <input
+            type="text"
+            placeholder={t('login')}
+            id="user-login"
+            autoComplete="off"
+            maxLength={22}
+            {...register('login', {
+              required: true,
+              pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/,
+            })}
+          />
+          <div className="error-message">{errors.login && t('login_error')}</div>
+          <input
+            type="password"
+            placeholder={t('password')}
+            id="user-password"
+            autoComplete="off"
+            maxLength={22}
+            {...register('password', { required: true, pattern: /^[A-Za-zА-Яа-яЁё0-9]+$/ })}
+          />
+          <div className="error-message">{errors.password && t('password_error')}</div>
+          <button type="submit" className="update-btn button">
+            {t('update_info')}
+          </button>
+        </form>
+        <button className="delete-btn button" onClick={handleDelete}>
+          {t('delete_user')}
         </button>
-      </form>
-      <button onClick={handleDelete}>{t('delete_user')}</button>
-    </section>
+      </section>
+    </>
   );
 };
 
