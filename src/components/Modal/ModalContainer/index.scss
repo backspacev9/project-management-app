@@ -76,6 +76,9 @@
   margin: 0.5rem;
   background-image: url('../../../../public/img/close-modal.svg');
   background-repeat: no-repeat;
+  &:hover {
+    filter: invert(99%) sepia(100%) saturate(2%) hue-rotate(173deg) brightness(116%) contrast(100%);
+  }
 }
 .error-message {
   color: $error;

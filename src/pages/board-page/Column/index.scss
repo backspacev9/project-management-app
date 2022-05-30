@@ -87,12 +87,6 @@
     background-size: 100%;
   }
 }
-.col-submit {
-  background-image: url('../../../../public/img/checked.svg');
-}
-.col-cancel {
-  background-image: url('../../../../public/img/col-upd-cancel.svg');
-}
 .add-task {
   width: 45px;
   height: 45px;
@@ -105,4 +99,10 @@
   background-image: url('../../../../public/img/add-col.svg');
   background-size: 100%;
   margin: 1rem;
+}
+.column-delete, .col-submit, .col-cancel, .add-task, .add-column {
+  &:hover {
+    filter: invert(99%) sepia(100%) saturate(2%) hue-rotate(173deg) brightness(116%) contrast(100%);
+    transition: 0.4s ease-in-out;
+  }
 }
