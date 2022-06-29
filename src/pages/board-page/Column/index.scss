@@ -79,6 +79,12 @@
     background-image: url('../../../../public/img/col-delete.svg');
     background-size: 100%;
   }
+  .col-submit {
+    background-image: url('../../../../public/img/checked.svg');
+  }
+  .col-cancel {
+    background-image: url('../../../../public/img/col-upd-cancel.svg');
+  }
 }
 .add-task {
   width: 45px;
