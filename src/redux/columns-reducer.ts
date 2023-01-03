@@ -128,7 +128,8 @@ export const columnsReducer = createSlice({
       }
     });
     builder.addCase(createOneColumn.fulfilled, () => {});
-    builder.addCase(updateOneColumn.fulfilled, () => {});
+    builder.addCase(updateOneColumn.pending, (state, action) => {});
+    builder.addCase(updateOneColumn.fulfilled, (state, action) => {});
     builder.addCase(deleteOneColumn.fulfilled, () => {});
   },
 });

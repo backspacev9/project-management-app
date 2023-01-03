@@ -136,9 +136,6 @@ export const boardsReducer = createSlice({
         state.currentBoard.columns = state.currentBoard.columns.sort((a, b) =>
           a.order > b.order ? 1 : -1
         );
-        state.currentBoard.columns.forEach((el) => {
-          el.tasks.sort((a, b) => (a.order > b.order ? 1 : -1));
-        });
       }
     });
     builder.addCase(createOneBoard.fulfilled, () => {});

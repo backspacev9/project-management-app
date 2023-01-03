@@ -20,6 +20,7 @@ const Board = () => {
   const { id } = params;
   const { currentBoard } = useAppSelector((state: RootState) => state.boards);
   const { columns } = useAppSelector((state: RootState) => state.boards.currentBoard);
+
   const dispatch = useAppDispatch();
   const setBoard = async () => {
     if (id && token) {
@@ -43,6 +44,7 @@ const Board = () => {
     result.splice(endIndex, 0, removed);
     return result;
   };
+
   const dragEnd = async (param: DropResult) => {
     const { destination, source, type } = param;
 
@@ -61,8 +63,8 @@ const Board = () => {
       const task = fromColumn.tasks[source.index];
       const orderTask = destination.index + 1;
       if (destination.droppableId === source.droppableId) {
-        const sorrted = reorderTasks(toColumn.tasks, source.index, destination.index);
-        dispatch(setTasks({ indexColumn: toColumnIndex, tasks: sorrted }));
+        const sortedTasks = reorderTasks(toColumn.tasks, source.index, destination.index);
+        dispatch(setTasks({ indexColumn: toColumnIndex, tasks: sortedTasks }));
       } else {
         const delTasks = Array.from(fromColumn.tasks);
         const addTasks = Array.from(toColumn.tasks);
@@ -85,7 +87,10 @@ const Board = () => {
           updateColumnId: toColumn.id,
         })
       );
-      setBoard();
+      //slow response server
+      window.setTimeout(() => {
+        setBoard();
+      }, 500);
     }
 
     if (type === DropColumnType) {
@@ -97,6 +102,7 @@ const Board = () => {
 
       const items = reorderColumns(source.index, distIndex);
       dispatch(setColumns(items));
+
       await dispatch(
         updateOneColumn({
           token,
@@ -106,7 +112,10 @@ const Board = () => {
           order: orderColumn,
         })
       );
-      setBoard();
+      //slow response server
+      window.setTimeout(() => {
+        setBoard();
+      }, 500);
     }
   };
 
