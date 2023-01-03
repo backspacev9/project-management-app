@@ -30,7 +30,7 @@ const MainPage = () => {
   return (
     <>
       <Header />
-      {isFetch ? <Preloader /> : <BoardsContainer />}
+      <main>{isFetch ? <Preloader /> : <BoardsContainer />}</main>
     </>
   );
 };

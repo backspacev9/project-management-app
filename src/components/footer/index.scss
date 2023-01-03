@@ -10,6 +10,9 @@
   height: 4rem;
   padding: 0 2rem;
   color: $light;
+  @media (max-width: 1122px) {
+    gap: 10px;
+  }
   div {
     display: flex;
     align-items: center;
